@@ -1,15 +1,14 @@
 ---
-title: API Reference
+title: Calypso API Documentation
 
-language_tabs: # must be one of https://git.io/vQNgJ
-  - shell
-  - ruby
-  - python
-  - javascript
+# language_tabs: # must be one of https://git.io/vQNgJ
+#   - shell
+#   # - ruby
+#   # - python
+#   # - javascript
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
+  - <a href='https://calypso.finance'>Calypso Finance</a>
 
 includes:
   - errors
@@ -21,57 +20,43 @@ code_clipboard: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to Calypso API! You can use this API to access Calypso API endpoints, which can give you access to invoice information or invoice creation.
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+The base URL with access to the Calypso Invoice API looks like this: <a href="https://invoice.calypso.finance/">https://invoice.calypso.finance/</a>
 
-This example API documentation page was created with [Slate](https://github.com/slatedocs/slate). Feel free to edit it and use it as a base for your own API's documentation.
+<aside class="notice">
+If you detect an error in API, need help or have an idea on how to improve it, please contact the <a href="#">Technical Support</a>. 
+</aside>
+
 
 # Authentication
 
-> To authorize, use this code:
+### Create API key
 
-```ruby
-require 'kittn'
+Calypso uses API keys to allow access to the API. You can contact Technical Support to generate a new API key for you.
+### Use API key
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
+Calypso expects for the API key to be included in all API requests to the server in a header that looks like the following:
 
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-```
-
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
+`Api-Key: < your_api_key >`
 
 <aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
+You must replace <code>< your_api_key ></code> with your personal API key.
 </aside>
 
-# Kittens
+# Invoices
 
-## Get All Kittens
 
-```ruby
+State | Description
+--------- | -------
+PENDING_PAYMENT | * Created a new invoice that is awaiting invoice payment. * The client has transferred funds, but they are not received on the wallet. 
+PAID | The invoice has been paid in full. 
+PENDING_INTERVENTION | * The invoice is awaiting intervention from the merchant in the process. * The client has transferred insufficient funds. * The client has transferred an amount exceeding 
+
+
+## Get All Invoices
+
+<!-- ```ruby
 require 'kittn'
 
 api = Kittn::APIClient.authorize!('meowmeowmeow')
@@ -83,61 +68,73 @@ import kittn
 
 api = kittn.authorize('meowmeowmeow')
 api.kittens.get()
-```
+``` -->
+
+> Request:
 
 ```shell
-curl "http://example.com/api/kittens" \
-  -H "Authorization: meowmeowmeow"
+curl "https://invoice.calypso.finance/api/v1/invoices" \
+  -H "Api-Key: < your_api_key >"
 ```
 
-```javascript
+<!-- ```javascript
 const kittn = require('kittn');
 
 let api = kittn.authorize('meowmeowmeow');
 let kittens = api.kittens.get();
-```
+``` -->
 
-> The above command returns JSON structured like this:
+> Response:
 
 ```json
 [
   {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+    "amount": 0,
+    "cartItems": [
+      {
+        "currency": "BTC",
+        "price": 0,
+        "product": "string",
+        "quantity": 0
+      }
+    ],
+    "createdDate": "2021-05-25T11:14:55.165Z",
+    "currency": "BTC",
+    "description": "string",
+    "fee": 0,
+    "fiat": {
+      "additionalProp1": 0,
+      "additionalProp2": 0,
+      "additionalProp3": 0
+    },
+    "id": 0,
+    "invoiceAddress": "string",
+    "payAmount": 0,
+    "state": "PENDING_PAYMENT"
   }
 ]
 ```
 
-This endpoint retrieves all kittens.
+This endpoint retrieves all invoices.
 
 ### HTTP Request
 
-`GET http://example.com/api/kittens`
+`GET https://invoice.calypso.finance/api/v1/invoices`
 
 ### Query Parameters
 
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
+Parameter | Type | Mandatory | Description
+--------- | ------- | ------- | -----------
+Api-Key | STRING | YES | < your_api_key >
 
-<aside class="success">
+
+<!-- <aside class="success">
 Remember — a happy kitten is an authenticated kitten!
-</aside>
+</aside> -->
 
-## Get a Specific Kitten
+## Get a Specific Invoice
 
-```ruby
+<!-- ```ruby
 require 'kittn'
 
 api = Kittn::APIClient.authorize!('meowmeowmeow')
@@ -149,48 +146,185 @@ import kittn
 
 api = kittn.authorize('meowmeowmeow')
 api.kittens.get(2)
-```
+``` -->
+
+> Request:
 
 ```shell
-curl "http://example.com/api/kittens/2" \
-  -H "Authorization: meowmeowmeow"
+curl "https://invoice.calypso.finance/api/v1/invoices/0" \
+  -H "Api-Key: < your_api_key >"
 ```
 
-```javascript
+<!-- ```javascript
 const kittn = require('kittn');
 
 let api = kittn.authorize('meowmeowmeow');
 let max = api.kittens.get(2);
-```
+``` -->
 
-> The above command returns JSON structured like this:
+> Response:
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+  "amount": 0,
+  "cartItems": [
+    {
+      "currency": "BTC",
+      "price": 0,
+      "product": "string",
+      "quantity": 0
+    }
+  ],
+  "createdDate": "2021-05-25T12:37:28.054Z",
+  "currency": "BTC",
+  "description": "string",
+  "fee": 0,
+  "fiat": {
+    "additionalProp1": 0,
+    "additionalProp2": 0,
+    "additionalProp3": 0
+  },
+  "id": 0,
+  "invoiceAddress": "string",
+  "payAmount": 0,
+  "state": "PENDING_PAYMENT"
 }
 ```
 
-This endpoint retrieves a specific kitten.
+This endpoint retrieves a specific invoice.
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+<!-- <aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside> -->
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+`GET https://invoice.calypso.finance/api/v1/invoices/<ID>`
 
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the kitten to retrieve
+ID | The ID of the invoice to retrieve
 
-## Delete a Specific Kitten
+## New Invoice
 
+> Request:
+
+```shell
+curl "https://invoice.calypso.finance/api/v1/invoices" \
+  -H "Api-Key: < your_api_key >"
+```
+
+> Response:
+
+```json
+{
+  "amount": 0,
+  "cartItems": [
+    {
+      "currency": "BTC",
+      "price": 0,
+      "product": "string",
+      "quantity": 0
+    }
+  ],
+  "createdDate": "2021-05-25T12:37:28.054Z",
+  "currency": "BTC",
+  "description": "string",
+  "fee": 0,
+  "fiat": {
+    "additionalProp1": 0,
+    "additionalProp2": 0,
+    "additionalProp3": 0
+  },
+  "id": 0,
+  "invoiceAddress": "string",
+  "payAmount": 0,
+  "state": "PENDING_PAYMENT"
+}
+```
+
+This endpoint creates a new invoice.
+
+### HTTP Request
+
+`POST https://invoice.calypso.finance/api/v1/invoices`
+
+### Query Parameters
+
+Parameter | Type | Mandatory | Description
+--------- | ------- | ------- | -----------
+Api-Key | STRING | YES | < your_api_key >
+
+
+### Query Body
+
+Name | Type | Mandatory | Description
+--------- | ------- | ------- | -----------
+amount | NUMBER | YES | The total amount of the invoice.
+currency | ENUM | YES | Received currency name. [BTC, ETH, USDT, FAU, USD, EUR, RUB]
+description | STRING | YES | A short description of the invoice.
+cartItems | OBJECT | YES | Shopping cart.
+
+## New Invoice (Button)
+
+> Request:
+
+```shell
+curl "https://invoice.calypso.finance/api/v1/invoices/by/template/0" \
+  -H "Api-Key: < your_api_key >"
+```
+
+> Response:
+
+```json
+{
+  "amount": 0,
+  "cartItems": [
+    {
+      "currency": "BTC",
+      "price": 0,
+      "product": "string",
+      "quantity": 0
+    }
+  ],
+  "createdDate": "2021-05-25T12:37:28.054Z",
+  "currency": "BTC",
+  "description": "string",
+  "fee": 0,
+  "fiat": {
+    "additionalProp1": 0,
+    "additionalProp2": 0,
+    "additionalProp3": 0
+  },
+  "id": 0,
+  "invoiceAddress": "string",
+  "payAmount": 0,
+  "state": "PENDING_PAYMENT"
+}
+```
+
+This endpoint creates a new invoice.
+
+### HTTP Request
+
+`POST https://invoice.calypso.finance/api/v1/invoices/by/template/<ID>`
+
+### URL Parameters
+
+Parameter | Description
+--------- | -----------
+ID | ID of the button that creates the invoice.
+
+
+### Query Parameters
+
+Parameter | Type | Mandatory | Description
+--------- | ------- | ------- | -----------
+Api-Key | STRING | YES | < your_api_key >
+
+
+## Cancel a Specific Invoice
+<!-- 
 ```ruby
 require 'kittn'
 
@@ -203,39 +337,61 @@ import kittn
 
 api = kittn.authorize('meowmeowmeow')
 api.kittens.delete(2)
-```
+``` -->
+
+> Request:
 
 ```shell
-curl "http://example.com/api/kittens/2" \
-  -X DELETE \
-  -H "Authorization: meowmeowmeow"
+curl "https://invoice.calypso.finance/api/v1/invoices/0/chargeback" \
+  -H "Api-Key: < your_api_key >"
 ```
 
-```javascript
+<!-- ```javascript
 const kittn = require('kittn');
 
 let api = kittn.authorize('meowmeowmeow');
 let max = api.kittens.delete(2);
-```
+``` -->
 
-> The above command returns JSON structured like this:
+<!-- > The above command returns JSON structured like this: -->
+
+> Response:
 
 ```json
 {
-  "id": 2,
-  "deleted" : ":("
+  "amount": 0,
+  "cartItems": [
+    {
+      "currency": "BTC",
+      "price": 0,
+      "product": "string",
+      "quantity": 0
+    }
+  ],
+  "createdDate": "2021-05-25T12:37:28.054Z",
+  "currency": "BTC",
+  "description": "string",
+  "fee": 0,
+  "fiat": {
+    "additionalProp1": 0,
+    "additionalProp2": 0,
+    "additionalProp3": 0
+  },
+  "id": 0,
+  "invoiceAddress": "string",
+  "payAmount": 0,
+  "state": "CANCEL"
 }
 ```
 
-This endpoint deletes a specific kitten.
+This endpoint cancels a specific invoice.
 
 ### HTTP Request
 
-`DELETE http://example.com/kittens/<ID>`
+`POST https://invoice.calypso.finance/api/v1/invoices/<ID>/chargeback`
 
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the kitten to delete
-
+ID | The ID of the invoice to retrieve
