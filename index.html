@@ -284,7 +284,7 @@
   color: #859900;
 }
     </style>
-    <link href="stylesheets/screen-d094f5e2.css" rel="stylesheet" media="screen" />
+    <link href="stylesheets/screen-ea68692a.css" rel="stylesheet" media="screen" />
     <link href="stylesheets/print-45edc3fa.css" rel="stylesheet" media="print" />
       <script src="javascripts/all-75b0f71b.js"></script>
 
@@ -359,7 +359,7 @@
           </li>
       </ul>
         <ul class="toc-footer">
-            <li><a href='https://calypso.finance'>Calypso Finance</a></li>
+            <li><a href='https://calypso.finance' class="calypso-link">Calypso Finance </a><svg class="calypso-link-icon" width="24" height="24" viewBox="0 -3 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 5.5H6C5.44772 5.5 5 5.94772 5 6.5V18.5C5 19.0523 5.44772 19.5 6 19.5H18C18.5523 19.5 19 19.0523 19 18.5V15.5" stroke="#376FFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 12.5L19 5.5M19 5.5V11M19 5.5H13.5" stroke="#376FFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></li>
         </ul>
     </div>
     <div class="page-wrapper">
@@ -398,11 +398,11 @@ You must replace <code>< your_api_key ></code> with your personal API key.
 </thead><tbody>
 <tr>
 <td>PENDING_PAYMENT</td>
-<td>&#8226; Created a new invoice that is awaiting invoice payment. <br /> &#8226; The client has transferred funds, but they are not received on the wallet.</td>
+<td>&#8226; Created a new invoice that is awaiting invoice payment. <br /> &#8226; The client has transferred funds, but they are not received in the wallet.</td>
 </tr>
 <tr>
 <td>PAID</td>
-<td>The invoice has been paid in full.</td>
+<td>The invoice has been fully paid.</td>
 </tr>
 <tr>
 <td>PENDING_INTERVENTION</td>
@@ -630,19 +630,19 @@ let max = api.kittens.get(2);
 <td>amount</td>
 <td>NUMBER</td>
 <td>YES</td>
-<td>The total amount of the invoice.</td>
+<td>Total invoice amount.</td>
 </tr>
 <tr>
 <td>currency</td>
 <td>ENUM</td>
 <td>YES</td>
-<td>Received currency name. [BTC, ETH, USDT, FAU, USD, EUR, RUB]</td>
+<td>Received currency. [BTC, ETH, USDT, EUR]</td>
 </tr>
 <tr>
 <td>description</td>
 <td>STRING</td>
 <td>YES</td>
-<td>A short description of the invoice.</td>
+<td>Short invoice description.</td>
 </tr>
 <tr>
 <td>cartItems</td>
@@ -804,13 +804,13 @@ let max = api.kittens.delete(2);
 <td>chargebackAddress</td>
 <td>STRING</td>
 <td>NO</td>
-<td>Wallet address for refund.</td>
+<td>Refund wallet address.</td>
 </tr>
 <tr>
 <td>currency</td>
 <td>ENUM</td>
 <td>NO</td>
-<td>Received currency name. [BTC, ETH, USDT, FAU, USD, EUR, RUB]</td>
+<td>Received currency. [BTC, ETH, USDT, EUR]</td>
 </tr>
 </tbody></table>
 <h1 id='errors'>Errors</h1>
@@ -824,19 +824,19 @@ let max = api.kittens.delete(2);
 </thead><tbody>
 <tr>
 <td>400</td>
-<td>Bad Request -- Your request is invalid.</td>
+<td>Bad Request -- Request is invalid.</td>
 </tr>
 <tr>
 <td>401</td>
-<td>Unauthorized -- Your API key is wrong.</td>
+<td>Unauthorized -- API key error. Please try again.</td>
 </tr>
 <tr>
 <td>500</td>
-<td>Internal Server Error -- We had a problem with our server. Try again later.</td>
+<td>Internal Server Error -- Internal server problem. Please contact out support.</td>
 </tr>
 <tr>
 <td>503</td>
-<td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
+<td>Service Unavailable -- Server is currently down. Please try again later.</td>
 </tr>
 </tbody></table>
 
