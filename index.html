@@ -888,14 +888,15 @@
     <span class="p">});</span>
 
     <span class="kd">const</span> <span class="nx">apiKey</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">&lt;your_api_key&gt;</span><span class="dl">'</span><span class="p">;</span>
+    <span class="kd">const</span> <span class="nx">secretKey</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">&lt;your_secret_key&gt;</span><span class="dl">'</span>
 
-    <span class="nx">signature</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">body</span><span class="p">,</span> <span class="nx">apiKey</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">crypto</span><span class="p">.</span><span class="nx">HmacSHA512</span><span class="p">(</span><span class="nx">body</span><span class="p">,</span> <span class="nx">apiKey</span><span class="p">).</span><span class="nx">toString</span><span class="p">(</span><span class="nx">crypto</span><span class="p">.</span><span class="nx">enc</span><span class="p">.</span><span class="nx">hex</span><span class="p">);</span>
+    <span class="nx">signature</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">body</span><span class="p">,</span> <span class="nx">secretKey</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">crypto</span><span class="p">.</span><span class="nx">HmacSHA512</span><span class="p">(</span><span class="nx">body</span><span class="p">,</span> <span class="nx">secretKey</span><span class="p">).</span><span class="nx">toString</span><span class="p">(</span><span class="nx">crypto</span><span class="p">.</span><span class="nx">enc</span><span class="p">.</span><span class="nx">hex</span><span class="p">);</span>
     <span class="p">};</span>
 
     <span class="kd">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
       <span class="dl">'</span><span class="s1">Key</span><span class="dl">'</span><span class="p">:</span> <span class="nx">apiKey</span><span class="p">,</span>
-      <span class="dl">'</span><span class="s1">Sign</span><span class="dl">'</span><span class="p">:</span> <span class="nx">signature</span><span class="p">(</span><span class="nx">body</span><span class="p">,</span> <span class="nx">apiKey</span><span class="p">),</span>
+      <span class="dl">'</span><span class="s1">Sign</span><span class="dl">'</span><span class="p">:</span> <span class="nx">signature</span><span class="p">(</span><span class="nx">body</span><span class="p">,</span> <span class="nx">secretKey</span><span class="p">),</span>
       <span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span>
     <span class="p">}</span>
 
@@ -910,7 +911,7 @@
       <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">body:</span><span class="dl">'</span><span class="p">,</span> <span class="nx">body</span><span class="p">)</span>
     <span class="p">});</span>
 </code></pre></div><h5 id='create-api-key'>Create API key</h5>
-<p>Calypso uses API keys to allow access to the API. You can contact [Technical Support to generate a new API key for you.</p>
+<p>Calypso uses API keys to allow access to the API. You can contact Technical Support to generate a new pair of API keys for you (public and secret keys).</p>
 <h5 id='all-requests-must-contain-the-following-headers'>All requests must contain the following headers:</h5>
 <table><thead>
 <tr>
@@ -2112,7 +2113,7 @@
 <td>request.type</td>
 <td>ENUM</td>
 <td>Yes</td>
-<td>??????</td>
+<td>Invoice type. [SINGLE, UNLIMITED]</td>
 </tr>
 <tr>
 <td>request.cartItems</td>
@@ -2148,7 +2149,7 @@
 <td>request.hotWalletAddress</td>
 <td>STRING</td>
 <td>Yes</td>
-<td>???????</td>
+<td>Crypto address of the client wallet</td>
 </tr>
 </tbody></table>
 <h5 id='response-body-5'>Response Body</h5>
