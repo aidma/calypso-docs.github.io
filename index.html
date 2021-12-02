@@ -365,6 +365,12 @@
                     <a href="#new-invoice-button" class="toc-h2 toc-link" data-title="New Invoice (Button)">New Invoice (Button)</a>
                   </li>
                   <li>
+                    <a href="#get-all-available-buttons" class="toc-h2 toc-link" data-title="Get All Available Buttons">Get All Available Buttons</a>
+                  </li>
+                  <li>
+                    <a href="#get-specific-button" class="toc-h2 toc-link" data-title="Get Specific Button">Get Specific Button</a>
+                  </li>
+                  <li>
                     <a href="#funds-withdrawal-from-unlimited-invoice" class="toc-h2 toc-link" data-title="Funds Withdrawal (from unlimited invoice)">Funds Withdrawal (from unlimited invoice)</a>
                   </li>
               </ul>
@@ -484,7 +490,7 @@
 <p>To make a payment from the Calypso payment form, there are the following steps to be performed:</p>
 
 <ul>
-<li>Send API request to create an invoice (<strong>POST http://public-gateway.calypso.local/api/v1/public/invoice/create</strong>)</li>
+<li>Send API request to create an invoice (<strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/public/invoice/create</strong>)</li>
 <li>Redirect a browser of a user to the link of the following format: <strong>http://ui.calypso.finance/invoices/</strong></li>
 </ul>
 
@@ -510,6 +516,22 @@
 <td>PENDING_INTERVENTION</td>
 <td>&#8226; Intervention from the merchant is awaited. <br /> &#8226; Client transferred insufficient amount. <br /> &#8226; Client has transferred an amount exceeding an invoice amount. <br /> &#8226; Funds were transferred from different client accounts.</td>
 </tr>
+<tr>
+<td>CANCEL</td>
+<td>Invoice is canceled by merchant.</td>
+</tr>
+<tr>
+<td>COMPLETED</td>
+<td>Funds are transferd to merchant wallet.</td>
+</tr>
+<tr>
+<td>PAUSED</td>
+<td>Invoce is paused by merchant.</td>
+</tr>
+<tr>
+<td>ARCHIVED</td>
+<td>Invoce is deleted by merchant.</td>
+</tr>
 </tbody></table>
 
 <p>Diagram nodes indicate invoice statuses, arrows indicate processes a successful completion of which transfers an invoice from one status to another.</p>
@@ -530,7 +552,6 @@
 <li>Payment can be made from a payout hot wallet</li>
 </ol></li>
 <li>If using invoices separately from payouts:
-##### <strong>How to implement via API</strong>
 
 <ol>
 <li>Funds are credited to an invoice wallet</li>
@@ -563,7 +584,7 @@
 <p>Calypso API enables you with creating your own Payment links</p>
 <h5 id='to-use-calypso-payment-link'><strong>To use Calypso Payment Link:</strong></h5>
 <ul>
-<li>Send API request to create an invoice (<strong>POST http://public-gateway.calypso.local/api/v1/public/invoice/create</strong>)</li>
+<li>Send API request to create an invoice (<strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/public/invoice/create</strong>)</li>
 <li>Copy generated invoice ID from the response</li>
 <li>Redirect a browser of a user to the link of the following format: <strong>http://ui.calypso.finance/invoices/</strong></li>
 </ul>
@@ -579,9 +600,9 @@
 <p><img src="images/create_invoice-9d73bf49.png" width="95%" height="90%" style="margin: 5%"/></p>
 <h5 id='to-create-your-own-payment-links-using-calypso'><strong>To create your own payment links using Calypso:</strong></h5>
 <ul>
-<li>Send API request to create an invoice (<strong>POST http://public-gateway.calypso.local/api/v1/public/invoice/create</strong>)</li>
+<li>Send API request to create an invoice (<strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/public/invoice/create</strong>)</li>
 <li>Copy generated invoice ID from the response</li>
-<li>Send API request <strong>POST http://public-gateway.calypso.local/api/v1/public/invoice/get</strong> and copy the data required for a user to complete this invoice payment</li>
+<li>Send API request <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/public/invoice/get</strong> and copy the data required for a user to complete this invoice payment</li>
 <li>Add copied data to a payment page and share a page link with a user</li>
 </ul>
 
@@ -704,6 +725,13 @@
     </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
     </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
   </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"fiatAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fiatCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fiatInInvoiceWallet"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="nl">"invoiceAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"payAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
@@ -754,21 +782,21 @@
 <li>View statistics</li>
 </ul>
 <h5 id='working-with-payout-wallets-via-api'><strong>Working with payout wallets via API:</strong></h5>
-<p>Data on wallets and available assets in them can be received by using the method <strong>POST http://public-gateway.calypso.local/api/v1/public/payout/assets</strong>;</p>
+<p>Data on wallets and available assets in them can be received by using the method <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/public/payout/assets</strong>;</p>
 <h5 id='example'><strong>Example:</strong></h5>
 <p>To get a payout wallet address to deposit funds:</p>
 
 <ol>
-<li>Send API request <strong>POST http://public-gateway.calypso.local/api/v1/public/payout/assets</strong></li>
+<li>Send API request <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/public/payout/assets</strong></li>
 <li>In the response, find the link for payout in required currency by navigating through the “<strong>currency</strong>” fields in the “<strong>assets</strong>” array</li>
 <li>Copy a wallet address for required currency from the field “<strong>address</strong>” and transfer funds to this address</li>
 </ol>
 <h5 id='creating-payout-deal-via-api'><strong>Creating payout deal via API</strong></h5>
 <ol>
-<li>Check wallet balance and ensure enough funds for payouts are available by using the method <strong>POST http://public-gateway.calypso.local/api/v1/public/payout/assets</strong>;</li>
-<li>Before creating a deal, get a network commission coefficient by using the method <strong>POST http://public-gateway.calypso.local/api/v1/public/payout/fee</strong>. The received value must be passed in the parameter <strong>networkFeeRatio</strong> of the deal creation method.</li>
-<li>Create the deal by using the method <strong>POST http://public-gateway.calypso.local/api/v1/public/payout/deals/create</strong>;</li>
-<li>Get the data on the deal and its status by using the method <strong>POST http://public-gateway.calypso.local/api/v1/public/payout/deals/find</strong>;</li>
+<li>Check wallet balance and ensure enough funds for payouts are available by using the method <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/public/payout/assets</strong>;</li>
+<li>Before creating a deal, get a network commission coefficient by using the method <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/public/payout/fee</strong>. The received value must be passed in the parameter <strong>networkFeeRatio</strong> of the deal creation method.</li>
+<li>Create the deal by using the method <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/public/payout/deals/create</strong>;</li>
+<li>Get the data on the deal and its status by using the method <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/public/payout/deals/find</strong>;</li>
 </ol>
 <h5 id='scheme-of-information-process-interaction'><strong>Scheme of information process interaction</strong></h5>
 <p>Below is an example of creating a payout deal from a client’s site or application.</p>
@@ -794,12 +822,8 @@
 <td>&#8226; A deal is created via UI and confirmed by other process participants. <br /> &#8226; A deal created via API is automatically created with this status.</td>
 </tr>
 <tr>
-<td>WITHDRAWAL_PENDING</td>
-<td>Transaction for a deal is created and is awaiting to be sent to the network.</td>
-</tr>
-<tr>
-<td>WITHDRAWAL_IN_PROGRESS</td>
-<td>Transaction for a deal is sent to the network to be sent to a block and is awaiting confirmation from nodes.</td>
+<td>IN_PROGRESS</td>
+<td>&#8226; Transaction for a deal is created and is awaiting to be sent to the network. <br /> &#8226;Transaction for a deal is sent to the network to be sent to a block and is awaiting confirmation from nodes.</td>
 </tr>
 <tr>
 <td>COMPLETED</td>
@@ -809,13 +833,17 @@
 <td>FAILED</td>
 <td>An error occurred when sending funds. There can be many reasonsof the error. You may follow these remediation steps: <br /> 1. Wait a while and create a new similar deal. <br /> 2. Contact our technical support.</td>
 </tr>
+<tr>
+<td>CANCELED</td>
+<td>A deal has been canceled by merchant.</td>
+</tr>
 </tbody></table>
 
 <p>Diagram nodes indicate payout statuses, arrows indicate processes a successful completion of which transfers a payout from one status to another.</p>
 
 <!-- Deal state machine diagram -->
 
-<p><img src="images/payout_status_diagram-2d1a4142.png" width="85%" height="80%" style="margin: 5%"/></p>
+<p><img src="images/payout_status_diagram-79b5c523.png" width="85%" height="80%" style="margin: 5%"/></p>
 <h5 id='notifications-about-events'><strong>Notifications about events</strong></h5>
 <p>Currently, notifications are displayed only in the Calypso UI in transaction details. There are the following notification types:</p>
 
@@ -901,7 +929,7 @@
     <span class="p">}</span>
 
     <span class="nx">request</span><span class="p">({</span>
-      <span class="na">url</span><span class="p">:</span> <span class="s2">`http://public-gateway.calypso.local/api/v1/public/invoice/get/pagination`</span><span class="p">,</span>
+      <span class="na">url</span><span class="p">:</span> <span class="s2">`http://public-gateway.stage.k8s.deusops.com/api/v1/public/invoice/get/pagination`</span><span class="p">,</span>
       <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">POST</span><span class="dl">'</span><span class="p">,</span>
       <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span><span class="p">,</span>
       <span class="na">json</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
@@ -955,15 +983,31 @@
 </thead><tbody>
 <tr>
 <td>PENDING_PAYMENT</td>
-<td>&#8226; Created a new invoice that is awaiting invoice payment.<br /> &#8226; The client has transferred funds, but they are not received in the wallet.</td>
+<td>&#8226; A new unpaid invoice. <br /> &#8226; Client has transferred funds, but the funds has not yet been credited to the account.</td>
 </tr>
 <tr>
 <td>PAID</td>
-<td>The invoice has been fully paid.</td>
+<td>Invoice is paid.</td>
 </tr>
 <tr>
 <td>PENDING_INTERVENTION</td>
-<td>&#8226; The invoice is awaiting intervention from the merchant in the process.<br /> &#8226; The client has transferred insufficient funds.<br /> &#8226; The client has transferred an amount exceeding</td>
+<td>&#8226; Intervention from the merchant is awaited. <br /> &#8226; Client transferred insufficient amount. <br /> &#8226; Client has transferred an amount exceeding an invoice amount. <br /> &#8226; Funds were transferred from different client accounts.</td>
+</tr>
+<tr>
+<td>CANCEL</td>
+<td>Invoice is canceled by merchant.</td>
+</tr>
+<tr>
+<td>COMPLETED</td>
+<td>Funds are transferd to merchant wallet.</td>
+</tr>
+<tr>
+<td>PAUSED</td>
+<td>Invoce is paused by merchant.</td>
+</tr>
+<tr>
+<td>ARCHIVED</td>
+<td>Invoce is deleted by merchant.</td>
 </tr>
 </tbody></table>
 <h2 id='get-all-invoices'>Get All Invoices</h2>
@@ -971,66 +1015,80 @@
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-    curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.local/api/v1/public/invoice/get/pagination"</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-    <span class="nt">--data-raw</span> <span class="s2">"{
-      </span><span class="se">\"</span><span class="s2">nonce</span><span class="se">\"</span><span class="s2">: 0,
-      </span><span class="se">\"</span><span class="s2">request</span><span class="se">\"</span><span class="s2">: {
-        </span><span class="se">\"</span><span class="s2">stateNames</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">string</span><span class="se">\"</span><span class="s2">,
-        </span><span class="se">\"</span><span class="s2">pageNumber</span><span class="se">\"</span><span class="s2">: 0,
-        </span><span class="se">\"</span><span class="s2">size</span><span class="se">\"</span><span class="s2">: 0,
-        </span><span class="se">\"</span><span class="s2">direction</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">ASC</span><span class="se">\"</span><span class="s2">,
-        </span><span class="se">\"</span><span class="s2">properties</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">string</span><span class="se">\"</span><span class="s2">
-        }
-    }"</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/get/pagination'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+  "nonce": 1,
+  "request": {
+    "stateNames": [
+      "PENDING_PAYMENT"
+    ],
+    "typeNames": [
+      "SINGLE", "UNLIMITED"
+    ],
+    "pageNumber": 1,
+    "size": 10,
+    "direction": "ASC",
+    "property": "DATE"
+  }
+}'</span>
 
 </code></pre></div>
 <blockquote>
 <p>Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"amountInInvoiceWallet"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"cartItems"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"amountInInvoiceWallet"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"cartItems"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-            </span><span class="p">{</span><span class="w">
-              </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"product"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-            </span><span class="p">}</span><span class="w">
-          </span><span class="p">],</span><span class="w">
-          </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-30T05:15:37.915Z"</span><span class="p">,</span><span class="w">
           </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"expiration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-30T05:15:37.915Z"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"fiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-          </span><span class="p">},</span><span class="w">
-          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"invoiceAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"payAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PENDING_PAYMENT"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"totalDebitAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"product"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
         </span><span class="p">}</span><span class="w">
       </span><span class="p">],</span><span class="w">
-      </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-01T14:48:28.086Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"expiration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-01T14:48:28.086Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"fiatAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fiatCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fiatInInvoiceWallet"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"invoiceAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"lastFiatUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-01T14:48:28.086Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"payAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MEM_POOL_FOUND"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"totalDebitAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
     </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
 <p>This endpoint retrieves all invoices.</p>
 <h5 id='http-request'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.local/api/v1/public/invoice/get/pagination</code></p>
+<p><code>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/get/pagination</code></p>
 <h5 id='header'>Header</h5>
 <table><thead>
 <tr>
@@ -1044,7 +1102,7 @@
 <td>Key</td>
 <td>STRING</td>
 <td>Yes</td>
-<td>&lt; your_api_key &gt;</td>
+<td>&lt;your_api_key&gt;</td>
 </tr>
 <tr>
 <td>Sign</td>
@@ -1062,201 +1120,207 @@
 <h5 id='request-body'>Request Body</h5>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>nonce</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Nonce used in construction of Sign header.</td>
+<td>nonce used in construction of sign header.</td>
 </tr>
 <tr>
 <td>request</td>
-<td>ARRAY OR OBJECT</td>
+<td>object</td>
 <td>Yes</td>
-<td>This object contains request details.</td>
+<td>this object contains request details.</td>
 </tr>
 <tr>
 <td>request.stateNames</td>
-<td>ENUM</td>
+<td>array</td>
 <td>Yes</td>
-<td>Specify the status of results to return.</td>
+<td>specify the status of results to return. [ MEM_POOL_FOUND, PENDING_PAYMENT, PAID, COMPLETED, PENDING_INTERVENTION, PAUSED, CANCEL, ARCHIVED ]</td>
+</tr>
+<tr>
+<td>request.typeNames</td>
+<td>array</td>
+<td>Yes</td>
+<td>type of invoices. [ SINGLE, SINGLE_FIAT, UNLIMITED ]</td>
 </tr>
 <tr>
 <td>request.pageNumber</td>
-<td>NUMBER</td>
-<td>No</td>
-<td>Specify the page of results to return.</td>
+<td>number</td>
+<td>Yes</td>
+<td>specify the page of results to return.</td>
 </tr>
 <tr>
 <td>request.size</td>
-<td>NUMBER</td>
-<td>No</td>
-<td>A numeric value indicating the page size.</td>
+<td>number</td>
+<td>Yes</td>
+<td>a numeric value indicating the page size.</td>
 </tr>
 <tr>
 <td>request.direction</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>The direction of this API call which can be ASC or DESC.</td>
+<td>the direction of this api call which can be asc or desc. [ ASC, DESC ]</td>
 </tr>
 <tr>
-<td>request.properties</td>
-<td>STRING</td>
+<td>request.property</td>
+<td>array</td>
 <td>Yes</td>
-<td></td>
+<td>the attribute by which sorting is performed. [ PAY_AMOUNT, CURRENCY, STATE, DATE ]</td>
 </tr>
 </tbody></table>
 <h5 id='response-body'>Response Body</h5>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>page</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Result page number.</td>
+<td>result page number.</td>
 </tr>
 <tr>
 <td>result</td>
-<td>ARRAY OR OBJECT</td>
+<td>array</td>
 <td>Yes</td>
-<td>This object contains response details.</td>
+<td>this object contains response details.</td>
 </tr>
 <tr>
 <td>result.amount</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>No</td>
-<td>Represents amount of the invoice.</td>
+<td>represents amount of the invoice.</td>
 </tr>
 <tr>
-<td>result.amountIn InvoiceWallet</td>
-<td>NUMBER</td>
+<td>result.amountInInvoicewallet</td>
+<td>number</td>
 <td>Yes</td>
-<td>Initially set to 0 when creating the invoice.It will be updated with the total amount paid to the invoice.</td>
+<td>initially set to 0 when creating the invoice.it will be updated with the total amount paid to the invoice.</td>
 </tr>
 <tr>
 <td>result.cartItems</td>
-<td>ARRAY OR OBJECT</td>
+<td>array</td>
 <td>Yes</td>
-<td>List of line items.</td>
+<td>list of line items.</td>
 </tr>
 <tr>
 <td>result.cartItems.currency</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>This is the currency associated with the price field.</td>
+<td>this is the currency associated with the price field.</td>
 </tr>
 <tr>
 <td>result.cartItems.price</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Price of this unit.</td>
+<td>price of this unit.</td>
 </tr>
 <tr>
 <td>result.cartItems.product</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>Name of this unit.</td>
+<td>name of this unit.</td>
 </tr>
 <tr>
 <td>result.cartItems.quantity</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Line item number of units.</td>
+<td>line item number of units.</td>
 </tr>
 <tr>
 <td>result.createdDate</td>
-<td>DATETIME</td>
+<td>string</td>
 <td>Yes</td>
-<td>Time of invoice creation.</td>
+<td>time of invoice creation.</td>
 </tr>
 <tr>
 <td>result.currency</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>Represents the currency of the invoice.</td>
+<td>represents the currency of the invoice.</td>
 </tr>
 <tr>
 <td>result.description</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>Short invoice description.</td>
+<td>short invoice description.</td>
 </tr>
 <tr>
 <td>result.expiration</td>
-<td>DATETIME</td>
+<td>string</td>
 <td>No</td>
-<td>Represents server timestamp of invoice expiration moment.</td>
+<td>represents server timestamp of invoice expiration moment.</td>
 </tr>
 <tr>
 <td>result.fee</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>No</td>
-<td>This is referenced as &quot;Network Cost&quot; on an invoice.</td>
+<td>this is referenced as &quot;network cost&quot; on an invoice.</td>
 </tr>
 <tr>
 <td>result.fiat</td>
-<td>ARRAY OR OBJECT</td>
+<td>object</td>
 <td>Yes</td>
-<td>The total amount of the invoice in different fiat currencies.</td>
+<td>the total amount of the invoice in different fiat currencies.</td>
 </tr>
 <tr>
 <td>result.id</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Invoice ID.</td>
+<td>invoice id.</td>
 </tr>
 <tr>
 <td>result.invoiceAddress</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>Crypto address for deposit.</td>
+<td>crypto address for deposit.</td>
 </tr>
 <tr>
 <td>result.payAmount</td>
-<td>NUMBER</td>
-<td></td>
-<td></td>
+<td>number</td>
+<td>No</td>
+<td>amount of money to pay</td>
 </tr>
 <tr>
 <td>result.state</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>Represents status of the invoice.</td>
+<td>represents status of the invoice.</td>
 </tr>
 <tr>
-<td>result.total DebitAmount</td>
-<td>NUMBER</td>
+<td>result.totalDebitAmount</td>
+<td>number</td>
 <td>Yes</td>
-<td>The total amount received on the invoice wallet.</td>
+<td>the total amount received on the invoice wallet.</td>
 </tr>
 <tr>
 <td>result.uuid</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>The uuid of the invoice</td>
+<td>the uuid of the invoice</td>
 </tr>
 <tr>
 <td>size</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>A numeric value indicating the page size.</td>
+<td>a numeric value indicating the page size.</td>
 </tr>
 <tr>
 <td>total</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>The total number of resources matching the query.</td>
+<td>the total number of resources matching the query.</td>
 </tr>
 </tbody></table>
 <h2 id='get-a-specific-invoice'>Get a Specific Invoice</h2>
@@ -1264,55 +1328,64 @@
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-    curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.local/api/v1/public/invoice/get"</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-    <span class="nt">--data-raw</span> <span class="s2">"{
-      </span><span class="se">\"</span><span class="s2">nonce</span><span class="se">\"</span><span class="s2">: 0,
-      </span><span class="se">\"</span><span class="s2">request</span><span class="se">\"</span><span class="s2">: {
-        </span><span class="se">\"</span><span class="s2">id</span><span class="se">\"</span><span class="s2">: 0
-      }
-    }"</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/get'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+  "nonce": 1,
+  "request": {
+    "id": 1
+  }
+}'</span>
 
 </code></pre></div>
 <blockquote>
 <p>Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"amountInInvoiceWallet"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"cartItems"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"amountInInvoiceWallet"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"cartItems"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"product"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-      </span><span class="p">],</span><span class="w">
-      </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-30T05:06:50.505Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"expiration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-30T05:06:50.505Z"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"fiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"invoiceAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"payAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PENDING_PAYMENT"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"totalDebitAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"product"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
     </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-01T15:25:01.075Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"expiration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-01T15:25:01.075Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"fiatAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fiatCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fiatInInvoiceWallet"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"invoiceAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"lastFiatUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-01T15:25:01.075Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"payAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MEM_POOL_FOUND"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"totalDebitAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
 <p>This endpoint retrieves a specific invoice.</p>
 <h5 id='http-request-2'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.local/api/v1/public/invoice/get</code></p>
+<p><code>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/get</code></p>
 <h5 id='header-2'>Header</h5>
 <table><thead>
 <tr>
@@ -1326,7 +1399,7 @@
 <td>Key</td>
 <td>STRING</td>
 <td>Yes</td>
-<td>&lt; your_api_key &gt;</td>
+<td>&lt;your_api_key&gt;</td>
 </tr>
 <tr>
 <td>Sign</td>
@@ -1344,153 +1417,177 @@
 <h5 id='request-body-2'>Request Body</h5>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>nonce</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Nonce used in construction of Sign header.</td>
+<td>nonce used in construction of sign header.</td>
 </tr>
 <tr>
 <td>request</td>
-<td>ARRAY OR OBJECT</td>
-<td>No</td>
-<td>This object contains request details.</td>
+<td>object</td>
+<td>Yes</td>
+<td>this object contains request details.</td>
 </tr>
 <tr>
 <td>request.id</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>The id of the invoice you want to look up.</td>
+<td>the id of the invoice you want to look up.</td>
 </tr>
 </tbody></table>
 <h5 id='response-body-2'>Response Body</h5>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>amount</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>No</td>
-<td>Represents amount of the invoice.</td>
+<td>represents amount of the invoice.</td>
 </tr>
 <tr>
 <td>amountInInvoiceWallet</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Initially set to 0 when creating the invoice.It will be updated with the total amount paid to the invoice.</td>
+<td>initially set to 0 when creating the invoice.it will be updated with the total amount paid to the invoice.</td>
 </tr>
 <tr>
 <td>cartItems</td>
-<td>ARRAY OR OBJECT</td>
+<td>array</td>
 <td>Yes</td>
-<td>List of line items.</td>
+<td>list of line items.</td>
 </tr>
 <tr>
 <td>cartItems.currency</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>This is the currency associated with the price field.</td>
+<td>this is the currency associated with the price field. [ BTC, ETH, BNB, USDT, BUSD, USD, EUR, RUB, UAH, KZT ]</td>
 </tr>
 <tr>
 <td>cartItems.price</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Price of this unit.</td>
+<td>price of this unit.</td>
 </tr>
 <tr>
 <td>cartItems.product</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>Name of this unit.</td>
+<td>name of this unit.</td>
 </tr>
 <tr>
 <td>cartItems.quantity</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Line item number of units.</td>
+<td>line item number of units.</td>
 </tr>
 <tr>
 <td>createdDate</td>
-<td>DATETIME</td>
+<td>string</td>
 <td>Yes</td>
-<td>Time of invoice creation.</td>
+<td>time of invoice creation.</td>
 </tr>
 <tr>
 <td>currency</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>Represents the currency of the invoice.</td>
+<td>represents the currency of the invoice. [ BTC, ETH, BNB, USDT, BUSD ]</td>
 </tr>
 <tr>
 <td>description</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>Short invoice description.</td>
+<td>short invoice description.</td>
 </tr>
 <tr>
 <td>expiration</td>
-<td>DATETIME</td>
+<td>string</td>
 <td>No</td>
-<td>Represents server timestamp of invoice expiration moment.</td>
+<td>represents server timestamp of invoice expiration moment.</td>
 </tr>
 <tr>
 <td>fee</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>No</td>
-<td>This is referenced as &quot;Network Cost&quot; on an invoice.</td>
+<td>this is referenced as &quot;network cost&quot; on an invoice.</td>
 </tr>
 <tr>
 <td>fiat</td>
-<td>ARRAY OR OBJECT</td>
+<td>object</td>
 <td>Yes</td>
-<td>The total amount of the invoice in different fiat currencies.</td>
+<td>the total amount of the invoice in different fiat currencies.</td>
+</tr>
+<tr>
+<td>fiat.{currency}</td>
+<td>number</td>
+<td>Yes</td>
+<td>amount of the invoice in particular currency. Currency: [ USD, EUR, RUB, UAH, KZT ]</td>
+</tr>
+<tr>
+<td>fiatInInvoiceWallet</td>
+<td>object</td>
+<td>Yes</td>
+<td>the total amount of money in invoice wallet.</td>
+</tr>
+<tr>
+<td>fiatInInvoiceWallet.{currency}</td>
+<td>number</td>
+<td>Yes</td>
+<td>amount of money in invoice wallet in particular currency. Currency: [ USD, EUR, RUB, UAH, KZT ]</td>
 </tr>
 <tr>
 <td>id</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Invoice ID.</td>
+<td>invoice id.</td>
 </tr>
 <tr>
-<td>invoice Address</td>
-<td>STRING</td>
+<td>invoiceAddress</td>
+<td>string</td>
 <td>Yes</td>
-<td>Crypto address for deposit.</td>
+<td>crypto address for deposit.</td>
 </tr>
 <tr>
 <td>payAmount</td>
-<td>NUMBER</td>
-<td></td>
-<td></td>
+<td>number</td>
+<td>No</td>
+<td>amount of money to pay</td>
 </tr>
 <tr>
 <td>state</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>Represents status of the invoice.</td>
+<td>represents status of the invoice. [ PENDING_PAYMENT, PAID, COMPLETED, PENDING_INTERVENTION, PAUSED, CANCEL, ARCHIVED ]</td>
 </tr>
 <tr>
-<td>total DebitAmount</td>
-<td>NUMBER</td>
+<td>totalDebitAmount</td>
+<td>number</td>
 <td>Yes</td>
-<td>The total amount received on the invoice wallet.</td>
+<td>the total amount received on the invoice wallet.</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>Yes</td>
+<td>type of invoice. [ SINGLE, UNLIMITED ]</td>
 </tr>
 <tr>
 <td>uuid</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>The uuid of the invoice</td>
+<td>the uuid of the invoice</td>
 </tr>
 </tbody></table>
 <h2 id='pause-a-specific-invoice'>Pause a Specific Invoice</h2>
@@ -1498,55 +1595,64 @@
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-    curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.local/api/v1/public/invoice/pause"</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-    <span class="nt">--data-raw</span> <span class="s2">"{
-      </span><span class="se">\"</span><span class="s2">nonce</span><span class="se">\"</span><span class="s2">: 0,
-      </span><span class="se">\"</span><span class="s2">request</span><span class="se">\"</span><span class="s2">: {
-        </span><span class="se">\"</span><span class="s2">id</span><span class="se">\"</span><span class="s2">: 0
-        }
-    }"</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/pause'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+  "nonce": 1,
+  "request": {
+    "id": 1
+  }
+}'</span>
 
 </code></pre></div>
 <blockquote>
 <p>Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"amountInInvoiceWallet"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"cartItems"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"amountInInvoiceWallet"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"cartItems"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"product"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-      </span><span class="p">],</span><span class="w">
-      </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-30T06:00:08.951Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"expiration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-30T06:00:08.951Z"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"fiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"invoiceAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"payAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PAUSED"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"totalDebitAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"product"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
     </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-01T15:41:34.036Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"expiration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-01T15:41:34.036Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"fiatAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fiatCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fiatInInvoiceWallet"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"invoiceAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"lastFiatUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-01T15:41:34.036Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"payAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MEM_POOL_FOUND"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"totalDebitAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
 <p>This endpoint allows to pause the invoice.</p>
 <h5 id='http-request-3'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.local/api/v1/public/invoice/pause</code></p>
+<p><code>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/pause</code></p>
 <h5 id='header-3'>Header</h5>
 <table><thead>
 <tr>
@@ -1560,7 +1666,7 @@
 <td>Key</td>
 <td>STRING</td>
 <td>Yes</td>
-<td>&lt; your_api_key &gt;</td>
+<td>&lt;your_api_key&gt;</td>
 </tr>
 <tr>
 <td>Sign</td>
@@ -1578,153 +1684,177 @@
 <h5 id='request-body-3'>Request Body</h5>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>nonce</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Nonce used in construction of Sign header.</td>
+<td>nonce used in construction of sign header.</td>
 </tr>
 <tr>
 <td>request</td>
-<td>ARRAY OR OBJECT</td>
-<td>No</td>
-<td>This object contains request details.</td>
+<td>object</td>
+<td>Yes</td>
+<td>this object contains request details.</td>
 </tr>
 <tr>
 <td>request.id</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>The id of the invoice you want to look up.</td>
+<td>the id of the invoice you want to look up.</td>
 </tr>
 </tbody></table>
 <h5 id='response-body-3'>Response Body</h5>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>amount</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>No</td>
-<td>Represents amount of the invoice.</td>
+<td>represents amount of the invoice.</td>
 </tr>
 <tr>
-<td>amountIn InvoiceWallet</td>
-<td>NUMBER</td>
+<td>amountInInvoiceWallet</td>
+<td>number</td>
 <td>Yes</td>
-<td>Initially set to 0 when creating the invoice.It will be updated with the total amount paid to the invoice.</td>
+<td>initially set to 0 when creating the invoice.it will be updated with the total amount paid to the invoice.</td>
 </tr>
 <tr>
 <td>cartItems</td>
-<td>ARRAY OR OBJECT</td>
+<td>array</td>
 <td>Yes</td>
-<td>List of line items.</td>
+<td>list of line items.</td>
 </tr>
 <tr>
 <td>cartItems.currency</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>This is the currency associated with the price field.</td>
+<td>this is the currency associated with the price field. [ BTC, ETH, BNB, USDT, BUSD, USD, EUR, RUB, UAH, KZT ]</td>
 </tr>
 <tr>
 <td>cartItems.price</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Price of this unit.</td>
+<td>price of this unit.</td>
 </tr>
 <tr>
 <td>cartItems.product</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>Name of this unit.</td>
+<td>name of this unit.</td>
 </tr>
 <tr>
 <td>cartItems.quantity</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Line item number of units.</td>
+<td>line item number of units.</td>
 </tr>
 <tr>
 <td>createdDate</td>
-<td>DATETIME</td>
+<td>string</td>
 <td>Yes</td>
-<td>Time of invoice creation.</td>
+<td>time of invoice creation.</td>
 </tr>
 <tr>
 <td>currency</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>Represents the currency of the invoice.</td>
+<td>represents the currency of the invoice. [ BTC, ETH, BNB, USDT, BUSD ]</td>
 </tr>
 <tr>
 <td>description</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>Short invoice description.</td>
+<td>short invoice description.</td>
 </tr>
 <tr>
 <td>expiration</td>
-<td>DATETIME</td>
+<td>string</td>
 <td>No</td>
-<td>Represents server timestamp of invoice expiration moment.</td>
+<td>represents server timestamp of invoice expiration moment.</td>
 </tr>
 <tr>
 <td>fee</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>No</td>
-<td>This is referenced as &quot;Network Cost&quot; on an invoice.</td>
+<td>this is referenced as &quot;network cost&quot; on an invoice.</td>
 </tr>
 <tr>
 <td>fiat</td>
-<td>ARRAY OR OBJECT</td>
+<td>object</td>
 <td>Yes</td>
-<td>The total amount of the invoice in different fiat currencies.</td>
+<td>the total amount of the invoice in different fiat currencies.</td>
+</tr>
+<tr>
+<td>fiat.{currency}</td>
+<td>number</td>
+<td>Yes</td>
+<td>amount of the invoice in particular currency. Currency: [ USD, EUR, RUB, UAH, KZT ]</td>
+</tr>
+<tr>
+<td>fiatInInvoiceWallet</td>
+<td>object</td>
+<td>Yes</td>
+<td>the total amount of money in invoice wallet.</td>
+</tr>
+<tr>
+<td>fiatInInvoiceWallet.{currency}</td>
+<td>number</td>
+<td>Yes</td>
+<td>amount of money in invoice wallet in particular currency. Currency: [ USD, EUR, RUB, UAH, KZT ]</td>
 </tr>
 <tr>
 <td>id</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Invoice ID.</td>
+<td>invoice id.</td>
 </tr>
 <tr>
 <td>invoiceAddress</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>Crypto address for deposit.</td>
+<td>crypto address for deposit.</td>
 </tr>
 <tr>
 <td>payAmount</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>No</td>
-<td></td>
+<td>amount of money to pay</td>
 </tr>
 <tr>
 <td>state</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>Represents status of the invoice.</td>
+<td>represents status of the invoice. [ PENDING_PAYMENT, PAID, COMPLETED, PENDING_INTERVENTION, PAUSED, CANCEL, ARCHIVED ]</td>
 </tr>
 <tr>
-<td>total DebitAmount</td>
-<td>NUMBER</td>
+<td>totalDebitAmount</td>
+<td>number</td>
 <td>Yes</td>
-<td>The total amount received on the invoice wallet.</td>
+<td>the total amount received on the invoice wallet.</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>Yes</td>
+<td>type of invoice. [ SINGLE, UNLIMITED ]</td>
 </tr>
 <tr>
 <td>uuid</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>The uuid of the invoice</td>
+<td>the uuid of the invoice</td>
 </tr>
 </tbody></table>
 <h2 id='resume-paused-invoice'>Resume Paused Invoice</h2>
@@ -1732,56 +1862,64 @@
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-    curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.local/api/v1/public/invoice/continue"</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-    <span class="nt">--data-raw</span> <span class="s2">"{
-      </span><span class="se">\"</span><span class="s2">nonce</span><span class="se">\"</span><span class="s2">: 0,
-      </span><span class="se">\"</span><span class="s2">request</span><span class="se">\"</span><span class="s2">: {
-        </span><span class="se">\"</span><span class="s2">id</span><span class="se">\"</span><span class="s2">: 0,
-        </span><span class="se">\"</span><span class="s2">expirationDate</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">2021-10-29T19:54:20.177Z</span><span class="se">\"</span><span class="s2">
-        }
-    }"</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/continue'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+  "nonce": 1,
+  "request": {
+    "id": 1
+  }
+}'</span>
 
 </code></pre></div>
 <blockquote>
 <p>Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"amountInInvoiceWallet"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"cartItems"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"amountInInvoiceWallet"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"cartItems"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"product"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-      </span><span class="p">],</span><span class="w">
-      </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-30T05:54:43.921Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"expiration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-30T05:54:43.921Z"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"fiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"invoiceAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"payAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PENDING_PAYMENT"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"totalDebitAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"product"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
     </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-01T16:04:40.855Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"expiration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-01T16:04:40.855Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"fiatAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fiatCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fiatInInvoiceWallet"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"invoiceAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"lastFiatUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-01T16:04:40.855Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"payAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MEM_POOL_FOUND"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"totalDebitAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
 <p>This endpoint allows you to resume paused invoice.</p>
 <h5 id='http-request-4'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.local/api/v1/public/invoice/continue</code></p>
+<p><code>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/continue</code></p>
 <h5 id='header-4'>Header</h5>
 <table><thead>
 <tr>
@@ -1795,7 +1933,7 @@
 <td>Key</td>
 <td>STRING</td>
 <td>Yes</td>
-<td>&lt; your_api_key &gt;</td>
+<td>&lt;your_api_key&gt;</td>
 </tr>
 <tr>
 <td>Sign</td>
@@ -1813,159 +1951,183 @@
 <h5 id='request-body-4'>Request Body</h5>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>nonce</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Nonce used in construction of Sign header.</td>
+<td>nonce used in construction of sign header.</td>
 </tr>
 <tr>
 <td>request</td>
-<td>ARRAY OR OBJECT</td>
-<td>No</td>
-<td>This object contains request details.</td>
+<td>object</td>
+<td>Yes</td>
+<td>this object contains request details.</td>
 </tr>
 <tr>
 <td>request.id</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>The id of the invoice you want to look up.</td>
+<td>the id of the invoice you want to look up.</td>
 </tr>
 <tr>
 <td>request.expirationDate</td>
-<td>DATETIME</td>
+<td>string</td>
 <td>No</td>
-<td>Represents server timestamp of invoice expiration moment.</td>
+<td>represents server timestamp of invoice expiration moment in ISO 8601 format, for example, 2021-10-29T19:54:20.177Z</td>
 </tr>
 </tbody></table>
 <h5 id='response-body-4'>Response Body</h5>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>amount</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>No</td>
-<td>Represents amount of the invoice.</td>
+<td>represents amount of the invoice.</td>
 </tr>
 <tr>
 <td>amountInInvoiceWallet</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Initially set to 0 when creating the invoice.It will be updated with the total amount paid to the invoice.</td>
+<td>initially set to 0 when creating the invoice.it will be updated with the total amount paid to the invoice.</td>
 </tr>
 <tr>
 <td>cartItems</td>
-<td>ARRAY OR OBJECT</td>
+<td>array</td>
 <td>Yes</td>
-<td>List of line items.</td>
+<td>list of line items.</td>
 </tr>
 <tr>
 <td>cartItems.currency</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>This is the currency associated with the price field.</td>
+<td>this is the currency associated with the price field. [ BTC, ETH, BNB, USDT, BUSD, USD, EUR, RUB, UAH, KZT ]</td>
 </tr>
 <tr>
 <td>cartItems.price</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Price of this unit.</td>
+<td>price of this unit.</td>
 </tr>
 <tr>
 <td>cartItems.product</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>Name of this unit.</td>
+<td>name of this unit.</td>
 </tr>
 <tr>
 <td>cartItems.quantity</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Line item number of units.</td>
+<td>line item number of units.</td>
 </tr>
 <tr>
 <td>createdDate</td>
-<td>DATETIME</td>
+<td>string</td>
 <td>Yes</td>
-<td>Time of invoice creation.</td>
+<td>time of invoice creation.</td>
 </tr>
 <tr>
 <td>currency</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>Represents the currency of the invoice.</td>
+<td>represents the currency of the invoice. [ BTC, ETH, BNB, USDT, BUSD ]</td>
 </tr>
 <tr>
 <td>description</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>Short invoice description.</td>
+<td>short invoice description.</td>
 </tr>
 <tr>
 <td>expiration</td>
-<td>DATETIME</td>
+<td>string</td>
 <td>No</td>
-<td>Represents server timestamp of invoice expiration moment.</td>
+<td>represents server timestamp of invoice expiration moment.</td>
 </tr>
 <tr>
 <td>fee</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>No</td>
-<td>This is referenced as &quot;Network Cost&quot; on an invoice.</td>
+<td>this is referenced as &quot;network cost&quot; on an invoice.</td>
 </tr>
 <tr>
 <td>fiat</td>
-<td>ARRAY OR OBJECT</td>
+<td>object</td>
 <td>Yes</td>
-<td>The total amount of the invoice in different fiat currencies.</td>
+<td>the total amount of the invoice in different fiat currencies.</td>
+</tr>
+<tr>
+<td>fiat.{currency}</td>
+<td>number</td>
+<td>Yes</td>
+<td>amount of the invoice in particular currency. Currency: [ USD, EUR, RUB, UAH, KZT ]</td>
+</tr>
+<tr>
+<td>fiatInInvoiceWallet</td>
+<td>object</td>
+<td>Yes</td>
+<td>the total amount of money in invoice wallet.</td>
+</tr>
+<tr>
+<td>fiatInInvoiceWallet.{currency}</td>
+<td>number</td>
+<td>Yes</td>
+<td>amount of money in invoice wallet in particular currency. Currency: [ USD, EUR, RUB, UAH, KZT ]</td>
 </tr>
 <tr>
 <td>id</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Invoice ID.</td>
+<td>invoice id.</td>
 </tr>
 <tr>
 <td>invoiceAddress</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>Crypto address for deposit.</td>
+<td>crypto address for deposit.</td>
 </tr>
 <tr>
 <td>payAmount</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>No</td>
-<td></td>
+<td>amount of money to pay</td>
 </tr>
 <tr>
 <td>state</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>Represents status of the invoice.</td>
+<td>represents status of the invoice. [ PENDING_PAYMENT, PAID, COMPLETED, PENDING_INTERVENTION, PAUSED, CANCEL, ARCHIVED ]</td>
 </tr>
 <tr>
-<td>total DebitAmount</td>
-<td>NUMBER</td>
+<td>totalDebitAmount</td>
+<td>number</td>
 <td>Yes</td>
-<td>The total amount received on the invoice wallet.</td>
+<td>the total amount received on the invoice wallet.</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>Yes</td>
+<td>type of invoice. [ SINGLE, UNLIMITED ]</td>
 </tr>
 <tr>
 <td>uuid</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>The uuid of the invoice</td>
+<td>the uuid of the invoice</td>
 </tr>
 </tbody></table>
 <h2 id='new-invoice'>New Invoice</h2>
@@ -1973,69 +2135,77 @@
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-
-    curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.local/api/v1/public/invoice/create"</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-    <span class="nt">--data-raw</span> <span class="s2">"{
-      </span><span class="se">\"</span><span class="s2">nonce</span><span class="se">\"</span><span class="s2">: 0,
-      </span><span class="se">\"</span><span class="s2">request</span><span class="se">\"</span><span class="s2">: {
-        </span><span class="se">\"</span><span class="s2">amount</span><span class="se">\"</span><span class="s2">: 0,
-        </span><span class="se">\"</span><span class="s2">expiration</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">2021-10-29T19:54:20.177Z</span><span class="se">\"</span><span class="s2">,
-        </span><span class="se">\"</span><span class="s2">currency</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">BTC</span><span class="se">\"</span><span class="s2">,
-        </span><span class="se">\"</span><span class="s2">description</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">string</span><span class="se">\"</span><span class="s2">,
-        </span><span class="se">\"</span><span class="s2">type</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">SINGLE</span><span class="se">\"</span><span class="s2">,
-        </span><span class="se">\"</span><span class="s2">cartItems</span><span class="se">\"</span><span class="s2">: [
-          {
-            </span><span class="se">\"</span><span class="s2">currency</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">BTC</span><span class="se">\"</span><span class="s2">,
-            </span><span class="se">\"</span><span class="s2">price</span><span class="se">\"</span><span class="s2">: 0,
-            </span><span class="se">\"</span><span class="s2">product</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">string</span><span class="se">\"</span><span class="s2">,
-            </span><span class="se">\"</span><span class="s2">quantity</span><span class="se">\"</span><span class="s2">: 0
-          }
-        ],
-        </span><span class="se">\"</span><span class="s2">hotWalletAddress</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">string</span><span class="se">\"</span><span class="s2">
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/create'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+  "nonce": 1638375752248,
+  "request": {
+    "amount": 0.001,
+    "expiration": null,
+    "currency": "BTC",
+    "description": "testApi",
+    "type": "SINGLE",
+    "cartItems": [
+      {
+        "currency": "BTC",
+        "price": 1,
+        "product": "test",
+        "quantity": 1
       }
-    }"</span>
+    ],
+    "hotWalletAddress": "mx4ve29rdeioQeaocJsxhBbgL6AnxKZAJh"
+  }
+}'</span>
 
 </code></pre></div>
 <blockquote>
 <p>Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"amountInInvoiceWallet"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"cartItems"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"amountInInvoiceWallet"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"cartItems"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"product"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-      </span><span class="p">],</span><span class="w">
-      </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-30T04:13:01.852Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"expiration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-30T04:13:01.852Z"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"fiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"invoiceAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"payAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PENDING_PAYMENT"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"totalDebitAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"product"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
     </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-01T16:17:17.392Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"expiration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-01T16:17:17.392Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"fiatAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fiatCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fiatInInvoiceWallet"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"invoiceAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"lastFiatUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-01T16:17:17.392Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"payAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MEM_POOL_FOUND"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"totalDebitAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
 <p>This endpoint creates a new invoice.</p>
 <h5 id='http-request-5'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.local/api/v1/public/invoice/create</code></p>
+<p><code>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/create</code></p>
 <h5 id='header-5'>Header</h5>
 <table><thead>
 <tr>
@@ -2049,7 +2219,7 @@
 <td>Key</td>
 <td>STRING</td>
 <td>Yes</td>
-<td>&lt; your_api_key &gt;</td>
+<td>&lt;your_api_key&gt;</td>
 </tr>
 <tr>
 <td>Sign</td>
@@ -2067,213 +2237,249 @@
 <h5 id='request-body-5'>Request Body</h5>
 <table><thead>
 <tr>
-<th>Name</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
+<th>name</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>nonce</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Nonce used in construction of Sign header.</td>
+<td>nonce used in construction of sign header.</td>
 </tr>
 <tr>
 <td>request</td>
-<td>ARRAY OR OBJECT</td>
+<td>object</td>
+<td>Yes</td>
+<td>this object contains request details.</td>
+</tr>
+<tr>
+<td>request.fiatAmount</td>
+<td>number</td>
 <td>No</td>
-<td>This object contains request details.</td>
+<td>total invoice amount in fiat currency</td>
+</tr>
+<tr>
+<td>request.fiatCurrency</td>
+<td>strint</td>
+<td>No</td>
+<td>received fiat currency. [ USD, EUR, RUB, UAH, KZT ]</td>
 </tr>
 <tr>
 <td>request.amount</td>
-<td>NUMBER</td>
-<td>Yes</td>
-<td>Total invoice amount.</td>
+<td>number</td>
+<td>No</td>
+<td>total invoice amount.</td>
 </tr>
 <tr>
 <td>request.expiration</td>
-<td></td>
+<td>string</td>
 <td>No</td>
-<td>Represents server timestamp of invoice expiration moment.</td>
+<td>represents server timestamp of invoice expiration moment.</td>
 </tr>
 <tr>
 <td>request.currency</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>Received currency.[BTC, ETH, USDT, EUR]</td>
+<td>received blockchain currency. [ BTC, ETH, BNB, USDT, BUSD ]</td>
 </tr>
 <tr>
 <td>request.description</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>Short invoice description.</td>
+<td>short invoice description.</td>
 </tr>
 <tr>
 <td>request.type</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>Invoice type. [SINGLE, UNLIMITED]</td>
+<td>invoice type. [single, unlimited]</td>
 </tr>
 <tr>
 <td>request.cartItems</td>
-<td>OBJECT</td>
-<td>Yes</td>
-<td>Shopping cart.</td>
+<td>object</td>
+<td>No</td>
+<td>shopping cart.</td>
 </tr>
 <tr>
 <td>request.cartItems.currency</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>This is the currency associated with the price field.</td>
+<td>this is the currency associated with the price field. [ BTC, ETH, BNB, USDT, BUSD, USD, EUR, RUB, UAH, KZT ]</td>
 </tr>
 <tr>
 <td>request.cartItems.price</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Price of this unit.</td>
+<td>price of this unit.</td>
 </tr>
 <tr>
 <td>request.cartItems.product</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>Name of this unit.</td>
+<td>name of this unit.</td>
 </tr>
 <tr>
 <td>request.cartItems.quantity</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Line item number of units.</td>
+<td>line item number of units.</td>
 </tr>
 <tr>
 <td>request.hotWalletAddress</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>Crypto address of the client wallet</td>
+<td>string</td>
+<td>No</td>
+<td>crypto address of the client wallet</td>
 </tr>
 </tbody></table>
 <h5 id='response-body-5'>Response Body</h5>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>amount</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>No</td>
-<td>Represents amount of the invoice.</td>
+<td>represents amount of the invoice.</td>
 </tr>
 <tr>
-<td>amount InInvoice Wallet</td>
-<td>NUMBER</td>
+<td>amountInInvoiceWallet</td>
+<td>number</td>
 <td>Yes</td>
-<td>Initially set to 0 when creating the invoice.It will be updated with the total amount paid to the invoice.</td>
+<td>initially set to 0 when creating the invoice.it will be updated with the total amount paid to the invoice.</td>
 </tr>
 <tr>
 <td>cartItems</td>
-<td>ARRAY OR OBJECT</td>
+<td>array</td>
 <td>Yes</td>
-<td>List of line items.</td>
+<td>list of line items.</td>
 </tr>
 <tr>
 <td>cartItems.currency</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>This is the currency associated with the price field.</td>
+<td>this is the currency associated with the price field. [ BTC, ETH, BNB, USDT, BUSD ]</td>
 </tr>
 <tr>
 <td>cartItems.price</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Price of this unit.</td>
+<td>price of this unit.</td>
 </tr>
 <tr>
 <td>cartItems.product</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>Name of this unit.</td>
+<td>name of this unit.</td>
 </tr>
 <tr>
 <td>cartItems.quantity</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Line item number of units.</td>
+<td>line item number of units.</td>
 </tr>
 <tr>
 <td>createdDate</td>
-<td>DATETIME</td>
+<td>string</td>
 <td>Yes</td>
-<td>Time of invoice creation.</td>
+<td>time of invoice creation.</td>
 </tr>
 <tr>
 <td>currency</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>Represents the currency of the invoice.</td>
+<td>represents the currency of the invoice. [ BTC, ETH, BNB, USDT, BUSD ]</td>
 </tr>
 <tr>
 <td>description</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>Short invoice description.</td>
+<td>short invoice description.</td>
 </tr>
 <tr>
 <td>expiration</td>
-<td>DATETIME</td>
+<td>string</td>
 <td>No</td>
-<td>Represents server timestamp of invoice expiration moment.</td>
+<td>represents server timestamp of invoice expiration moment.</td>
 </tr>
 <tr>
 <td>fee</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>No</td>
-<td>This is referenced as &quot;Network Cost&quot; on an invoice.</td>
+<td>this is referenced as &quot;network cost&quot; on an invoice.</td>
 </tr>
 <tr>
 <td>fiat</td>
-<td>ARRAY OR OBJECT</td>
+<td>object</td>
 <td>Yes</td>
-<td>The total amount of the invoice in different fiat currencies.</td>
+<td>the total amount of the invoice in different fiat currencies.</td>
+</tr>
+<tr>
+<td>fiat.{currency}</td>
+<td>number</td>
+<td>Yes</td>
+<td>amount of the invoice in particular currency. Currency: [ USD, EUR, RUB, UAH, KZT ]</td>
+</tr>
+<tr>
+<td>fiatInInvoiceWallet</td>
+<td>object</td>
+<td>Yes</td>
+<td>the total amount of money in invoice wallet.</td>
+</tr>
+<tr>
+<td>fiatInInvoiceWallet.{currency}</td>
+<td>number</td>
+<td>Yes</td>
+<td>amount of money in invoice wallet in particular currency. Currency: [ BTC, ETH, BNB, USDT, BUSD, USD, EUR, RUB, UAH, KZT ]</td>
 </tr>
 <tr>
 <td>id</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Invoice ID.</td>
+<td>invoice id.</td>
 </tr>
 <tr>
 <td>invoiceAddress</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>Crypto address for deposit.</td>
+<td>crypto address for deposit.</td>
 </tr>
 <tr>
 <td>payAmount</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>No</td>
-<td></td>
+<td>amount of money to pay</td>
 </tr>
 <tr>
 <td>state</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>Represents status of the invoice.</td>
+<td>represents status of the invoice. [ PENDING_PAYMENT, PAID, COMPLETED, PENDING_INTERVENTION, PAUSED, CANCEL, ARCHIVED ]</td>
 </tr>
 <tr>
 <td>totalDebitAmount</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>The total amount received on the invoice wallet.</td>
+<td>the total amount received on the invoice wallet.</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>Yes</td>
+<td>type of invoice. [ SINGLE, UNLIMITED ]</td>
 </tr>
 <tr>
 <td>uuid</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>The uuid of the invoice</td>
+<td>the uuid of the invoice</td>
 </tr>
 </tbody></table>
 <h2 id='new-invoice-button'>New Invoice (Button)</h2>
@@ -2281,55 +2487,64 @@
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-    curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.local/api/v1/public/invoice/template/create"</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-    <span class="nt">--data-raw</span> <span class="s2">"{
-      </span><span class="se">\"</span><span class="s2">nonce</span><span class="se">\"</span><span class="s2">: 0,
-      </span><span class="se">\"</span><span class="s2">request</span><span class="se">\"</span><span class="s2">: {
-        </span><span class="se">\"</span><span class="s2">templateId</span><span class="se">\"</span><span class="s2">: 0
-      }
-    }"</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/template/create'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+  "nonce": 1,
+  "request": {
+    "templateId": 1
+  }
+}'</span>
 
 </code></pre></div>
 <blockquote>
 <p>Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"amountInInvoiceWallet"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"cartItems"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"amountInInvoiceWallet"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"cartItems"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"product"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-      </span><span class="p">],</span><span class="w">
-      </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-30T05:28:52.147Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"expiration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-30T05:28:52.147Z"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"fiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"invoiceAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"payAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PENDING_PAYMENT"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"totalDebitAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"product"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
     </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-02T08:02:42.211Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"expiration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-02T08:02:42.211Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"fiatAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fiatCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fiatInInvoiceWallet"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"invoiceAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"lastFiatUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-02T08:02:42.211Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"payAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MEM_POOL_FOUND"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"totalDebitAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>This endpoint creates a new invoice.</p>
+<p>This endpoint creates a new invoice for the button.</p>
 <h5 id='http-request-6'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.local/api/v1/public/invoice/template/create</code></p>
+<p><code>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/template/create</code></p>
 <h5 id='header-6'>Header</h5>
 <table><thead>
 <tr>
@@ -2343,7 +2558,7 @@
 <td>Key</td>
 <td>STRING</td>
 <td>Yes</td>
-<td>&lt; your_api_key &gt;</td>
+<td>&lt;your_api_key&gt;</td>
 </tr>
 <tr>
 <td>Sign</td>
@@ -2361,209 +2576,239 @@
 <h5 id='request-body-6'>Request Body</h5>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>nonce</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Nonce used in construction of Sign header.</td>
+<td>nonce used in construction of sign header.</td>
 </tr>
 <tr>
 <td>request</td>
-<td>ARRAY OR OBJECT</td>
-<td>No</td>
-<td>This object contains request details.</td>
+<td>object</td>
+<td>Yes</td>
+<td>this object contains request details.</td>
 </tr>
 <tr>
 <td>request.templateId</td>
-<td></td>
+<td>number</td>
 <td>Yes</td>
-<td>ID of the button that creates the invoice.</td>
+<td>id of the button that creates the invoice.</td>
 </tr>
 </tbody></table>
 <h5 id='response-body-6'>Response Body</h5>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>amount</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>No</td>
-<td>Represents amount of the invoice.</td>
+<td>represents amount of the invoice.</td>
 </tr>
 <tr>
 <td>amountInInvoiceWallet</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Initially set to 0 when creating the invoice.It will be updated with the total amount paid to the invoice.</td>
+<td>initially set to 0 when creating the invoice.it will be updated with the total amount paid to the invoice.</td>
 </tr>
 <tr>
 <td>cartItems</td>
-<td>ARRAY OR OBJECT</td>
+<td>array</td>
 <td>Yes</td>
-<td>List of line items.</td>
+<td>list of line items.</td>
 </tr>
 <tr>
 <td>cartItems.currency</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>This is the currency associated with the price field.</td>
+<td>this is the currency associated with the price field. [ BTC, ETH, BNB, USDT, BUSD, USD, EUR, RUB, UAH, KZT ]</td>
 </tr>
 <tr>
 <td>cartItems.price</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Price of this unit.</td>
+<td>price of this unit.</td>
 </tr>
 <tr>
 <td>cartItems.product</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>Name of this unit.</td>
+<td>name of this unit.</td>
 </tr>
 <tr>
 <td>cartItems.quantity</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Line item number of units.</td>
+<td>line item number of units.</td>
 </tr>
 <tr>
 <td>createdDate</td>
-<td>DATETIME</td>
+<td>string</td>
 <td>Yes</td>
-<td>Time of invoice creation.</td>
+<td>time of invoice creation.</td>
 </tr>
 <tr>
 <td>currency</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>Represents the currency of the invoice.</td>
+<td>represents the currency of the invoice. [ BTC, ETH, BNB, USDT, BUSD ]</td>
 </tr>
 <tr>
 <td>description</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>Short invoice description.</td>
+<td>short invoice description.</td>
 </tr>
 <tr>
 <td>expiration</td>
-<td>DATETIME</td>
+<td>string</td>
 <td>No</td>
-<td>Represents server timestamp of invoice expiration moment.</td>
+<td>represents server timestamp of invoice expiration moment.</td>
 </tr>
 <tr>
 <td>fee</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>No</td>
-<td>This is referenced as &quot;Network Cost&quot; on an invoice.</td>
+<td>this is referenced as &quot;network cost&quot; on an invoice.</td>
 </tr>
 <tr>
 <td>fiat</td>
-<td>ARRAY OR OBJECT</td>
+<td>object</td>
 <td>Yes</td>
-<td>The total amount of the invoice in different fiat currencies.</td>
+<td>the total amount of the invoice in different fiat currencies.</td>
+</tr>
+<tr>
+<td>fiat.{currency}</td>
+<td>number</td>
+<td>Yes</td>
+<td>amount of the invoice in particular currency. Currency: [ USD, EUR, RUB, UAH, KZT ]</td>
+</tr>
+<tr>
+<td>fiatInInvoiceWallet</td>
+<td>object</td>
+<td>Yes</td>
+<td>the total amount of money in invoice wallet.</td>
+</tr>
+<tr>
+<td>fiatInInvoiceWallet.{currency}</td>
+<td>number</td>
+<td>Yes</td>
+<td>amount of money in invoice wallet in particular currency. Currency: [ USD, EUR, RUB, UAH, KZT ]</td>
 </tr>
 <tr>
 <td>id</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Invoice ID.</td>
+<td>invoice id.</td>
 </tr>
 <tr>
 <td>invoiceAddress</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>Crypto address for deposit.</td>
+<td>crypto address for deposit.</td>
 </tr>
 <tr>
 <td>payAmount</td>
-<td>NUMBER</td>
-<td></td>
-<td></td>
+<td>number</td>
+<td>No</td>
+<td>amount of money to pay</td>
 </tr>
 <tr>
 <td>state</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>Represents status of the invoice.</td>
+<td>represents status of the invoice. [ PENDING_PAYMENT, PAID, COMPLETED, PENDING_INTERVENTION, PAUSED, CANCEL, ARCHIVED ]</td>
 </tr>
 <tr>
-<td>total DebitAmount</td>
-<td>NUMBER</td>
+<td>totalDebitAmount</td>
+<td>number</td>
 <td>Yes</td>
-<td>The total amount received on the invoice wallet.</td>
+<td>the total amount received on the invoice wallet.</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>Yes</td>
+<td>type of invoice. [ SINGLE, UNLIMITED ]</td>
 </tr>
 <tr>
 <td>uuid</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>The uuid of the invoice</td>
+<td>the uuid of the invoice</td>
 </tr>
 </tbody></table>
-<h2 id='funds-withdrawal-from-unlimited-invoice'>Funds Withdrawal (from unlimited invoice)</h2>
+<h2 id='get-all-available-buttons'>Get All Available Buttons</h2>
 <blockquote>
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-    curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.local/api/v1/public/invoice/unlimited/withdrawal"</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-    <span class="nt">--data-raw</span> <span class="s2">"{
-      </span><span class="se">\"</span><span class="s2">nonce</span><span class="se">\"</span><span class="s2">: 0,
-      </span><span class="se">\"</span><span class="s2">request</span><span class="se">\"</span><span class="s2">: {
-        </span><span class="se">\"</span><span class="s2">id</span><span class="se">\"</span><span class="s2">: 0
-      }
-    }"</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/template/all'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+  "nonce": 1,
+  "request": {
+    "pageNumber": 1,
+    "size": 1,
+    "direction": "ASC",
+    "property": "AMOUNT"
+  }
+}'</span>
 
 </code></pre></div>
 <blockquote>
 <p>Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"amountInInvoiceWallet"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"cartItems"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"product"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-      </span><span class="p">],</span><span class="w">
-      </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-30T05:38:40.751Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-02T08:24:07.088Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"expiration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-30T05:38:40.751Z"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
       </span><span class="nl">"fiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
         </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
         </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
       </span><span class="p">},</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"invoiceAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"payAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PENDING_PAYMENT"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"totalDebitAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+      </span><span class="nl">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"payments"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"theme"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BLUE"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"totalEarnings"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"fiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">}</span><span class="w">
     </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>This endpoint allow withdraw funds to internal crypto address.</p>
+<p>This endpoint retrieves all available buttons</p>
 <h5 id='http-request-7'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.local/api/v1/public/invoice/unlimited/withdrawal</code></p>
+<p><code>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/template/all</code></p>
 <h5 id='header-7'>Header</h5>
 <table><thead>
 <tr>
@@ -2577,7 +2822,7 @@
 <td>Key</td>
 <td>STRING</td>
 <td>Yes</td>
-<td>&lt; your_api_key &gt;</td>
+<td>&lt;your_api_key&gt;</td>
 </tr>
 <tr>
 <td>Sign</td>
@@ -2595,32 +2840,209 @@
 <h5 id='request-body-7'>Request Body</h5>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>nonce</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Nonce used in construction of Sign header.</td>
+<td>nonce used in construction of sign header.</td>
 </tr>
 <tr>
 <td>request</td>
-<td>ARRAY OR OBJECT</td>
-<td>No</td>
-<td>This object contains request details.</td>
+<td>object</td>
+<td>Yes</td>
+<td>this object contains request details.</td>
 </tr>
 <tr>
-<td>request.id</td>
-<td>STRING</td>
+<td>request.pageNumber</td>
+<td>number</td>
 <td>Yes</td>
-<td>The id of the invoice you want to look up.</td>
+<td>specify the page of results to return.</td>
+</tr>
+<tr>
+<td>request.size</td>
+<td>number</td>
+<td>Yes</td>
+<td>a numeric value indicating the page size.</td>
+</tr>
+<tr>
+<td>request.direction</td>
+<td>string</td>
+<td>Yes</td>
+<td>the direction of this api call which can be asc or desc. [ ASC, DESC ]</td>
+</tr>
+<tr>
+<td>request.property</td>
+<td>array</td>
+<td>Yes</td>
+<td>the attribute by which sorting is performed. [ AMOUNT, CURRENCY, DATE ]</td>
 </tr>
 </tbody></table>
 <h5 id='response-body-7'>Response Body</h5>
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>page</td>
+<td>number</td>
+<td>Yes</td>
+<td>result page number.</td>
+</tr>
+<tr>
+<td>result</td>
+<td>array</td>
+<td>Yes</td>
+<td>this object contains response details.</td>
+</tr>
+<tr>
+<td>result.amount</td>
+<td>number</td>
+<td>Yes</td>
+<td>represents amount of the template invoice.</td>
+</tr>
+<tr>
+<td>result.createdDate</td>
+<td>string</td>
+<td>Yes</td>
+<td>time of template creation.</td>
+</tr>
+<tr>
+<td>result.currency</td>
+<td>string</td>
+<td>Yes</td>
+<td>represents the currency of the invoice.</td>
+</tr>
+<tr>
+<td>result.fiat</td>
+<td>object</td>
+<td>Yes</td>
+<td>the total amount of the template invoice in different fiat currencies.</td>
+</tr>
+<tr>
+<td>result.fiat.{currency}</td>
+<td>number</td>
+<td>Yes</td>
+<td>amount of the template invoice in particular currency. Currency: [ USD, EUR, RUB, UAH, KZT</td>
+</tr>
+<tr>
+<td>result.id</td>
+<td>number</td>
+<td>Yes</td>
+<td>template id.</td>
+</tr>
+<tr>
+<td>result.owner</td>
+<td>string</td>
+<td>Yes</td>
+<td>company id that owns template</td>
+</tr>
+<tr>
+<td>result.text</td>
+<td>string</td>
+<td>Yes</td>
+<td>the text placed on the button.</td>
+</tr>
+<tr>
+<td>result.theme</td>
+<td>string</td>
+<td>Yes</td>
+<td>button color theme. [ BLUE, PURPLE, RED, ORANGE, GREEN ]</td>
+</tr>
+<tr>
+<td>result.totalEarnings</td>
+<td>object</td>
+<td>Yes</td>
+<td>total income for this template invoice.</td>
+</tr>
+<tr>
+<td>result.totalEarnings.amount</td>
+<td>number</td>
+<td>Yes</td>
+<td>represents received total amount of the template invoice.</td>
+</tr>
+<tr>
+<td>result.totalEarnings.currency</td>
+<td>string</td>
+<td>Yes</td>
+<td>represents the currency of the invoice.</td>
+</tr>
+<tr>
+<td>result.totalEarnings.fiat</td>
+<td>object</td>
+<td>Yes</td>
+<td>the received total amount of the template invoice in different fiat currencies.</td>
+</tr>
+<tr>
+<td>result.totalEarnings.fiat.{currency}</td>
+<td>number</td>
+<td>Yes</td>
+<td>received amount of the template invoice in particular currency. Currency: [ USD, EUR, RUB, UAH, KZT ]</td>
+</tr>
+<tr>
+<td>size</td>
+<td>number</td>
+<td>Yes</td>
+<td>a numeric value indicating the page size.</td>
+</tr>
+<tr>
+<td>total</td>
+<td>number</td>
+<td>Yes</td>
+<td>the total number of resources matching the query.</td>
+</tr>
+</tbody></table>
+<h2 id='get-specific-button'>Get Specific Button</h2>
+<blockquote>
+<p>Request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/template/get'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+  "nonce": 1,
+  "request": {
+    "id": 1
+  }
+}'</span>
+
+</code></pre></div>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-02T10:07:21.881Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"hotWalletAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"text"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"theme"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BLUE"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>This endpoint retreives a specific button by id.</p>
+<h5 id='http-request-8'>HTTP Request</h5>
+<p><code>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/template/get</code></p>
+<h5 id='header-8'>Header</h5>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2630,118 +3052,394 @@
 </tr>
 </thead><tbody>
 <tr>
-<td>amount</td>
-<td>NUMBER</td>
-<td>No</td>
-<td>Represents amount of the invoice.</td>
-</tr>
-<tr>
-<td>amountInInvoiceWallet</td>
-<td>NUMBER</td>
-<td>Yes</td>
-<td>Initially set to 0 when creating the invoice.It will be updated with the total amount paid to the invoice.</td>
-</tr>
-<tr>
-<td>cartItems</td>
-<td>ARRAY OR OBJECT</td>
-<td>Yes</td>
-<td>List of line items.</td>
-</tr>
-<tr>
-<td>cartItems.currency</td>
-<td>ENUM</td>
-<td>Yes</td>
-<td>This is the currency associated with the price field.</td>
-</tr>
-<tr>
-<td>cartItems.price</td>
-<td>NUMBER</td>
-<td>Yes</td>
-<td>Price of this unit.</td>
-</tr>
-<tr>
-<td>cartItems.product</td>
+<td>Key</td>
 <td>STRING</td>
 <td>Yes</td>
-<td>Name of this unit.</td>
+<td>&lt;your_api_key&gt;</td>
 </tr>
 <tr>
-<td>cartItems.quantity</td>
-<td>NUMBER</td>
+<td>Sign</td>
+<td>STRING</td>
 <td>Yes</td>
-<td>Line item number of units.</td>
+<td>&lt;your_sign&gt;</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>must be set to application/json for requests to the Calypso API</td>
+</tr>
+</tbody></table>
+<h5 id='request-body-8'>Request Body</h5>
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>nonce</td>
+<td>number</td>
+<td>Yes</td>
+<td>nonce used in construction of sign header.</td>
+</tr>
+<tr>
+<td>request</td>
+<td>object</td>
+<td>Yes</td>
+<td>this object contains request details.</td>
+</tr>
+<tr>
+<td>request.templateId</td>
+<td>number</td>
+<td>Yes</td>
+<td>id of the button that creates the invoice.</td>
+</tr>
+</tbody></table>
+<h5 id='response-body-8'>Response Body</h5>
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>amount</td>
+<td>number</td>
+<td>Yes</td>
+<td>represents amount of the template invoice.</td>
 </tr>
 <tr>
 <td>createdDate</td>
-<td>DATETIME</td>
+<td>string</td>
 <td>Yes</td>
-<td>Time of invoice creation.</td>
+<td>time of template creation.</td>
 </tr>
 <tr>
 <td>currency</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>Represents the currency of the invoice.</td>
-</tr>
-<tr>
-<td>description</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>Short invoice description.</td>
-</tr>
-<tr>
-<td>expiration</td>
-<td>DATETIME</td>
-<td>No</td>
-<td>Represents server timestamp of invoice expiration moment.</td>
-</tr>
-<tr>
-<td>fee</td>
-<td>NUMBER</td>
-<td>No</td>
-<td>This is referenced as &quot;Network Cost&quot; on an invoice.</td>
+<td>represents the currency of the invoice.</td>
 </tr>
 <tr>
 <td>fiat</td>
-<td>ARRAY OR OBJECT</td>
+<td>object</td>
 <td>Yes</td>
-<td>The total amount of the invoice in different fiat currencies.</td>
+<td>the total amount of the template invoice in different fiat currencies.</td>
 </tr>
 <tr>
-<td>id</td>
-<td>NUMBER</td>
+<td>fiat.{currency}</td>
+<td>number</td>
 <td>Yes</td>
-<td>Invoice ID.</td>
+<td>amount of the template invoice in particular currency. Currency: [ USD, EUR, RUB, UAH, KZT ]</td>
 </tr>
 <tr>
-<td>invoiceAddress</td>
-<td>STRING</td>
+<td>hotWalletAddress</td>
+<td>string</td>
 <td>Yes</td>
-<td>Crypto address for deposit.</td>
-</tr>
-<tr>
-<td>payAmount</td>
-<td>NUMBER</td>
-<td>No</td>
 <td></td>
 </tr>
 <tr>
-<td>state</td>
-<td>ENUM</td>
+<td>id</td>
+<td>number</td>
 <td>Yes</td>
-<td>Represents status of the invoice.</td>
+<td>template id.</td>
 </tr>
 <tr>
-<td>total DebitAmount</td>
-<td>NUMBER</td>
+<td>owner</td>
+<td>string</td>
 <td>Yes</td>
-<td>The total amount received on the invoice wallet.</td>
+<td>company id that owns template</td>
+</tr>
+<tr>
+<td>text</td>
+<td>string</td>
+<td>Yes</td>
+<td>the text placed on the button.</td>
+</tr>
+<tr>
+<td>theme</td>
+<td>string</td>
+<td>Yes</td>
+<td>button color theme. [ BLUE, PURPLE, RED, ORANGE, GREEN ]</td>
+</tr>
+</tbody></table>
+<h2 id='funds-withdrawal-from-unlimited-invoice'>Funds Withdrawal (from unlimited invoice)</h2>
+<blockquote>
+<p>Request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/unlimited/withdrawal'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+  "nonce": 1,
+  "request": {
+    "hotWalletAddress": "string",
+    "id": 1
+  }
+}'</span>
+
+</code></pre></div>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"amountInInvoiceWallet"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"cartItems"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"product"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-02T10:14:18.331Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"expiration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-02T10:14:18.331Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"fiatAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fiatCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fiatInInvoiceWallet"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"invoiceAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"lastFiatUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-02T10:14:18.331Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"payAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MEM_POOL_FOUND"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"totalDebitAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"uuid"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>This endpoint allow withdraw funds to internal crypto address.</p>
+<h5 id='http-request-9'>HTTP Request</h5>
+<p><code>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/unlimited/withdrawal</code></p>
+<h5 id='header-9'>Header</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Key</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>&lt;your_api_key&gt;</td>
+</tr>
+<tr>
+<td>Sign</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>&lt;your_sign&gt;</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>must be set to application/json for requests to the Calypso API</td>
+</tr>
+</tbody></table>
+<h5 id='request-body-9'>Request Body</h5>
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>nonce</td>
+<td>number</td>
+<td>Yes</td>
+<td>nonce used in construction of sign header.</td>
+</tr>
+<tr>
+<td>request</td>
+<td>object</td>
+<td>Yes</td>
+<td>this object contains request details.</td>
+</tr>
+<tr>
+<td>request.hotWalletAddress</td>
+<td>string</td>
+<td>Yes</td>
+<td>the wallet address where the funds will be transferred to</td>
+</tr>
+<tr>
+<td>request.id</td>
+<td>string</td>
+<td>Yes</td>
+<td>the id of the invoice you want to look up.</td>
+</tr>
+</tbody></table>
+<h5 id='response-body-9'>Response Body</h5>
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>amount</td>
+<td>number</td>
+<td>No</td>
+<td>represents amount of the invoice.</td>
+</tr>
+<tr>
+<td>amountInInvoiceWallet</td>
+<td>number</td>
+<td>Yes</td>
+<td>initially set to 0 when creating the invoice.it will be updated with the total amount paid to the invoice.</td>
+</tr>
+<tr>
+<td>cartItems</td>
+<td>array</td>
+<td>Yes</td>
+<td>list of line items.</td>
+</tr>
+<tr>
+<td>cartItems.currency</td>
+<td>string</td>
+<td>Yes</td>
+<td>this is the currency associated with the price field. [ BTC, ETH, BNB, USDT, BUSD, USD, EUR, RUB, UAH, KZT ]</td>
+</tr>
+<tr>
+<td>cartItems.price</td>
+<td>number</td>
+<td>Yes</td>
+<td>price of this unit.</td>
+</tr>
+<tr>
+<td>cartItems.product</td>
+<td>string</td>
+<td>Yes</td>
+<td>name of this unit.</td>
+</tr>
+<tr>
+<td>cartItems.quantity</td>
+<td>number</td>
+<td>Yes</td>
+<td>line item number of units.</td>
+</tr>
+<tr>
+<td>createdDate</td>
+<td>string</td>
+<td>Yes</td>
+<td>time of invoice creation.</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>string</td>
+<td>Yes</td>
+<td>represents the currency of the invoice. [ BTC, ETH, BNB, USDT, BUSD ]</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string</td>
+<td>Yes</td>
+<td>short invoice description.</td>
+</tr>
+<tr>
+<td>expiration</td>
+<td>string</td>
+<td>No</td>
+<td>represents server timestamp of invoice expiration moment.</td>
+</tr>
+<tr>
+<td>fee</td>
+<td>number</td>
+<td>No</td>
+<td>this is referenced as &quot;network cost&quot; on an invoice.</td>
+</tr>
+<tr>
+<td>fiat</td>
+<td>object</td>
+<td>Yes</td>
+<td>the total amount of the invoice in different fiat currencies.</td>
+</tr>
+<tr>
+<td>fiat.{currency}</td>
+<td>number</td>
+<td>Yes</td>
+<td>amount of the invoice in particular currency. Currency: [ USD, EUR, RUB, UAH, KZT ]</td>
+</tr>
+<tr>
+<td>fiatInInvoiceWallet</td>
+<td>object</td>
+<td>Yes</td>
+<td>the total amount of money in invoice wallet.</td>
+</tr>
+<tr>
+<td>fiatInInvoiceWallet.{currency}</td>
+<td>number</td>
+<td>Yes</td>
+<td>amount of money in invoice wallet in particular currency. Currency: [ USD, EUR, RUB, UAH, KZT ]</td>
+</tr>
+<tr>
+<td>id</td>
+<td>number</td>
+<td>Yes</td>
+<td>invoice id.</td>
+</tr>
+<tr>
+<td>invoiceAddress</td>
+<td>string</td>
+<td>Yes</td>
+<td>crypto address for deposit.</td>
+</tr>
+<tr>
+<td>payAmount</td>
+<td>number</td>
+<td>No</td>
+<td>amount of money to pay</td>
+</tr>
+<tr>
+<td>state</td>
+<td>string</td>
+<td>Yes</td>
+<td>represents status of the invoice. [ PENDING_PAYMENT, PAID, COMPLETED, PENDING_INTERVENTION, PAUSED, CANCEL, ARCHIVED ]</td>
+</tr>
+<tr>
+<td>totalDebitAmount</td>
+<td>number</td>
+<td>Yes</td>
+<td>the total amount received on the invoice wallet.</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>Yes</td>
+<td>type of invoice. [ SINGLE, UNLIMITED ]</td>
 </tr>
 <tr>
 <td>uuid</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>The uuid of the invoice</td>
+<td>the uuid of the invoice</td>
 </tr>
 </tbody></table>
 <h1 id='payout-api'>Payout API</h1>
@@ -2760,12 +3458,8 @@
 <td>&#8226; A deal is created via UI and confirmed by other process participants. <br /> &#8226; A deal created via API is automatically created with this status.</td>
 </tr>
 <tr>
-<td>WITHDRAWAL_PENDING</td>
-<td>Transaction for a deal is created and is awaiting to be sent to the network.</td>
-</tr>
-<tr>
-<td>WITHDRAWAL_IN_PROGRESS</td>
-<td>Transaction for a deal is sent to the network to be sent to a block and is awaiting confirmation from nodes.</td>
+<td>IN_PROGRESS</td>
+<td>&#8226; Transaction for a deal is created and is awaiting to be sent to the network. <br /> &#8226;Transaction for a deal is sent to the network to be sent to a block and is awaiting confirmation from nodes.</td>
 </tr>
 <tr>
 <td>COMPLETED</td>
@@ -2774,6 +3468,10 @@
 <tr>
 <td>FAILED</td>
 <td>An error occurred when sending funds. There can be many reasonsof the error. You may follow these remediation steps: <br /> 1. Wait a while and create a new similar deal. <br /> 2. Contact our technical support.</td>
+</tr>
+<tr>
+<td>CANCELED</td>
+<td>A deal has been canceled by merchant.</td>
 </tr>
 </tbody></table>
 <h2 id='get-assets-and-wallet-addresses'>Get Assets And Wallet Addresses</h2>
@@ -2831,7 +3529,7 @@
 <td>Key</td>
 <td>STRING</td>
 <td>Yes</td>
-<td>&lt; your_api_key &gt;</td>
+<td>&lt;your_api_key&gt;</td>
 </tr>
 <tr>
 <td>Sign</td>
@@ -2966,7 +3664,7 @@
 <td>Key</td>
 <td>STRING</td>
 <td>Yes</td>
-<td>&lt; your_api_key &gt;</td>
+<td>&lt;your_api_key&gt;</td>
 </tr>
 <tr>
 <td>Sign</td>
@@ -3174,7 +3872,7 @@
 <td>Key</td>
 <td>STRING</td>
 <td>Yes</td>
-<td>&lt; your_api_key &gt;</td>
+<td>&lt;your_api_key&gt;</td>
 </tr>
 <tr>
 <td>Sign</td>
@@ -3413,7 +4111,7 @@
 <td>Key</td>
 <td>STRING</td>
 <td>Yes</td>
-<td>&lt; your_api_key &gt;</td>
+<td>&lt;your_api_key&gt;</td>
 </tr>
 <tr>
 <td>Sign</td>
@@ -3853,7 +4551,7 @@
 <td>Key</td>
 <td>STRING</td>
 <td>Yes</td>
-<td>&lt; your_api_key &gt;</td>
+<td>&lt;your_api_key&gt;</td>
 </tr>
 <tr>
 <td>Sign</td>
@@ -4099,7 +4797,7 @@
 <td>Key</td>
 <td>STRING</td>
 <td>Yes</td>
-<td>&lt; your_api_key &gt;</td>
+<td>&lt;your_api_key&gt;</td>
 </tr>
 <tr>
 <td>Sign</td>
@@ -4361,7 +5059,7 @@
 <td>Key</td>
 <td>STRING</td>
 <td>Yes</td>
-<td>&lt; your_api_key &gt;</td>
+<td>&lt;your_api_key&gt;</td>
 </tr>
 <tr>
 <td>Sign</td>
@@ -4686,7 +5384,7 @@
 <td>Key</td>
 <td>STRING</td>
 <td>Yes</td>
-<td>&lt; your_api_key &gt;</td>
+<td>&lt;your_api_key&gt;</td>
 </tr>
 <tr>
 <td>Sign</td>
@@ -4966,7 +5664,7 @@
 <td>Key</td>
 <td>STRING</td>
 <td>Yes</td>
-<td>&lt; your_api_key &gt;</td>
+<td>&lt;your_api_key&gt;</td>
 </tr>
 <tr>
 <td>Sign</td>
