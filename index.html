@@ -388,6 +388,9 @@
                     <a href="#get-specific-deal" class="toc-h2 toc-link" data-title="Get Specific Deal">Get Specific Deal</a>
                   </li>
                   <li>
+                    <a href="#get-all-deals" class="toc-h2 toc-link" data-title="Get All Deals">Get All Deals</a>
+                  </li>
+                  <li>
                     <a href="#new-mass-deal" class="toc-h2 toc-link" data-title="New Mass Deal">New Mass Deal</a>
                   </li>
                   <li>
@@ -397,7 +400,7 @@
                     <a href="#get-specific-mass-deal" class="toc-h2 toc-link" data-title="Get Specific Mass Deal">Get Specific Mass Deal</a>
                   </li>
                   <li>
-                    <a href="#get-specific-transactions-from-a-mass-deal" class="toc-h2 toc-link" data-title="Get Specific Transactions From a Mass Deal">Get Specific Transactions From a Mass Deal</a>
+                    <a href="#get-transactions-from-a-specific-mass-deal" class="toc-h2 toc-link" data-title="Get Transactions From a Specific Mass Deal">Get Transactions From a Specific Mass Deal</a>
                   </li>
                   <li>
                     <a href="#get-specific-transaction-from-a-mass-deal" class="toc-h2 toc-link" data-title="Get Specific Transaction From a Mass Deal">Get Specific Transaction From a Mass Deal</a>
@@ -490,7 +493,7 @@
 <p>To make a payment from the Calypso payment form, there are the following steps to be performed:</p>
 
 <ul>
-<li>Send API request to create an invoice (<strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/public/invoice/create</strong>)</li>
+<li>Send API request to create an invoice (<strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/create</strong>)</li>
 <li>Redirect a browser of a user to the link of the following format: <strong>http://ui.calypso.finance/invoices/</strong></li>
 </ul>
 
@@ -584,7 +587,7 @@
 <p>Calypso API enables you with creating your own Payment links</p>
 <h5 id='to-use-calypso-payment-link'><strong>To use Calypso Payment Link:</strong></h5>
 <ul>
-<li>Send API request to create an invoice (<strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/public/invoice/create</strong>)</li>
+<li>Send API request to create an invoice (<strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/create</strong>)</li>
 <li>Copy generated invoice ID from the response</li>
 <li>Redirect a browser of a user to the link of the following format: <strong>http://ui.calypso.finance/invoices/</strong></li>
 </ul>
@@ -600,9 +603,9 @@
 <p><img src="images/create_invoice-9d73bf49.png" width="95%" height="90%" style="margin: 5%"/></p>
 <h5 id='to-create-your-own-payment-links-using-calypso'><strong>To create your own payment links using Calypso:</strong></h5>
 <ul>
-<li>Send API request to create an invoice (<strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/public/invoice/create</strong>)</li>
+<li>Send API request to create an invoice (<strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/create</strong>)</li>
 <li>Copy generated invoice ID from the response</li>
-<li>Send API request <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/public/invoice/get</strong> and copy the data required for a user to complete this invoice payment</li>
+<li>Send API request <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice</strong> and copy the data required for a user to complete this invoice payment</li>
 <li>Add copied data to a payment page and share a page link with a user</li>
 </ul>
 
@@ -782,21 +785,21 @@
 <li>View statistics</li>
 </ul>
 <h5 id='working-with-payout-wallets-via-api'><strong>Working with payout wallets via API:</strong></h5>
-<p>Data on wallets and available assets in them can be received by using the method <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/public/payout/assets</strong>;</p>
+<p>Data on wallets and available assets in them can be received by using the method <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/payout/asset/all</strong>;</p>
 <h5 id='example'><strong>Example:</strong></h5>
 <p>To get a payout wallet address to deposit funds:</p>
 
 <ol>
-<li>Send API request <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/public/payout/assets</strong></li>
+<li>Send API request <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/payout/asset/all</strong></li>
 <li>In the response, find the link for payout in required currency by navigating through the “<strong>currency</strong>” fields in the “<strong>assets</strong>” array</li>
 <li>Copy a wallet address for required currency from the field “<strong>address</strong>” and transfer funds to this address</li>
 </ol>
 <h5 id='creating-payout-deal-via-api'><strong>Creating payout deal via API</strong></h5>
 <ol>
-<li>Check wallet balance and ensure enough funds for payouts are available by using the method <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/public/payout/assets</strong>;</li>
-<li>Before creating a deal, get a network commission coefficient by using the method <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/public/payout/fee</strong>. The received value must be passed in the parameter <strong>networkFeeRatio</strong> of the deal creation method.</li>
-<li>Create the deal by using the method <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/public/payout/deals/create</strong>;</li>
-<li>Get the data on the deal and its status by using the method <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/public/payout/deals/find</strong>;</li>
+<li>Check wallet balance and ensure enough funds for payouts are available by using the method <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/payout/asset/all</strong>;</li>
+<li>Before creating a deal, get a network commission coefficient by using the method <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/payout/fee</strong>. The received value must be passed in the parameter <strong>networkFeeRatio</strong> of the deal creation method.</li>
+<li>Create the deal by using the method <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/payout/create</strong>;</li>
+<li>Get the data on the deal and its status by using the method <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/payout</strong>;</li>
 </ol>
 <h5 id='scheme-of-information-process-interaction'><strong>Scheme of information process interaction</strong></h5>
 <p>Below is an example of creating a payout deal from a client’s site or application.</p>
@@ -929,16 +932,16 @@
     <span class="p">}</span>
 
     <span class="nx">request</span><span class="p">({</span>
-      <span class="na">url</span><span class="p">:</span> <span class="s2">`http://public-gateway.stage.k8s.deusops.com/api/v1/public/invoice/get/pagination`</span><span class="p">,</span>
-      <span class="na">method</span><span class="p">:</span> <span class="dl">'</span><span class="s1">POST</span><span class="dl">'</span><span class="p">,</span>
-      <span class="na">headers</span><span class="p">:</span> <span class="nx">headers</span><span class="p">,</span>
-      <span class="na">json</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-      <span class="na">body</span><span class="p">:</span> <span class="nx">body</span>
-    <span class="p">},</span> <span class="p">(</span><span class="nx">error</span><span class="p">,</span> <span class="nx">response</span><span class="p">,</span> <span class="nx">body</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">statusCode:</span><span class="dl">'</span><span class="p">,</span> <span class="nx">response</span> <span class="o">&amp;&amp;</span> <span class="nx">response</span><span class="p">.</span><span class="nx">statusCode</span><span class="p">)</span>
-      <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">body:</span><span class="dl">'</span><span class="p">,</span> <span class="nx">body</span><span class="p">)</span>
-    <span class="p">});</span>
-</code></pre></div><h5 id='create-api-key'>Create API key</h5>
+      <span class="na">url</span><span class="p">:</span> <span class="s2">`http://public-gateway.stage.k8s.deusops.com/api/v1/public/invoice/all,
+      method: 'POST',
+      headers: headers,
+      json: true,
+      body: body
+    }, (error, response, body) =&gt; {
+      console.log('statusCode:', response &amp;&amp; response.statusCode)
+      console.log('body:', body)
+    });
+</span></code></pre></div><h5 id='create-api-key'>Create API key</h5>
 <p>Calypso uses API keys to allow access to the API. You can contact Technical Support to generate a new pair of API keys for you (public and secret keys).</p>
 <h5 id='all-requests-must-contain-the-following-headers'>All requests must contain the following headers:</h5>
 <table><thead>
@@ -1015,12 +1018,12 @@
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/get/pagination'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/all'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
 <span class="nt">--data-raw</span> <span class="s1">'{
-  "nonce": 1,
+  "nonce": 0,
   "request": {
     "stateNames": [
       "PENDING_PAYMENT"
@@ -1028,8 +1031,8 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
     "typeNames": [
       "SINGLE", "UNLIMITED"
     ],
-    "pageNumber": 1,
-    "size": 10,
+    "pageNumber": 0,
+    "size": 0,
     "direction": "ASC",
     "property": "DATE"
   }
@@ -1088,7 +1091,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span></code></pre></div>
 <p>This endpoint retrieves all invoices.</p>
 <h5 id='http-request'>HTTP Request</h5>
-<p><code>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/get/pagination</code></p>
+<p><code>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/all</code></p>
 <h5 id='header'>Header</h5>
 <table><thead>
 <tr>
@@ -1328,14 +1331,14 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/get'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
 <span class="nt">--data-raw</span> <span class="s1">'{
-  "nonce": 1,
+  "nonce": 0,
   "request": {
-    "id": 1
+    "id": 0
   }
 }'</span>
 
@@ -1385,7 +1388,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span></code></pre></div>
 <p>This endpoint retrieves a specific invoice.</p>
 <h5 id='http-request-2'>HTTP Request</h5>
-<p><code>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/get</code></p>
+<p><code>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice</code></p>
 <h5 id='header-2'>Header</h5>
 <table><thead>
 <tr>
@@ -1600,9 +1603,9 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
 <span class="nt">--data-raw</span> <span class="s1">'{
-  "nonce": 1,
+  "nonce": 0,
   "request": {
-    "id": 1
+    "id": 0
   }
 }'</span>
 
@@ -1867,9 +1870,9 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
 <span class="nt">--data-raw</span> <span class="s1">'{
-  "nonce": 1,
+  "nonce": 0,
   "request": {
-    "id": 1
+    "id": 0
   }
 }'</span>
 
@@ -2140,22 +2143,22 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
 <span class="nt">--data-raw</span> <span class="s1">'{
-  "nonce": 1638375752248,
+  "nonce": 0,
   "request": {
-    "amount": 0.001,
+    "amount": 0,
     "expiration": null,
     "currency": "BTC",
-    "description": "testApi",
+    "description": "string",
     "type": "SINGLE",
     "cartItems": [
       {
         "currency": "BTC",
-        "price": 1,
-        "product": "test",
-        "quantity": 1
+        "price": 0,
+        "product": "string",
+        "quantity": 0
       }
     ],
-    "hotWalletAddress": "mx4ve29rdeioQeaocJsxhBbgL6AnxKZAJh"
+    "hotWalletAddress": "string"
   }
 }'</span>
 
@@ -2492,9 +2495,9 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
 <span class="nt">--data-raw</span> <span class="s1">'{
-  "nonce": 1,
+  "nonce": 0,
   "request": {
-    "templateId": 1
+    "templateId": 0
   }
 }'</span>
 
@@ -2759,10 +2762,10 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
 <span class="nt">--data-raw</span> <span class="s1">'{
-  "nonce": 1,
+  "nonce": 0,
   "request": {
-    "pageNumber": 1,
-    "size": 1,
+    "pageNumber": 0,
+    "size": 0,
     "direction": "ASC",
     "property": "AMOUNT"
   }
@@ -3006,14 +3009,14 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/template/get'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/template'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
 <span class="nt">--data-raw</span> <span class="s1">'{
-  "nonce": 1,
+  "nonce": 0,
   "request": {
-    "id": 1
+    "id": 0
   }
 }'</span>
 
@@ -3041,7 +3044,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span></code></pre></div>
 <p>This endpoint retreives a specific button by id.</p>
 <h5 id='http-request-8'>HTTP Request</h5>
-<p><code>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/template/get</code></p>
+<p><code>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/template</code></p>
 <h5 id='header-8'>Header</h5>
 <table><thead>
 <tr>
@@ -3178,10 +3181,10 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
 <span class="nt">--data-raw</span> <span class="s1">'{
-  "nonce": 1,
+  "nonce": 0,
   "request": {
     "hotWalletAddress": "string",
-    "id": 1
+    "id": 0
   }
 }'</span>
 
@@ -3479,43 +3482,63 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-    curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.local/api/v1/public/payout/assets"</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-    <span class="nt">--data-raw</span> <span class="s2">"{
-      </span><span class="se">\"</span><span class="s2">nonce</span><span class="se">\"</span><span class="s2">: 0
-    }"</span>
+curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.local/api/v1/pub/payout/asset/all"</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s2">"{
+  "</span>nonce<span class="s2">": 0
+}"</span>
 
 </code></pre></div>
 <blockquote>
 <p>Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"assets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"assets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"fiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-          </span><span class="p">}</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-      </span><span class="p">],</span><span class="w">
-      </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"isToken"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"totalInFiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
         </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
         </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-      </span><span class="p">}</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"wallets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"amountInFiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
     </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"overallBalance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"totalInFiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"totalInPercentage"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
 <p>This endpoint retrieves all assets and wallet addresses.</p>
 <h5 id='http-request'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.local/api/v1/public/payout/assets</code></p>
+<p><code>POST http://public-gateway.calypso.local/api/v1/pub/payout/asset/all</code></p>
 <h5 id='header'>Header</h5>
 <table><thead>
 <tr>
@@ -3563,47 +3586,119 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <h5 id='response-body'>Response Body</h5>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>assets</td>
-<td>ARRAY OR OBJECT</td>
+<td>array</td>
 <td>Yes</td>
-<td>This object contains detailed information about assets.</td>
-</tr>
-<tr>
-<td>assets.address</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>Crypto address for deposit.</td>
-</tr>
-<tr>
-<td>assets.amount</td>
-<td>NUMBER</td>
-<td>Yes</td>
-<td>Current account available balance.</td>
+<td>this object contains detailed information about assets.</td>
 </tr>
 <tr>
 <td>assets.currency</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>This is the currency associated with the amount field.</td>
+<td>this is the currency associated with the amount field.</td>
 </tr>
 <tr>
-<td>assets.fiat</td>
-<td>ARRAY OR OBJECT</td>
+<td>assets.isToken</td>
+<td>boolean</td>
 <td>Yes</td>
-<td>Amount of the account in different fiat currencies.</td>
+<td>represents whether the wallet is used for token currency or not.</td>
 </tr>
 <tr>
-<td>total</td>
-<td>ARRAY OR OBJECT</td>
+<td>assets.total</td>
+<td>number</td>
 <td>Yes</td>
-<td>Sum of all account balances.</td>
+<td>total amount of funds in all wallets in crypto currency</td>
+</tr>
+<tr>
+<td>assets.totalInFiat</td>
+<td>object</td>
+<td>Yes</td>
+<td>total amount of funds in all wallets in fiat currency</td>
+</tr>
+<tr>
+<td>assets.totalInFiat.{currency}</td>
+<td>number</td>
+<td>Yes</td>
+<td>total amount of funds in all wallets in particular fiat currency</td>
+</tr>
+<tr>
+<td>assets.wallets</td>
+<td>array</td>
+<td>Yes</td>
+<td>array of wallet objects</td>
+</tr>
+<tr>
+<td>assets.wallets.address</td>
+<td>string</td>
+<td>Yes</td>
+<td>crypto address of wallet.</td>
+</tr>
+<tr>
+<td>assets.wallets.amount</td>
+<td>number</td>
+<td>Yes</td>
+<td>current wallet available balance.</td>
+</tr>
+<tr>
+<td>assets.wallets.amountInFiat</td>
+<td>object</td>
+<td>Yes</td>
+<td>amount of the account in different fiat currencies.</td>
+</tr>
+<tr>
+<td>assets.wallets.amountInFiat.{currency}</td>
+<td>number</td>
+<td>Yes</td>
+<td>this is the fiat currency associated with the amount field. [ BTC, ETH, BNB, USDT, BUSD, USD, EUR, RUB, UAH, KZT ]</td>
+</tr>
+<tr>
+<td>assets.wallets.currency</td>
+<td>string</td>
+<td>No</td>
+<td>this is the currency associated with the amount field of wallet.</td>
+</tr>
+<tr>
+<td>assets.wallets.name</td>
+<td>string</td>
+<td>Yes</td>
+<td>the wallet name.</td>
+</tr>
+<tr>
+<td>overallBalance</td>
+<td>object</td>
+<td>Yes</td>
+<td>object with information about the total balance</td>
+</tr>
+<tr>
+<td>overallBalance.totalInFiat</td>
+<td>object</td>
+<td>Yes</td>
+<td>the total balance in different fiat currencies.</td>
+</tr>
+<tr>
+<td>overallBalance.totalInFiat.{currency}</td>
+<td>number</td>
+<td>Yes</td>
+<td>the total balance in particular fiat currencies.</td>
+</tr>
+<tr>
+<td>overallBalance.totalInPercentage</td>
+<td>object</td>
+<td>Yes</td>
+<td>the total balance in percentage of crypto currencies.</td>
+</tr>
+<tr>
+<td>overallBalance.totalInPercentage.{currency}</td>
+<td>number</td>
+<td>Yes</td>
+<td>the total balance in percentage of particular crypto currency.</td>
 </tr>
 </tbody></table>
 <h2 id='new-deal'>New Deal</h2>
@@ -3611,46 +3706,46 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-    curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.local/api/v1/public/payout/deals/create"</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-    <span class="nt">--data-raw</span> <span class="s2">"{
-      </span><span class="se">\"</span><span class="s2">nonce</span><span class="se">\"</span><span class="s2">: 0,
-      </span><span class="se">\"</span><span class="s2">request</span><span class="se">\"</span><span class="s2">: {
-        </span><span class="se">\"</span><span class="s2">withdrawalAddress</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">string</span><span class="se">\"</span><span class="s2">,
-          </span><span class="se">\"</span><span class="s2">clientAddress</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">string</span><span class="se">\"</span><span class="s2">,
-          </span><span class="se">\"</span><span class="s2">amount</span><span class="se">\"</span><span class="s2">: 0,
-          </span><span class="se">\"</span><span class="s2">currency</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">BTC</span><span class="se">\"</span><span class="s2">,
-          </span><span class="se">\"</span><span class="s2">networkFeeRatio</span><span class="se">\"</span><span class="s2">: 0,
-          </span><span class="se">\"</span><span class="s2">comment</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">string</span><span class="se">\"</span><span class="s2">
-      }
-    }"</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/payout/create'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+  "nonce": 0,
+  "request": {
+    "withdrawalAddress": "string",
+    "clientAddress": "string",
+    "amount": 0,
+    "currency": "ETH",
+    "networkFeeRatio": 0,
+    "comment": "string"
+  }
+}'</span>
 
 </code></pre></div>
 <blockquote>
 <p>Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"clientAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-11-02T20:44:38.622Z"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"networkFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"networkFeeCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"networkFeePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"networkFeeRatio"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CONFIRMED"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"clientAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-02T14:58:01.631Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"networkFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"networkFeeCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"networkFeePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"networkFeeRatio"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PENDING_CONFIRMATION"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
 <p>This endpoint creates a new deal.</p>
 <h5 id='http-request-2'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.local/api/v1/public/payout/deals/create</code></p>
+<p><code>POST http://public-gateway.calypso.local/api/v1/pub/payout/create</code></p>
 <h5 id='header-2'>Header</h5>
 <table><thead>
 <tr>
@@ -3682,141 +3777,141 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <h5 id='request-body-2'>Request Body</h5>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>nonce</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Nonce used in construction of Sign header.</td>
+<td>nonce used in construction of sign header.</td>
 </tr>
 <tr>
 <td>request</td>
-<td>ARRAY OR OBJECT</td>
+<td>object</td>
 <td>Yes</td>
-<td>This object contains request details.</td>
+<td>this object contains request details.</td>
 </tr>
 <tr>
 <td>request.withdrawalAddress</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>Sender&#39;s cryptoaddress.</td>
+<td>sender&#39;s cryptoaddress.</td>
 </tr>
 <tr>
 <td>request.clientAddress</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>Recipient&#39;s crypto-address.</td>
+<td>recipient&#39;s crypto-address.</td>
 </tr>
 <tr>
 <td>request.amount</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Withdrawal amount.</td>
+<td>withdrawal amount.</td>
 </tr>
 <tr>
 <td>request.currency</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>This is the currency associated with the amount field.</td>
+<td>this is the currency associated with the amount field. [ BTC, ETH, BNB, USDT, BUSD, USD, EUR, RUB, UAH, KZT ]</td>
 </tr>
 <tr>
 <td>request.networkFeeRatio</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Selected network fee coefficient (see Get Expected Transaction Fee).</td>
+<td>selected network fee coefficient (see get expected transaction fee).</td>
 </tr>
 <tr>
 <td>request.comment</td>
-<td>STRING</td>
+<td>string</td>
 <td>No</td>
-<td>Comment for the deal.</td>
+<td>comment for the deal.</td>
 </tr>
 </tbody></table>
 <h5 id='response-body-2'>Response Body</h5>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>amount</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Withdrawal amount.</td>
+<td>withdrawal amount.</td>
 </tr>
 <tr>
 <td>clientAddress</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>Crypto address for deposit.</td>
+<td>crypto address for deposit.</td>
 </tr>
 <tr>
 <td>comment</td>
-<td>STRING</td>
+<td>string</td>
 <td>No</td>
-<td>Comment for the deal.</td>
+<td>comment for the deal.</td>
 </tr>
 <tr>
 <td>createdDate</td>
-<td>DATETIME</td>
+<td>string</td>
 <td>Yes</td>
-<td>Time of deal creation.</td>
+<td>time of deal creation.</td>
 </tr>
 <tr>
 <td>currency</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>This is the currency associated with the amount field.</td>
+<td>this is the currency associated with the amount field.</td>
 </tr>
 <tr>
 <td>hash</td>
-<td>STRING</td>
+<td>string</td>
 <td>No</td>
-<td>Transaction hash.</td>
+<td>transaction hash.</td>
 </tr>
 <tr>
 <td>id</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Deal ID</td>
+<td>deal id</td>
 </tr>
 <tr>
 <td>networkFee</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Is a cryptocurrency transaction fee that is charged to users when performing crypto transactions.</td>
+<td>is a cryptocurrency transaction fee that is charged to users when performing crypto transactions.</td>
 </tr>
 <tr>
 <td>networkFeeCurrency</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>This is the currency associated with the networkFee field.</td>
+<td>this is the currency associated with the networkfee field.</td>
 </tr>
 <tr>
 <td>networkFeePercentage</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Describes percentage that should be applied to the executed deal amount to calculate the commission amount.</td>
+<td>describes percentage that should be applied to the executed deal amount to calculate the commission amount.</td>
 </tr>
 <tr>
 <td>networkFeeRatio</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Selected network fee coefficient (see Get Expected Transaction Fee).</td>
+<td>selected network fee coefficient (see get expected transaction fee).</td>
 </tr>
 <tr>
 <td>state</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>Represents status of the deal.</td>
+<td>represents status of the deal. [ PENDING_CONFIRMATION, CONFIRMED, IN_PROGRESS, COMPLETED, FAILED, CANCELED ]</td>
 </tr>
 </tbody></table>
 <h2 id='get-specific-deal'>Get Specific Deal</h2>
@@ -3824,41 +3919,41 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-    curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.local/api/v1/public/payout/deals/find"</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-    <span class="nt">--data-raw</span> <span class="s2">"{
-      </span><span class="se">\"</span><span class="s2">nonce</span><span class="se">\"</span><span class="s2">: 0,
-      </span><span class="se">\"</span><span class="s2">request</span><span class="se">\"</span><span class="s2">: {
-        </span><span class="se">\"</span><span class="s2">id</span><span class="se">\"</span><span class="s2">: 0
-      }
-    }"</span>
+curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.local/api/v1/pub/payout"</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s2">"{
+  "</span>nonce<span class="s2">": 0,
+  "</span>request<span class="s2">": {
+    "</span><span class="nb">id</span><span class="s2">": 0
+  }
+}"</span>
 
 </code></pre></div>
 <blockquote>
 <p>Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"clientAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-29T19:58:01.372Z"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"networkFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"networkFeeCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"networkFeePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"networkFeeRatio"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PENDING_CONFIRMATION"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"clientAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-02T15:13:22.364Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"networkFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"networkFeeCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"networkFeePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"networkFeeRatio"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PENDING_CONFIRMATION"</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
 <p>This endpoint retrieves a specific deal.</p>
 <h5 id='http-request-3'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.local/api/v1/public/payout/deals/find</code></p>
+<p><code>POST http://public-gateway.calypso.local/api/v1/pub/payout</code></p>
 <h5 id='header-3'>Header</h5>
 <table><thead>
 <tr>
@@ -3904,7 +3999,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </tr>
 <tr>
 <td>request</td>
-<td></td>
+<td>OBJECT</td>
 <td>Yes</td>
 <td>This object contains request details.</td>
 </tr>
@@ -3918,186 +4013,136 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <h5 id='response-body-3'>Response Body</h5>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>amount</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Withdrawal amount.</td>
+<td>withdrawal amount.</td>
 </tr>
 <tr>
 <td>clientAddress</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>Crypto address for deposit.</td>
+<td>crypto address for deposit.</td>
 </tr>
 <tr>
 <td>comment</td>
-<td>STRING</td>
+<td>string</td>
 <td>No</td>
-<td>Comment for the deal.</td>
+<td>comment for the deal.</td>
 </tr>
 <tr>
 <td>createdDate</td>
-<td>DATETIME</td>
+<td>string</td>
 <td>Yes</td>
-<td>Time of deal creation.</td>
+<td>time of deal creation.</td>
 </tr>
 <tr>
 <td>currency</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>This is the currency associated with the amount field.</td>
+<td>this is the currency associated with the amount field.</td>
 </tr>
 <tr>
 <td>hash</td>
-<td>STRING</td>
+<td>string</td>
 <td>No</td>
-<td>Transaction hash.</td>
+<td>transaction hash.</td>
 </tr>
 <tr>
 <td>id</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Deal ID.</td>
+<td>deal id</td>
 </tr>
 <tr>
 <td>networkFee</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Is a cryptocurrency transaction fee that is charged to users when performing crypto transactions.</td>
+<td>is a cryptocurrency transaction fee that is charged to users when performing crypto transactions.</td>
 </tr>
 <tr>
 <td>networkFeeCurrency</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>This is the currency associated with the networkFee field.</td>
+<td>this is the currency associated with the networkfee field.</td>
 </tr>
 <tr>
 <td>networkFeePercentage</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Describes percentage that should be applied to the executed deal amount to calculate the commission amount.</td>
+<td>describes percentage that should be applied to the executed deal amount to calculate the commission amount.</td>
 </tr>
 <tr>
 <td>networkFeeRatio</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Selected network fee coefficient (see Get Expected Transaction Fee).</td>
+<td>selected network fee coefficient (see get expected transaction fee).</td>
 </tr>
 <tr>
 <td>state</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>Represents status of the deal.</td>
+<td>represents status of the deal. [ PENDING_CONFIRMATION, CONFIRMED, IN_PROGRESS, COMPLETED, FAILED, CANCELED ]</td>
 </tr>
 </tbody></table>
-<h2 id='new-mass-deal'>New Mass Deal</h2>
+<h2 id='get-all-deals'>Get All Deals</h2>
 <blockquote>
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-    curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.local/api/v1/public/payout/deals/mass/create"</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-    <span class="nt">--data-raw</span> <span class="s2">"{
-      </span><span class="se">\"</span><span class="s2">nonce</span><span class="se">\"</span><span class="s2">: 0,
-      </span><span class="se">\"</span><span class="s2">request</span><span class="se">\"</span><span class="s2">: {
-            </span><span class="se">\"</span><span class="s2">name</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">string</span><span class="se">\"</span><span class="s2">,
-          </span><span class="se">\"</span><span class="s2">comment</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">string</span><span class="se">\"</span><span class="s2">,
-          </span><span class="se">\"</span><span class="s2">dealWithdrawals</span><span class="se">\"</span><span class="s2">: [
-            {
-              </span><span class="se">\"</span><span class="s2">withdrawalAddress</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">string</span><span class="se">\"</span><span class="s2">,
-              </span><span class="se">\"</span><span class="s2">clientAddress</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">string</span><span class="se">\"</span><span class="s2">,
-              </span><span class="se">\"</span><span class="s2">amount</span><span class="se">\"</span><span class="s2">: 0,
-              </span><span class="se">\"</span><span class="s2">currency</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">BTC</span><span class="se">\"</span><span class="s2">,
-              </span><span class="se">\"</span><span class="s2">networkFeeRatio</span><span class="se">\"</span><span class="s2">: 0,
-              </span><span class="se">\"</span><span class="s2">comment</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">string</span><span class="se">\"</span><span class="s2">
-            }
-          ]
-      }
-    }"</span>
+curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.local/api/v1/pub/payout/all"</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s2">"{
+  "</span>nonce<span class="s2">": 0,
+  "</span>request<span class="s2">": {
+    "</span>stateNames<span class="s2">": [ 
+        "</span>PENDING_CONFIRMATION<span class="s2">" 
+      ],
+    "</span>size<span class="s2">": 0,
+    "</span>pageNumber<span class="s2">": 0 
+  }
+}"</span>
 
 </code></pre></div>
 <blockquote>
 <p>Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">  
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"clientAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"companyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-29T20:00:47.642Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-02T15:13:22.364Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"dealWithdrawals"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"amountInFiats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-          </span><span class="p">},</span><span class="w">
-          </span><span class="nl">"clientAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"companyName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-29T20:00:47.642Z"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"errorMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"lastAttemptsDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-29T20:00:47.642Z"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"modifiedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"modifiedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-29T20:00:47.642Z"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"networkFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"networkFeeCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"networkFeeInFiats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-          </span><span class="p">},</span><span class="w">
-          </span><span class="nl">"networkFeePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"networkFeeRatio"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"numberOfAttempts"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DRAFT"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"totalAmountInFiats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-          </span><span class="p">},</span><span class="w">
-          </span><span class="nl">"validationErrorsResolved"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"withdrawalErrors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-            </span><span class="p">{</span><span class="w">
-              </span><span class="nl">"errorMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"errorResolved"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-              </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SUCCESS"</span><span class="w">
-            </span><span class="p">}</span><span class="w">
-          </span><span class="p">],</span><span class="w">
-          </span><span class="nl">"withdrawalId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"networkFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
       </span><span class="nl">"networkFeeCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"networkFeePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
       </span><span class="nl">"networkFeeRatio"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CONFIRMED"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"totalNetworkFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"totalNetworkFeePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"totalWithdrawalAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PENDING_CONFIRMATION"</span><span class="w">
     </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">10</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>This endpoint creates a new mass deal.</p>
+<p>This endpoint retreives all deals.</p>
 <h5 id='http-request-4'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.local/api/v1/public/payout/deals/mass/create</code></p>
+<p><code>POST http://public-gateway.calypso.local/api/v1/public/payout/all</code></p>
 <h5 id='header-4'>Header</h5>
 <table><thead>
 <tr>
@@ -4129,415 +4174,250 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <h5 id='request-body-4'>Request Body</h5>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>nonce</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Nonce used in construction of Sign header.</td>
+<td>nonce used in construction of sign header.</td>
 </tr>
 <tr>
 <td>request</td>
-<td>ARRAY OR OBJECT</td>
+<td>object</td>
 <td>Yes</td>
-<td>This object contains request details.</td>
+<td>this object contains request details.</td>
 </tr>
 <tr>
-<td>request.name</td>
-<td>STRING</td>
+<td>request.stateNames</td>
+<td>string</td>
 <td>Yes</td>
-<td>Mass deal name.</td>
+<td>represents status of the deal. [ PENDING_CONFIRMATION, CONFIRMED, IN_PROGRESS, COMPLETED, FAILED, CANCELED ]</td>
 </tr>
 <tr>
-<td>request.comment</td>
-<td>STRING</td>
-<td></td>
-<td>Comment for the mass deal.</td>
+<td>request.pageNumber</td>
+<td>number</td>
+<td>Yes</td>
+<td>specify the page of results to return.</td>
 </tr>
 <tr>
-<td>request.dealWithdrawals</td>
-<td>ARRAY OR OBJECT</td>
+<td>request.size</td>
+<td>number</td>
 <td>Yes</td>
-<td>This object contains mass deal transactions.</td>
-</tr>
-<tr>
-<td>request.dealWithdrawals.withdrawalAddress</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>Sender&#39;s crypto-address.</td>
-</tr>
-<tr>
-<td>request.dealWithdrawals.clientAddress</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>Recipient&#39;s crypto-address.</td>
-</tr>
-<tr>
-<td>request.dealWithdrawals.amount</td>
-<td>NUMBER</td>
-<td>Yes</td>
-<td>Transaction amount.</td>
-</tr>
-<tr>
-<td>request.dealWithdrawals.currency</td>
-<td>ENUM</td>
-<td>Yes</td>
-<td>This is the currency associated with the amount field.</td>
-</tr>
-<tr>
-<td>request.dealWithdrawals.networkFeeRatio</td>
-<td>NUMBER</td>
-<td>Yes</td>
-<td>Selected network fee coefficient (see Get Expected Transaction Fee).</td>
-</tr>
-<tr>
-<td>request.dealWithdrawals.comment</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>Comment for the withdrawal transaction.</td>
+<td>a numeric value indicating the page size.</td>
 </tr>
 </tbody></table>
 <h5 id='response-body-4'>Response Body</h5>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>comment</td>
-<td>STRING</td>
+<td>result</td>
+<td>array</td>
 <td>Yes</td>
-<td>Comment for the mass deal.</td>
+<td>this object contains response details.</td>
 </tr>
 <tr>
-<td>companyId</td>
-<td>STRING</td>
+<td>result.amount</td>
+<td>number</td>
 <td>Yes</td>
-<td>Company ID.</td>
+<td>withdrawal amount.</td>
 </tr>
 <tr>
-<td>createdBy</td>
-<td>STRING</td>
+<td>result.clientAddress</td>
+<td>string</td>
 <td>Yes</td>
-<td>User who created this deal.</td>
+<td>crypto address for deposit.</td>
 </tr>
 <tr>
-<td>createdDate</td>
-<td>DATETIME</td>
-<td>Yes</td>
-<td>Time of deal creation.</td>
-</tr>
-<tr>
-<td>currency</td>
-<td>ENUM</td>
-<td>Yes</td>
-<td>Transaction currency.</td>
-</tr>
-<tr>
-<td>dealWithdrawals</td>
-<td>ARRAY OR OBJECT</td>
-<td>Yes</td>
-<td>This object contains mass deal transactions.</td>
-</tr>
-<tr>
-<td>dealWithdrawals.amount</td>
-<td>NUMBER</td>
-<td>Yes</td>
-<td>Transaction amount.</td>
-</tr>
-<tr>
-<td>dealWithdrawals.amountInFiats</td>
-<td>ARRAY OR OBJECT</td>
-<td>Yes</td>
-<td>Amount of the transaction in different fiat currencies.</td>
-</tr>
-<tr>
-<td>dealWithdrawals.clientAddress</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>Recipient&#39;s crypto-address.</td>
-</tr>
-<tr>
-<td>dealWithdrawals.comment</td>
-<td>STRING</td>
+<td>result.comment</td>
+<td>string</td>
 <td>No</td>
-<td>Comment for the transaction.</td>
+<td>comment for the deal.</td>
 </tr>
 <tr>
-<td>dealWithdrawals.companyName</td>
-<td>STRING</td>
+<td>result.createdDate</td>
+<td>string</td>
 <td>Yes</td>
-<td>Company of the user who created the deal.</td>
+<td>time of deal creation.</td>
 </tr>
 <tr>
-<td>dealWithdrawals.createdBy</td>
-<td>STRING</td>
+<td>result.currency</td>
+<td>string</td>
 <td>Yes</td>
-<td>User who created this deal.</td>
+<td>this is the currency associated with the amount field.</td>
 </tr>
 <tr>
-<td>dealWithdrawals.createdDate</td>
-<td>DATETIME</td>
-<td>Yes</td>
-<td>Time of deal creation.</td>
-</tr>
-<tr>
-<td>dealWithdrawals.currency</td>
-<td>ENUM</td>
-<td>Yes</td>
-<td>Transaction currency.</td>
-</tr>
-<tr>
-<td>dealWithdrawals.errorMessage</td>
-<td>STRING</td>
+<td>result.hash</td>
+<td>string</td>
 <td>No</td>
-<td>Represents human readable error reason of why request is not successful.</td>
+<td>transaction hash.</td>
 </tr>
 <tr>
-<td>dealWithdrawals.hash</td>
-<td>STRING</td>
-<td>No</td>
-<td>Transaction hash.</td>
-</tr>
-<tr>
-<td>dealWithdrawals.id</td>
-<td>NUMBER</td>
+<td>result.id</td>
+<td>number</td>
 <td>Yes</td>
-<td>Transaction ID.</td>
+<td>deal id</td>
 </tr>
 <tr>
-<td>dealWithdrawals.lastAttemptsDate</td>
-<td>DATETIME</td>
-<td></td>
-<td>Date of last attempt to send and complete the transaction.</td>
-</tr>
-<tr>
-<td>dealWithdrawals.modifiedBy</td>
-<td>STRING</td>
+<td>result.networkFee</td>
+<td>number</td>
 <td>Yes</td>
-<td>User who modified this deal.</td>
+<td>is a cryptocurrency transaction fee that is charged to users when performing crypto transactions.</td>
 </tr>
 <tr>
-<td>dealWithdrawals.modifiedDate</td>
-<td>DATETIME</td>
+<td>result.networkFeeCurrency</td>
+<td>string</td>
 <td>Yes</td>
-<td>Time of transaction modification.</td>
+<td>this is the currency associated with the networkfee field.</td>
 </tr>
 <tr>
-<td>dealWithdrawals.networkFee</td>
-<td>NUMBER</td>
+<td>result.networkFeePercentage</td>
+<td>number</td>
 <td>Yes</td>
-<td>Is a cryptocurrency transaction fee that is charged to users when performing crypto transactions.</td>
+<td>describes percentage that should be applied to the executed deal amount to calculate the commission amount.</td>
 </tr>
 <tr>
-<td>dealWithdrawals.networkFeeCurrency</td>
-<td>ENUM</td>
+<td>result.networkFeeRatio</td>
+<td>number</td>
 <td>Yes</td>
-<td>This is the currency associated with the networkFee field.</td>
+<td>selected network fee coefficient (see get expected transaction fee).</td>
 </tr>
 <tr>
-<td>dealWithdrawals.networkFeeInFiats</td>
-<td>ARRAY OR OBJECT</td>
+<td>result.state</td>
+<td>string</td>
 <td>Yes</td>
-<td>Transaction fee in different fiat currencies..</td>
+<td>represents status of the deal. [ PENDING_CONFIRMATION, CONFIRMED, IN_PROGRESS, COMPLETED, FAILED, CANCELED ]</td>
 </tr>
 <tr>
-<td>dealWithdrawals.networkFeePercentage</td>
-<td>NUMBER</td>
+<td>page</td>
+<td>number</td>
 <td>Yes</td>
-<td>Describes percentage that should be applied to the executed transaction amount to calculate the commission amount.</td>
+<td>result page number.</td>
 </tr>
 <tr>
-<td>dealWithdrawals.networkFeeRatio</td>
-<td>NUMBER</td>
+<td>size</td>
+<td>number</td>
 <td>Yes</td>
-<td>Selected network fee coefficient (see Get Expected Transaction Fee).</td>
+<td>a numeric value indicating the page size.</td>
 </tr>
 <tr>
-<td>dealWithdrawals.nonce</td>
-<td>NUMBER</td>
-<td>No</td>
-<td>Sequence number of the transaction.</td>
-</tr>
-<tr>
-<td>dealWithdrawals.numberOfAttempts</td>
-<td>NUMBER</td>
+<td>total</td>
+<td>number</td>
 <td>Yes</td>
-<td>The number of attempts to send and execute this transaction.</td>
-</tr>
-<tr>
-<td>dealWithdrawals.state</td>
-<td>ENUM</td>
-<td>Yes</td>
-<td>Represents status of the transaction.</td>
-</tr>
-<tr>
-<td>dealWithdrawals.totalAmountInFiats</td>
-<td>ARRAY OR OBJECT</td>
-<td>Yes</td>
-<td>Total amount of the transactions in different fiat currencies.</td>
-</tr>
-<tr>
-<td>dealWithdrawals.validationErrorsResolved</td>
-<td>BOOLEAN</td>
-<td>Yes</td>
-<td>Flag indicating that the error was detected and resolved during the verification phase.</td>
-</tr>
-<tr>
-<td>dealWithdrawals.withdrawalErrors</td>
-<td>ARRAY OR OBJECT</td>
-<td>Yes</td>
-<td>This object contains error details.</td>
-</tr>
-<tr>
-<td>dealWithdrawals.withdrawalErrors.errorMessage</td>
-<td>STRING</td>
-<td>No</td>
-<td>Represents human readable error reason of why request is not successful.</td>
-</tr>
-<tr>
-<td>dealWithdrawals.withdrawalErrors.errorResolved</td>
-<td>BOOLEAN</td>
-<td>Yes</td>
-<td>Flag indicating that the error has been resolved.</td>
-</tr>
-<tr>
-<td>dealWithdrawals.withdrawalErrors.id</td>
-<td>NUMBER</td>
-<td>Yes</td>
-<td>ID of the withdrawal error that occurred.</td>
-</tr>
-<tr>
-<td>dealWithdrawals.withdrawalErrors.status</td>
-<td>ENUM</td>
-<td>Yes</td>
-<td>Error status when withdrawing funds.</td>
-</tr>
-<tr>
-<td>dealWithdrawals.withdrawalId</td>
-<td>NUMBER</td>
-<td>No</td>
-<td>Transaction ID.</td>
-</tr>
-<tr>
-<td>id</td>
-<td>NUMBER</td>
-<td>Yes</td>
-<td>Mass Deal ID.</td>
-</tr>
-<tr>
-<td>name</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>Mass deal name.</td>
-</tr>
-<tr>
-<td>networkFeeCurrency</td>
-<td>ENUM</td>
-<td>Yes</td>
-<td>This is the currency associated with the networkFee field.</td>
-</tr>
-<tr>
-<td>networkFeeRatio</td>
-<td>NUMBER</td>
-<td>Yes</td>
-<td>Selected network fee coefficient (see Get Expected Transaction Fee).</td>
-</tr>
-<tr>
-<td>state</td>
-<td>ENUM</td>
-<td>Yes</td>
-<td>Represents status of the mass deal.</td>
-</tr>
-<tr>
-<td>totalNetworkFee</td>
-<td>NUMBER</td>
-<td>Yes</td>
-<td>Amount of network fees for all transactions.</td>
-</tr>
-<tr>
-<td>totalNetworkFeePercentage</td>
-<td>NUMBER</td>
-<td>Yes</td>
-<td>Describes percentage that should be applied to the executed total transactions amount to calculate the commission amount.</td>
-</tr>
-<tr>
-<td>totalWithdrawalAmount</td>
-<td>NUMBER</td>
-<td>Yes</td>
-<td>Total amount of all transactions in a mass deal.</td>
+<td>the total number of resources matching the query.</td>
 </tr>
 </tbody></table>
-<h2 id='get-all-mass-deals'>Get All Mass Deals</h2>
+<h2 id='new-mass-deal'>New Mass Deal</h2>
 <blockquote>
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-    curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.local/api/v1/public/payout/deals/mass/find"</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-    <span class="nt">--data-raw</span> <span class="s2">"{
-      </span><span class="se">\"</span><span class="s2">nonce</span><span class="se">\"</span><span class="s2">: 0,
-      </span><span class="se">\"</span><span class="s2">request</span><span class="se">\"</span><span class="s2">: {
-            </span><span class="se">\"</span><span class="s2">stateNames</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">string</span><span class="se">\"</span><span class="s2">
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/payout/mass/create'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+  "nonce": 0,
+  "request": {
+    "name": "string",
+    "comment": "string",
+    "dealWithdrawals": [
+      {
+        "withdrawalAddress": "string",
+        "clientAddress": "string",
+        "amount": 0,
+        "currency": "BTC",
+        "networkFeeRatio": 0,
+        "comment": "string"
       }
-    }"</span>
+    ]
+  }
+}'</span>
 
 </code></pre></div>
 <blockquote>
 <p>Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-    </span><span class="p">[</span><span class="w">
-      </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"amountInFiats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="nl">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"companyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"counter"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"counterInCompleted"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"counterInFailed"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"counterInProgress"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-29T20:05:00.902Z"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"networkFeeCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"networkFeeInFiats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="nl">"networkFeeRatio"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PENDING_CONFIRMATION"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"totalAmountInFiats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="nl">"totalNetworkFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"totalNetworkFeePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"totalWithdrawalAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"companyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-03T07:41:59.795Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"dealWithdrawals"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"amountInFiats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"clientAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"companyName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-03T07:41:59.795Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"errorMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"lastAttemptsDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-03T07:41:59.795Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"modifiedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"modifiedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-03T07:41:59.795Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"networkFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"networkFeeCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"networkFeeInFiats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"networkFeePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"networkFeeRatio"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"numberOfAttempts"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DRAFT"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"totalAmountInFiats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"validationErrorsResolved"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"withdrawalErrors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"errorMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"errorResolved"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SUCCESS"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"withdrawalId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"networkFeeCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"networkFeeRatio"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PENDING_CONFIRMATION"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"totalNetworkFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"totalNetworkFeePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"totalWithdrawalAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>This endpoint retrieves all mass deals.</p>
+<p>This endpoint creates a new mass deal.</p>
 <h5 id='http-request-5'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.local/api/v1/public/payout/deals/mass/find</code></p>
+<p><code>POST http://public-gateway.calypso.local/api/v1/public/payout/mass/create</code></p>
 <h5 id='header-5'>Header</h5>
 <table><thead>
 <tr>
@@ -4569,182 +4449,396 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <h5 id='request-body-5'>Request Body</h5>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>nonce</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Nonce used in construction of Sign header.</td>
+<td>nonce used in construction of sign header.</td>
 </tr>
 <tr>
 <td>request</td>
-<td>ARRAY OR OBJECT</td>
+<td>object</td>
 <td>Yes</td>
-<td>This object contains request details.</td>
+<td>this object contains request details.</td>
 </tr>
 <tr>
-<td>request.stateNames</td>
-<td>STRING</td>
+<td>request.name</td>
+<td>string</td>
 <td>Yes</td>
-<td>Status of the deals you want to look up.</td>
+<td>mass deal name.</td>
+</tr>
+<tr>
+<td>request.comment</td>
+<td>string</td>
+<td>No</td>
+<td>comment for the mass deal.</td>
+</tr>
+<tr>
+<td>request.dealWithdrawals</td>
+<td>array</td>
+<td>Yes</td>
+<td>this object contains mass deal transactions.</td>
+</tr>
+<tr>
+<td>request.dealWithdrawals.withdrawalAddress</td>
+<td>string</td>
+<td>Yes</td>
+<td>sender&#39;s crypto-address.</td>
+</tr>
+<tr>
+<td>request.dealWithdrawals.clientAddress</td>
+<td>string</td>
+<td>Yes</td>
+<td>recipient&#39;s crypto-address.</td>
+</tr>
+<tr>
+<td>request.dealWithdrawals.amount</td>
+<td>number</td>
+<td>Yes</td>
+<td>transaction amount.</td>
+</tr>
+<tr>
+<td>request.dealWithdrawals.currency</td>
+<td>string</td>
+<td>Yes</td>
+<td>this is the currency associated with the amount field. [ BTC, ETH, BNB, USDT, BUSD ]</td>
+</tr>
+<tr>
+<td>request.dealWithdrawals.networkFeeRatio</td>
+<td>number</td>
+<td>Yes</td>
+<td>selected network fee coefficient (see get expected transaction fee).</td>
+</tr>
+<tr>
+<td>request.dealWithdrawals.comment</td>
+<td>string</td>
+<td>Yes</td>
+<td>comment for the withdrawal transaction.</td>
 </tr>
 </tbody></table>
 <h5 id='response-body-5'>Response Body</h5>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>amountInFiats</td>
-<td>ARRAY OR OBJECT</td>
-<td>Yes</td>
-<td>Amount of the mass deal in different fiat currencies.</td>
-</tr>
-<tr>
 <td>comment</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>Comment for the mass deal.</td>
+<td>comment for the mass deal.</td>
 </tr>
 <tr>
 <td>companyId</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>Company ID.</td>
-</tr>
-<tr>
-<td>counter</td>
-<td>NUMBER</td>
-<td>Yes</td>
-<td>Total number of transactions in the mass deal</td>
-</tr>
-<tr>
-<td>counterInCompleted</td>
-<td>NUMBER</td>
-<td>Yes</td>
-<td>Number of transactions in the &quot;completed&quot; status.</td>
-</tr>
-<tr>
-<td>counterInFailed</td>
-<td>NUMBER</td>
-<td>Yes</td>
-<td>Number of transactions in the &quot;failed&quot; status.</td>
-</tr>
-<tr>
-<td>counterInProgress</td>
-<td>NUMBER</td>
-<td>Yes</td>
-<td>Number of transactions in the &quot;in progress&quot; status.</td>
+<td>company id.</td>
 </tr>
 <tr>
 <td>createdBy</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>User who created this deal.</td>
+<td>user who created this deal.</td>
 </tr>
 <tr>
 <td>createdDate</td>
-<td>DATETIME</td>
+<td>string</td>
 <td>Yes</td>
-<td>Time of deal creation.</td>
+<td>time of deal creation.</td>
 </tr>
 <tr>
 <td>currency</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>This is the currency associated with the amount field.</td>
+<td>transaction currency.</td>
+</tr>
+<tr>
+<td>dealWithdrawals</td>
+<td>array</td>
+<td>Yes</td>
+<td>this object contains mass deal transactions.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.amount</td>
+<td>number</td>
+<td>Yes</td>
+<td>transaction amount.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.amountInFiats</td>
+<td>object</td>
+<td>Yes</td>
+<td>amount of the transaction in different fiat currencies.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.amountInFiats.{currency}</td>
+<td>number</td>
+<td>Yes</td>
+<td>amount of the transaction in particular fiat currencies.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.clientAddress</td>
+<td>string</td>
+<td>Yes</td>
+<td>recipient&#39;s crypto-address.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.comment</td>
+<td>string</td>
+<td>No</td>
+<td>comment for the transaction.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.companyName</td>
+<td>string</td>
+<td>Yes</td>
+<td>company of the user who created the deal.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.createdBy</td>
+<td>string</td>
+<td>Yes</td>
+<td>user who created this deal.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.createdDate</td>
+<td>string</td>
+<td>Yes</td>
+<td>time of deal creation.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.currency</td>
+<td>string</td>
+<td>Yes</td>
+<td>transaction currency.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.errorMessage</td>
+<td>string</td>
+<td>No</td>
+<td>represents human readable error reason of why request is not successful.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.hash</td>
+<td>string</td>
+<td>No</td>
+<td>transaction hash.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.id</td>
+<td>number</td>
+<td>Yes</td>
+<td>transaction id.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.lastAttemptsDate</td>
+<td>string</td>
+<td>No</td>
+<td>date of last attempt to send and complete the transaction.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.modifiedBy</td>
+<td>string</td>
+<td>Yes</td>
+<td>user who modified this deal.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.modifiedDate</td>
+<td>string</td>
+<td>Yes</td>
+<td>time of transaction modification.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.networkFee</td>
+<td>number</td>
+<td>Yes</td>
+<td>is a cryptocurrency transaction fee that is charged to users when performing crypto transactions.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.networkFeeCurrency</td>
+<td>string</td>
+<td>Yes</td>
+<td>this is the currency associated with the networkFee field.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.networkFeeInFiats</td>
+<td>object</td>
+<td>Yes</td>
+<td>transaction fee in different fiat currencies.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.networkFeeInFiats.{currency}</td>
+<td>number</td>
+<td>No</td>
+<td>transaction fee in particular fiat currencies.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.networkFeePercentage</td>
+<td>number</td>
+<td>Yes</td>
+<td>describes percentage that should be applied to the executed transaction amount to calculate the commission amount.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.networkFeeRatio</td>
+<td>number</td>
+<td>Yes</td>
+<td>selected network fee coefficient (see get expected transaction fee).</td>
+</tr>
+<tr>
+<td>dealWithdrawals.nonce</td>
+<td>number</td>
+<td>No</td>
+<td>sequence number of the transaction.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.numberOfAttempts</td>
+<td>number</td>
+<td>Yes</td>
+<td>the number of attempts to send and execute this transaction.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.state</td>
+<td>string</td>
+<td>Yes</td>
+<td>represents status of the transaction. [ PENDING_CONFIRMATION, CONFIRMED, IN_PROGRESS, COMPLETED, FAILED, CANCELED ]</td>
+</tr>
+<tr>
+<td>dealWithdrawals.totalAmountInFiats</td>
+<td>object</td>
+<td>Yes</td>
+<td>total amount of the transactions in different fiat currencies.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.totalAmountInFiats.{currency}</td>
+<td>number</td>
+<td>Yes</td>
+<td>total amount of the transactions in particular fiat currencies.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.validationErrorsResolved</td>
+<td>boolean</td>
+<td>Yes</td>
+<td>flag indicating that the error was detected and resolved during the verification phase.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.withdrawalErrors</td>
+<td>array</td>
+<td>Yes</td>
+<td>this object contains error details.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.withdrawalErrors.errorMessage</td>
+<td>string</td>
+<td>No</td>
+<td>represents human readable error reason of why request is not successful.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.withdrawalErrors.errorResolved</td>
+<td>boolean</td>
+<td>Yes</td>
+<td>flag indicating that the error has been resolved.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.withdrawalErrors.id</td>
+<td>number</td>
+<td>Yes</td>
+<td>id of the withdrawal error that occurred.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.withdrawalErrors.status</td>
+<td>string</td>
+<td>Yes</td>
+<td>error status when withdrawing funds.</td>
+</tr>
+<tr>
+<td>dealWithdrawals.withdrawalId</td>
+<td>number</td>
+<td>No</td>
+<td>transaction id.</td>
 </tr>
 <tr>
 <td>id</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Mass Deal ID.</td>
+<td>mass deal id.</td>
 </tr>
 <tr>
 <td>name</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>Mass deal name.</td>
+<td>mass deal name.</td>
 </tr>
 <tr>
 <td>networkFeeCurrency</td>
-<td>ENUM</td>
+<td>enum</td>
 <td>Yes</td>
-<td>This is the currency associated with the networkFee field.</td>
+<td>this is the currency associated with the networkfee field.</td>
 </tr>
 <tr>
-<td>networkFeeInFiats</td>
-<td>ARRAY OR OBJECT</td>
+<td>networkfeeratio</td>
+<td>number</td>
 <td>Yes</td>
-<td>Amount of the transaction fee in different fiat currencies.</td>
-</tr>
-<tr>
-<td>networkFeeRatio</td>
-<td>NUMBER</td>
-<td>Yes</td>
-<td>Selected network fee coefficient (see Get Expected Transaction Fee).</td>
+<td>selected network fee coefficient (see get expected transaction fee).</td>
 </tr>
 <tr>
 <td>state</td>
-<td>ENUM</td>
+<td>enum</td>
 <td>Yes</td>
-<td>Represents status of the mass deal.</td>
-</tr>
-<tr>
-<td>totalAmountInFiats</td>
-<td>ARRAY OR OBJECT</td>
-<td>Yes</td>
-<td>Total amount of the mass deal in different fiat currencies.</td>
+<td>represents status of the mass deal.</td>
 </tr>
 <tr>
 <td>totalNetworkFee</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Amount of network fees for all transactions.</td>
+<td>amount of network fees for all transactions.</td>
 </tr>
 <tr>
 <td>totalNetworkFeePercentage</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Describes percentage that should be applied to the executed total transactions amount to calculate the commission amount.</td>
+<td>describes percentage that should be applied to the executed total transactions amount to calculate the commission amount.</td>
 </tr>
 <tr>
 <td>totalWithdrawalAmount</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Sum of all transactions in a mass deal.</td>
+<td>total amount of all transactions in a mass deal.</td>
 </tr>
 </tbody></table>
-<h2 id='get-specific-mass-deal'>Get Specific Mass Deal</h2>
+<h2 id='get-all-mass-deals'>Get All Mass Deals</h2>
 <blockquote>
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-    curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.local/api/v1/public/payout/deals/mass/find/by/id"</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-    <span class="nt">--data-raw</span> <span class="s2">"{
-      </span><span class="se">\"</span><span class="s2">nonce</span><span class="se">\"</span><span class="s2">: 0,
-      </span><span class="se">\"</span><span class="s2">request</span><span class="se">\"</span><span class="s2">: {
-            </span><span class="se">\"</span><span class="s2">dealId</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">string</span><span class="se">\"</span><span class="s2">
-      }
-    }"</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/payout/mass/all'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+  "nonce": 1638518376519,
+  "request": {
+    "stateNames": [
+      "PENDING_CONFIRMATION"
+    ]
+  }
+}'</span>
 
 </code></pre></div>
 <blockquote>
 <p>Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">  
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"amountInFiats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
@@ -4758,7 +4852,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
       </span><span class="nl">"counterInFailed"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
       </span><span class="nl">"counterInProgress"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
       </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-29T20:07:55.587Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-03T07:56:39.336Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
       </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -4779,11 +4873,16 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
       </span><span class="nl">"totalNetworkFeePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
       </span><span class="nl">"totalWithdrawalAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
     </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>This endpoint retrieves a specific mass deal.</p>
+<p>This endpoint retrieves all mass deals.</p>
 <h5 id='http-request-6'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.local/api/v1/public/payout/deals/mass/find/by/id</code></p>
+<p><code>POST http://public-gateway.calypso.local/api/v1/public/payout/mass/all</code></p>
 <h5 id='header-6'>Header</h5>
 <table><thead>
 <tr>
@@ -4815,237 +4914,263 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <h5 id='request-body-6'>Request Body</h5>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>nonce</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Nonce used in construction of Sign header.</td>
+<td>nonce used in construction of sign header.</td>
 </tr>
 <tr>
 <td>request</td>
-<td>ARRAY OR OBJECT</td>
+<td>object</td>
 <td>Yes</td>
-<td>This object contains request details.</td>
+<td>this object contains request details.</td>
 </tr>
 <tr>
-<td>request.dealId</td>
-<td>STRING</td>
+<td>request.stateNames</td>
+<td>array</td>
 <td>Yes</td>
-<td>The id of the mass deal you want to look up.</td>
+<td>status of the deals you want to look up. [ PENDING_CONFIRMATION, CONFIRMED, IN_PROGRESS, COMPLETED, FAILED, CANCELED ]</td>
+</tr>
+<tr>
+<td>request.pageNumber</td>
+<td>number</td>
+<td>Yes</td>
+<td>specify the page of results to return.</td>
+</tr>
+<tr>
+<td>request.size</td>
+<td>number</td>
+<td>Yes</td>
+<td>a numeric value indicating the page size.</td>
 </tr>
 </tbody></table>
 <h5 id='response-body-6'>Response Body</h5>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>amountInFiats</td>
-<td>ARRAY OR OBJECT</td>
+<td>result</td>
+<td>array</td>
 <td>Yes</td>
-<td>Amount of the mass deal in different fiat currencies.</td>
+<td>this object contains response details.</td>
 </tr>
 <tr>
-<td>comment</td>
-<td>STRING</td>
+<td>result.amountInFiats</td>
+<td>object</td>
 <td>Yes</td>
-<td>Comment for the mass deal.</td>
+<td>amount of the mass deal in different fiat currencies.</td>
 </tr>
 <tr>
-<td>companyId</td>
-<td>STRING</td>
+<td>result.amountInFiats.{currency}</td>
+<td>number</td>
 <td>Yes</td>
-<td>Company ID.</td>
+<td>amount of the mass deal in particular fiat currencies. [ USD, EUR, RUB, UAH, KZT ]</td>
 </tr>
 <tr>
-<td>counter</td>
-<td>NUMBER</td>
+<td>result.comment</td>
+<td>string</td>
 <td>Yes</td>
-<td>Total number of transactions in the mass deal</td>
+<td>comment for the mass deal.</td>
 </tr>
 <tr>
-<td>counterInCompleted</td>
-<td>NUMBER</td>
+<td>result.companyId</td>
+<td>string</td>
 <td>Yes</td>
-<td>Number of transactions in the &quot;completed&quot; status.</td>
+<td>company id.</td>
 </tr>
 <tr>
-<td>counterInFailed</td>
-<td>NUMBER</td>
+<td>result.counter</td>
+<td>number</td>
 <td>Yes</td>
-<td>Number of transactions in the &quot;failed&quot; status.</td>
+<td>total number of transactions in the mass deal</td>
 </tr>
 <tr>
-<td>counterInProgress</td>
-<td>NUMBER</td>
+<td>result.counterInCompleted</td>
+<td>number</td>
 <td>Yes</td>
-<td>Number of transactions in the &quot;in progress&quot; status.</td>
+<td>number of transactions in the &quot;completed&quot; status.</td>
 </tr>
 <tr>
-<td>createdBy</td>
-<td>STRING</td>
+<td>result.counterInFailed</td>
+<td>number</td>
 <td>Yes</td>
-<td>User who created this deal.</td>
+<td>number of transactions in the &quot;failed&quot; status.</td>
 </tr>
 <tr>
-<td>createdDate</td>
-<td>DATETIME</td>
+<td>result.counterInProgress</td>
+<td>number</td>
 <td>Yes</td>
-<td>Time of deal creation.</td>
+<td>number of transactions in the &quot;in progress&quot; status.</td>
 </tr>
 <tr>
-<td>currency</td>
-<td>ENUM</td>
+<td>result.createdBy</td>
+<td>string</td>
 <td>Yes</td>
-<td>This is the currency associated with the amount field.</td>
+<td>user who created this deal.</td>
 </tr>
 <tr>
-<td>id</td>
-<td>NUMBER</td>
+<td>result.createdDate</td>
+<td>string</td>
 <td>Yes</td>
-<td>Mass Deal ID.</td>
+<td>time of deal creation.</td>
 </tr>
 <tr>
-<td>name</td>
-<td>STRING</td>
+<td>result.currency</td>
+<td>string</td>
 <td>Yes</td>
-<td>Mass deal name.</td>
+<td>this is the currency associated with the amount field. [ BTC, ETH, BNB, USDT ]</td>
 </tr>
 <tr>
-<td>networkFeeCurrency</td>
-<td>ENUM</td>
+<td>result.id</td>
+<td>number</td>
 <td>Yes</td>
-<td>This is the currency associated with the networkFee field.</td>
+<td>mass deal id.</td>
 </tr>
 <tr>
-<td>networkFeeInFiats</td>
-<td>ARRAY OR OBJECT</td>
+<td>result.name</td>
+<td>string</td>
 <td>Yes</td>
-<td>Amount of the transaction fee in different fiat currencies.</td>
+<td>mass deal name.</td>
 </tr>
 <tr>
-<td>networkFeeRatio</td>
-<td>NUMBER</td>
+<td>result.networkFeeCurrency</td>
+<td>string</td>
 <td>Yes</td>
-<td>Selected network fee coefficient (see Get Expected Transaction Fee).</td>
+<td>this is the currency associated with the networkfee field.</td>
 </tr>
 <tr>
-<td>state</td>
-<td>ENUM</td>
+<td>result.networkFeeInFiats</td>
+<td>object</td>
 <td>Yes</td>
-<td>Represents status of the mass deal.</td>
+<td>amount of the transaction fee in different fiat currencies.</td>
 </tr>
 <tr>
-<td>totalAmountInFiats</td>
-<td>ARRAY OR OBJECT</td>
+<td>result.networkFeeRatio</td>
+<td>number</td>
 <td>Yes</td>
-<td>The total amount of the mass deal in different fiat currencies.</td>
+<td>selected network fee coefficient (see get expected transaction fee).</td>
 </tr>
 <tr>
-<td>totalNetworkFee</td>
-<td>NUMBER</td>
+<td>result.state</td>
+<td>string</td>
 <td>Yes</td>
-<td>Amount of network fees for all transactions.</td>
+<td>represents status of the mass deal.</td>
 </tr>
 <tr>
-<td>totalNetworkFeePercentage</td>
-<td>NUMBER</td>
+<td>result.totalAmountInFiats</td>
+<td>object</td>
 <td>Yes</td>
-<td>Describes percentage that should be applied to the executed total transactions amount to calculate the commission amount.</td>
+<td>total amount of the mass deal in different fiat currencies.</td>
 </tr>
 <tr>
-<td>totalWithdrawalAmount</td>
-<td>NUMBER</td>
+<td>result.totalNetworkFee</td>
+<td>number</td>
 <td>Yes</td>
-<td>Total amount of all transactions in a mass deal.</td>
+<td>amount of network fees for all transactions.</td>
+</tr>
+<tr>
+<td>result.totalNetworkFeePercentage</td>
+<td>number</td>
+<td>Yes</td>
+<td>describes percentage that should be applied to the executed total transactions amount to calculate the commission amount.</td>
+</tr>
+<tr>
+<td>result.totalWithdrawalAmount</td>
+<td>number</td>
+<td>Yes</td>
+<td>sum of all transactions in a mass deal.</td>
+</tr>
+<tr>
+<td>page</td>
+<td>number</td>
+<td>Yes</td>
+<td>result page number.</td>
+</tr>
+<tr>
+<td>size</td>
+<td>number</td>
+<td>Yes</td>
+<td>a numeric value indicating the page size.</td>
+</tr>
+<tr>
+<td>total</td>
+<td>number</td>
+<td>Yes</td>
+<td>the total number of resources matching the query.</td>
 </tr>
 </tbody></table>
-<h2 id='get-specific-transactions-from-a-mass-deal'>Get Specific Transactions From a Mass Deal</h2>
+<h2 id='get-specific-mass-deal'>Get Specific Mass Deal</h2>
 <blockquote>
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-    curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.local/api/v1/public/payout/deals/mass/withdrawals/find"</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-    <span class="nt">--data-raw</span> <span class="s2">"{
-      </span><span class="se">\"</span><span class="s2">nonce</span><span class="se">\"</span><span class="s2">: 0,
-      </span><span class="se">\"</span><span class="s2">request</span><span class="se">\"</span><span class="s2">: {
-            </span><span class="se">\"</span><span class="s2">dealId</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">string</span><span class="se">\"</span><span class="s2">,
-            </span><span class="se">\"</span><span class="s2">stateNames</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">string</span><span class="se">\"</span><span class="s2">
-      }
-    }"</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/payout/mass'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+  "nonce": 0,
+  "request": {
+    "dealId": 0
+  }
+}'</span>
 
 </code></pre></div>
 <blockquote>
 <p>Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-    </span><span class="p">[</span><span class="w">
-      </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"amountInFiats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="nl">"clientAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"companyName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-29T20:13:13.126Z"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"errorMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"lastAttemptsDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-29T20:13:13.126Z"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"modifiedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"modifiedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-29T20:13:13.126Z"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"networkFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"networkFeeCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"networkFeeInFiats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="nl">"networkFeePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"networkFeeRatio"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"numberOfAttempts"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DRAFT"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"totalAmountInFiats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-        </span><span class="p">},</span><span class="w">
-        </span><span class="nl">"validationErrorsResolved"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"withdrawalErrors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-          </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"errorMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"errorResolved"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SUCCESS"</span><span class="w">
-          </span><span class="p">}</span><span class="w">
-        </span><span class="p">],</span><span class="w">
-        </span><span class="nl">"withdrawalId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"amountInFiats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"companyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"counter"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"counterInCompleted"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"counterInFailed"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"counterInProgress"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-03T08:09:53.846Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"networkFeeCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"networkFeeInFiats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"networkFeeRatio"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"PENDING_CONFIRMATION"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"totalAmountInFiats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"totalNetworkFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"totalNetworkFeePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"totalWithdrawalAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>This endpoint retrieves specific transactions from a mass deal.</p>
+<p>This endpoint retrieves a specific mass deal.</p>
 <h5 id='http-request-7'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.local/api/v1/public/payout/deals/mass/find/by/id</code></p>
+<p><code>POST http://public-gateway.calypso.local/api/v1/public/payout/mass</code></p>
 <h5 id='header-7'>Header</h5>
 <table><thead>
 <tr>
@@ -5077,300 +5202,243 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <h5 id='request-body-7'>Request Body</h5>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>nonce</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Nonce used in construction of Sign header.</td>
+<td>nonce used in construction of sign header.</td>
 </tr>
 <tr>
 <td>request</td>
-<td>ARRAY OR OBJECT</td>
+<td>object</td>
 <td>Yes</td>
-<td>This object contains request details.</td>
+<td>this object contains request details.</td>
 </tr>
 <tr>
 <td>request.dealId</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>The id of the mass deal you want to look up.</td>
-</tr>
-<tr>
-<td>request.stateNames</td>
-<td>ENUM</td>
-<td>Yes</td>
-<td>Specify the status of results to return.</td>
+<td>the id of the mass deal you want to look up.</td>
 </tr>
 </tbody></table>
 <h5 id='response-body-7'>Response Body</h5>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>amount</td>
-<td>NUMBER</td>
-<td>Yes</td>
-<td>Withdrawal amount.</td>
-</tr>
-<tr>
 <td>amountInFiats</td>
-<td>ARRAY OR OBJECT</td>
+<td>object</td>
 <td>Yes</td>
-<td>Amount of the transactions in different fiat currencies.</td>
+<td>amount of the mass deal in different fiat currencies.</td>
 </tr>
 <tr>
-<td>clientAddress</td>
-<td>STRING</td>
+<td>amountInFiats.{currency}</td>
+<td>number</td>
 <td>Yes</td>
-<td>Recipient&#39;s crypto-address.</td>
+<td>amount of the mass deal in particular fiat currencies. [ USD, EUR, RUB, UAH, KZT ]</td>
 </tr>
 <tr>
 <td>comment</td>
-<td>STRING</td>
-<td>No</td>
-<td>Comment for the transaction.</td>
+<td>string</td>
+<td>Yes</td>
+<td>comment for the mass deal.</td>
 </tr>
 <tr>
-<td>companyName</td>
-<td>STRING</td>
+<td>companyId</td>
+<td>string</td>
 <td>Yes</td>
-<td>Company of the user who created the deal.</td>
+<td>company id.</td>
+</tr>
+<tr>
+<td>counter</td>
+<td>number</td>
+<td>Yes</td>
+<td>total number of transactions in the mass deal</td>
+</tr>
+<tr>
+<td>counterInCompleted</td>
+<td>number</td>
+<td>Yes</td>
+<td>number of transactions in the &quot;completed&quot; status.</td>
+</tr>
+<tr>
+<td>counterInFailed</td>
+<td>number</td>
+<td>Yes</td>
+<td>number of transactions in the &quot;failed&quot; status.</td>
+</tr>
+<tr>
+<td>counterInProgress</td>
+<td>number</td>
+<td>Yes</td>
+<td>number of transactions in the &quot;in progress&quot; status.</td>
 </tr>
 <tr>
 <td>createdBy</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>User who created this transaction.</td>
+<td>user who created this deal.</td>
 </tr>
 <tr>
 <td>createdDate</td>
-<td>DATETIME</td>
+<td>string</td>
 <td>Yes</td>
-<td>Time of deal creation.</td>
+<td>time of deal creation.</td>
 </tr>
 <tr>
 <td>currency</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>This is the currency associated with the amount field.</td>
-</tr>
-<tr>
-<td>errorMessage</td>
-<td>STRING</td>
-<td>No</td>
-<td>Represents human readable error reason of why request is not successful.</td>
-</tr>
-<tr>
-<td>hash</td>
-<td>STRING</td>
-<td>No</td>
-<td>Transaction hash.</td>
+<td>this is the currency associated with the amount field. [ BTC, ETH, BNB, USDT ]</td>
 </tr>
 <tr>
 <td>id</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Transaction ID.</td>
+<td>mass deal id.</td>
 </tr>
 <tr>
-<td>lastAttemptsDate</td>
-<td>DATETIME</td>
-<td>No</td>
-<td>Date of last attempt to send and complete the transaction.</td>
-</tr>
-<tr>
-<td>modifiedBy</td>
-<td>STRING</td>
+<td>name</td>
+<td>string</td>
 <td>Yes</td>
-<td>User who modified this deal.</td>
-</tr>
-<tr>
-<td>modifiedDate</td>
-<td>DATETIME</td>
-<td>Yes</td>
-<td>Time of transaction modification.</td>
-</tr>
-<tr>
-<td>networkFee</td>
-<td>NUMBER</td>
-<td>Yes</td>
-<td>Is a cryptocurrency transaction fee that is charged to users when performing crypto transactions.</td>
+<td>mass deal name.</td>
 </tr>
 <tr>
 <td>networkFeeCurrency</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>This is the currency associated with the networkFee field.</td>
+<td>this is the currency associated with the networkfee field.</td>
 </tr>
 <tr>
 <td>networkFeeInFiats</td>
-<td>ARRAY OR OBJECT</td>
+<td>object</td>
 <td>Yes</td>
-<td>Amount of the transaction fee in different fiat currencies.</td>
-</tr>
-<tr>
-<td>networkFeePercentage</td>
-<td>NUMBER</td>
-<td>Yes</td>
-<td>Describes percentage that should be applied to the executed transaction amount to calculate the commission amount.</td>
+<td>amount of the transaction fee in different fiat currencies.</td>
 </tr>
 <tr>
 <td>networkFeeRatio</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Selected network fee coefficient (see Get Expected Transaction Fee).</td>
-</tr>
-<tr>
-<td>nonce</td>
-<td>NUMBER</td>
-<td>No</td>
-<td>Sequence number of the transaction.</td>
-</tr>
-<tr>
-<td>numberOfAttempts</td>
-<td>NUMBER</td>
-<td>Yes</td>
-<td>The number of attempts to send and execute this transaction.</td>
+<td>selected network fee coefficient (see get expected transaction fee).</td>
 </tr>
 <tr>
 <td>state</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>Represents status of the transaction.</td>
+<td>represents status of the mass deal.</td>
 </tr>
 <tr>
 <td>totalAmountInFiats</td>
-<td>ARRAY OR OBJECT</td>
+<td>object</td>
 <td>Yes</td>
-<td>The total amount of transactions in different fiat currencies.</td>
+<td>total amount of the mass deal in different fiat currencies.</td>
 </tr>
 <tr>
-<td>validationErrorsResolved</td>
-<td>BOOLEAN</td>
+<td>totalNetworkFee</td>
+<td>number</td>
 <td>Yes</td>
-<td>Flag indicating that the error was detected and resolved during the verification phase.</td>
+<td>amount of network fees for all transactions.</td>
 </tr>
 <tr>
-<td>withdrawalErrors</td>
-<td>ARRAY OR OBJECT</td>
+<td>totalNetworkFeePercentage</td>
+<td>number</td>
 <td>Yes</td>
-<td>This object contains error details.</td>
+<td>describes percentage that should be applied to the executed total transactions amount to calculate the commission amount.</td>
 </tr>
 <tr>
-<td>withdrawalErrors.errorMessage</td>
-<td>STRING</td>
-<td>No</td>
-<td>Represents human readable error reason of why request is not successful.</td>
-</tr>
-<tr>
-<td>withdrawalErrors.errorResolved</td>
-<td>BOOLEAN</td>
+<td>totalWithdrawalAmount</td>
+<td>number</td>
 <td>Yes</td>
-<td>Flag indicating that the error has been resolved.</td>
-</tr>
-<tr>
-<td>withdrawalErrors.id</td>
-<td>NUMBER</td>
-<td>Yes</td>
-<td>ID of the withdrawal error that occurred.</td>
-</tr>
-<tr>
-<td>withdrawalErrors.status</td>
-<td>ENUM</td>
-<td>Yes</td>
-<td>Error status when withdrawing funds.</td>
-</tr>
-<tr>
-<td>withdrawalId</td>
-<td>NUMBER</td>
-<td>No</td>
-<td>Transaction ID.</td>
+<td>sum of all transactions in a mass deal.</td>
 </tr>
 </tbody></table>
-<h2 id='get-specific-transaction-from-a-mass-deal'>Get Specific Transaction From a Mass Deal</h2>
+<h2 id='get-transactions-from-a-specific-mass-deal'>Get Transactions From a Specific Mass Deal</h2>
 <blockquote>
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-    curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.local/api/v1/public/payout/deals/mass/withdrawals/find/by/id"</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-    <span class="nt">--data-raw</span> <span class="s2">"{
-      </span><span class="se">\"</span><span class="s2">nonce</span><span class="se">\"</span><span class="s2">: 0,
-      </span><span class="se">\"</span><span class="s2">request</span><span class="se">\"</span><span class="s2">: {
-            </span><span class="se">\"</span><span class="s2">withdrawalId</span><span class="se">\"</span><span class="s2">: 0
-      }
-    }"</span>
+curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.local/api/v1/pub/payout/mass/withdrawal/all"</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s2">"{
+  "</span>nonce<span class="s2">": 0,
+  "</span>request<span class="s2">": {
+    "</span>dealId<span class="s2">": "</span>string<span class="s2">",
+    "</span>stateNames<span class="s2">": "</span>string<span class="s2">"
+  }
+}"</span>
 
 </code></pre></div>
 <blockquote>
 <p>Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"amountInFiats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="nl">"clientAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"companyName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-29T20:17:35.859Z"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"errorMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"lastAttemptsDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-29T20:17:35.859Z"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"modifiedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"modifiedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-29T20:17:35.859Z"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"networkFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"networkFeeCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"networkFeeInFiats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="nl">"networkFeePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"networkFeeRatio"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"numberOfAttempts"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DRAFT"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"totalAmountInFiats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="nl">"validationErrorsResolved"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"withdrawalErrors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"errorMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"errorResolved"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SUCCESS"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-      </span><span class="p">],</span><span class="w">
-      </span><span class="nl">"withdrawalId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-    </span><span class="p">}</span><span class="w">
+</span><span class="p">[</span><span class="w">
+  </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"amountInFiats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"clientAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"companyName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-29T20:13:13.126Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"errorMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"lastAttemptsDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-29T20:13:13.126Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"modifiedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"modifiedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-29T20:13:13.126Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"networkFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"networkFeeCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"networkFeeInFiats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"networkFeePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"networkFeeRatio"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"numberOfAttempts"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DRAFT"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"totalAmountInFiats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nl">"validationErrorsResolved"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"withdrawalErrors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"errorMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"errorResolved"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SUCCESS"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"withdrawalId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">]</span><span class="w">
 
 </span></code></pre></div>
-<p>This endpoint retrieves specific transaction from a mass deal.</p>
+<p>This endpoint retrieves specific transactions from a mass deal.</p>
 <h5 id='http-request-8'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.local/api/v1/public/payout/deals/mass/find/by/id</code></p>
+<p><code>POST http://public-gateway.calypso.local/api/v1/pub/payout/mass/withdrawal/all</code></p>
 <h5 id='header-8'>Header</h5>
 <table><thead>
 <tr>
@@ -5402,255 +5470,312 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <h5 id='request-body-8'>Request Body</h5>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>nonce</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Nonce used in construction of Sign header.</td>
+<td>nonce used in construction of sign header.</td>
 </tr>
 <tr>
 <td>request</td>
-<td>ARRAY OR OBJECT</td>
+<td>object</td>
 <td>Yes</td>
-<td>This object contains request details.</td>
+<td>this object contains request details.</td>
 </tr>
 <tr>
-<td>request.withdrawalId</td>
-<td>NUMBER</td>
+<td>request.dealId</td>
+<td>string</td>
 <td>Yes</td>
-<td>Transaction ID.</td>
+<td>the id of the mass deal you want to look up.</td>
+</tr>
+<tr>
+<td>request.stateNames</td>
+<td>string</td>
+<td>Yes</td>
+<td>specify the status of results to return. [ DRAFT, IN_PROGRESS, COMPLETED, REPLACED, FAILED ]</td>
 </tr>
 </tbody></table>
 <h5 id='response-body-8'>Response Body</h5>
 <table><thead>
 <tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>amount</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Withdrawal amount.</td>
+<td>withdrawal amount.</td>
 </tr>
 <tr>
 <td>amountInFiats</td>
-<td>ARRAY OR OBJECT</td>
+<td>object</td>
 <td>Yes</td>
-<td>Amount of the transaction in different fiat currencies.</td>
+<td>amount of the transactions in different fiat currencies.</td>
+</tr>
+<tr>
+<td>amountInFiats.{currency}</td>
+<td>number</td>
+<td>Yes</td>
+<td>amount of the mass deal in particular fiat currencies. [ USD, EUR, RUB, UAH, KZT ]</td>
 </tr>
 <tr>
 <td>clientAddress</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>Recipient&#39;s crypto-address.</td>
+<td>recipient&#39;s crypto-address.</td>
 </tr>
 <tr>
 <td>comment</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>Comment for the transaction.</td>
+<td>string</td>
+<td>No</td>
+<td>comment for the transaction.</td>
 </tr>
 <tr>
 <td>companyName</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>Company of the user who created the deal.</td>
+<td>company of the user who created the deal.</td>
 </tr>
 <tr>
 <td>createdBy</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>User who created this transaction.</td>
+<td>user who created this transaction.</td>
 </tr>
 <tr>
 <td>createdDate</td>
-<td>DATETIME</td>
+<td>string</td>
 <td>Yes</td>
-<td>Time of deal creation.</td>
+<td>time of deal creation.</td>
 </tr>
 <tr>
 <td>currency</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>This is the currency associated with the amount field.</td>
+<td>this is the currency associated with the amount field. [ BTC, ETH, BNB, USDT ]</td>
 </tr>
 <tr>
 <td>errorMessage</td>
-<td>STRING</td>
+<td>string</td>
 <td>No</td>
-<td>Represents human readable error reason of why request is not successful.</td>
+<td>represents human readable error reason of why request is not successful.</td>
 </tr>
 <tr>
 <td>hash</td>
-<td>STRING</td>
+<td>string</td>
 <td>No</td>
-<td>Transaction hash.</td>
+<td>transaction hash.</td>
 </tr>
 <tr>
 <td>id</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Transaction ID.</td>
+<td>transaction id.</td>
 </tr>
 <tr>
 <td>lastAttemptsDate</td>
-<td>DATETIME</td>
+<td>string</td>
 <td>No</td>
-<td>Date of last attempt to send and complete the transaction.</td>
+<td>date of last attempt to send and complete the transaction.</td>
 </tr>
 <tr>
 <td>modifiedBy</td>
-<td>STRING</td>
+<td>string</td>
 <td>Yes</td>
-<td>User who modified this deal.</td>
+<td>user who modified this deal.</td>
 </tr>
 <tr>
 <td>modifiedDate</td>
-<td>DATETIME</td>
+<td>string</td>
 <td>Yes</td>
-<td>Time of transaction modification.</td>
+<td>time of transaction modification.</td>
 </tr>
 <tr>
 <td>networkFee</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Is a cryptocurrency transaction fee that is charged to users when performing crypto transactions.</td>
+<td>is a cryptocurrency transaction fee that is charged to users when performing crypto transactions.</td>
 </tr>
 <tr>
 <td>networkFeeCurrency</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>This is the currency associated with the networkFee field.</td>
+<td>this is the currency associated with the networkfee field. [ BTC, ETH, BNB, USDT ]</td>
 </tr>
 <tr>
 <td>networkFeeInFiats</td>
-<td>ARRAY OR OBJECT</td>
+<td>object</td>
 <td>Yes</td>
-<td>Amount of the transaction fee in different fiat currencies.</td>
+<td>amount of the transaction fee in different fiat currencies.</td>
+</tr>
+<tr>
+<td>networkFeeInFiats.{currency}</td>
+<td>string</td>
+<td>Yes</td>
+<td>amount of the transaction fee in particular fiat currencies. [ USD, EUR, RUB, UAH, KZT ]</td>
 </tr>
 <tr>
 <td>networkFeePercentage</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Describes percentage that should be applied to the executed transaction amount to calculate the commission amount.</td>
+<td>describes percentage that should be applied to the executed transaction amount to calculate the commission amount.</td>
 </tr>
 <tr>
 <td>networkFeeRatio</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>Selected network fee coefficient (see Get Expected Transaction Fee).</td>
+<td>selected network fee coefficient (see get expected transaction fee).</td>
 </tr>
 <tr>
 <td>nonce</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>No</td>
-<td>Sequence number of the transaction.</td>
+<td>sequence number of the transaction.</td>
 </tr>
 <tr>
 <td>numberOfAttempts</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>The number of attempts to send and execute this transaction.</td>
+<td>the number of attempts to send and execute this transaction.</td>
 </tr>
 <tr>
 <td>state</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>Represents status of the transaction.</td>
+<td>represents status of the transaction. [ DRAFT, IN_PROGRESS, COMPLETED, REPLACED, FAILED ]</td>
 </tr>
 <tr>
 <td>totalAmountInFiats</td>
-<td>ARRAY OR OBJECT</td>
+<td>object</td>
 <td>Yes</td>
-<td>The total amount of transactions in different fiat currencies.</td>
+<td>the total amount of transactions in different fiat currencies.</td>
 </tr>
 <tr>
 <td>validationErrorsResolved</td>
-<td>BOOLEAN</td>
+<td>boolean</td>
 <td>Yes</td>
-<td>Flag indicating that the error was detected and resolved during the verification phase.</td>
+<td>flag indicating that the error was detected and resolved during the verification phase.</td>
 </tr>
 <tr>
 <td>withdrawalErrors</td>
-<td>ARRAY OR OBJECT</td>
+<td>array</td>
 <td>Yes</td>
-<td>This object contains error details.</td>
+<td>this object contains error details.</td>
 </tr>
 <tr>
 <td>withdrawalErrors.errorMessage</td>
-<td>STRING</td>
-<td></td>
-<td>Represents human readable error reason of why request is not successful.</td>
+<td>string</td>
+<td>No</td>
+<td>represents human readable error reason of why request is not successful.</td>
 </tr>
 <tr>
 <td>withdrawalErrors.errorResolved</td>
-<td>BOOLEAN</td>
+<td>boolean</td>
 <td>Yes</td>
-<td>Flag indicating that the error has been resolved.</td>
+<td>flag indicating that the error has been resolved.</td>
 </tr>
 <tr>
 <td>withdrawalErrors.id</td>
-<td>NUMBER</td>
+<td>number</td>
 <td>Yes</td>
-<td>ID of the withdrawal error that occurred.</td>
+<td>id of the withdrawal error that occurred.</td>
 </tr>
 <tr>
 <td>withdrawalErrors.status</td>
-<td>ENUM</td>
+<td>string</td>
 <td>Yes</td>
-<td>Error status when withdrawing funds.</td>
+<td>error status when withdrawing funds. [ SUCCESS, NO_PERMISSION, NO_BALANCE, NOT_ENOUGH_FUNDS, NOT_ENOUGH_FUNDS _FOR_COMMISSION ]</td>
 </tr>
 <tr>
-<td>withdrawalId</td>
-<td>NUMBER</td>
+<td>withdrawalid</td>
+<td>number</td>
 <td>No</td>
-<td>Transaction ID.</td>
+<td>transaction id.</td>
 </tr>
 </tbody></table>
-<h2 id='get-expected-transaction-fee'>Get Expected Transaction Fee</h2>
+<h2 id='get-specific-transaction-from-a-mass-deal'>Get Specific Transaction From a Mass Deal</h2>
 <blockquote>
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-    curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.local/api/v1/public/payout/fee"</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
-    <span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-    <span class="nt">--data-raw</span> <span class="s2">"{
-      </span><span class="se">\"</span><span class="s2">nonce</span><span class="se">\"</span><span class="s2">: 0,
-      </span><span class="se">\"</span><span class="s2">request</span><span class="se">\"</span><span class="s2">: {
-            </span><span class="se">\"</span><span class="s2">withdrawalAddress</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">string</span><span class="se">\"</span><span class="s2">,
-          </span><span class="se">\"</span><span class="s2">currency</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">BTC</span><span class="se">\"</span><span class="s2">,
-          </span><span class="se">\"</span><span class="s2">depositAddress</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">string</span><span class="se">\"</span><span class="s2">,
-          </span><span class="se">\"</span><span class="s2">amount</span><span class="se">\"</span><span class="s2">: 0
-      }
-    }"</span>
+curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.local/api/v1/pub/payout/mass/withdrawal"</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s2">"{
+  "</span>nonce<span class="s2">": 0,
+  "</span>request<span class="s2">": {
+    "</span>withdrawalId<span class="s2">": 0
+  }
+}"</span>
 
 </code></pre></div>
 <blockquote>
 <p>Response</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"amountInFiats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"clientAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"companyName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-03T09:08:28.116Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"errorMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"lastAttemptsDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-03T09:08:28.116Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"modifiedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"modifiedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-03T09:08:28.116Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"networkFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"networkFeeCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"networkFeeInFiats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"networkFeePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"networkFeeRatio"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"numberOfAttempts"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DRAFT"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"totalAmountInFiats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"validationErrorsResolved"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"withdrawalErrors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"maxRatio"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"minRatio"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"transactionFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="nl">"errorMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"errorResolved"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SUCCESS"</span><span class="w">
     </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"withdrawalId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>This endpoint retrieves the expected transaction fee.</p>
+<p>This endpoint retrieves specific transaction from a mass deal.</p>
 <h5 id='http-request-9'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.local/api/v1/public/payout/fee</code></p>
+<p><code>POST http://public-gateway.calypso.local/api/v1/pub/payout/mass/withdrawal</code></p>
 <h5 id='header-9'>Header</h5>
 <table><thead>
 <tr>
@@ -5701,6 +5826,312 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>This object contains request details.</td>
 </tr>
 <tr>
+<td>request.withdrawalId</td>
+<td>NUMBER</td>
+<td>Yes</td>
+<td>Transaction ID.</td>
+</tr>
+</tbody></table>
+<h5 id='response-body-9'>Response Body</h5>
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>amount</td>
+<td>number</td>
+<td>Yes</td>
+<td>withdrawal amount.</td>
+</tr>
+<tr>
+<td>amountInFiats</td>
+<td>object</td>
+<td>Yes</td>
+<td>amount of the transactions in different fiat currencies.</td>
+</tr>
+<tr>
+<td>amountInFiats.{currency}</td>
+<td>number</td>
+<td>Yes</td>
+<td>amount of the mass deal in particular fiat currencies. [ USD, EUR, RUB, UAH, KZT ]</td>
+</tr>
+<tr>
+<td>clientAddress</td>
+<td>string</td>
+<td>Yes</td>
+<td>recipient&#39;s crypto-address.</td>
+</tr>
+<tr>
+<td>comment</td>
+<td>string</td>
+<td>No</td>
+<td>comment for the transaction.</td>
+</tr>
+<tr>
+<td>companyName</td>
+<td>string</td>
+<td>Yes</td>
+<td>company of the user who created the deal.</td>
+</tr>
+<tr>
+<td>createdBy</td>
+<td>string</td>
+<td>Yes</td>
+<td>user who created this transaction.</td>
+</tr>
+<tr>
+<td>createdDate</td>
+<td>string</td>
+<td>Yes</td>
+<td>time of deal creation.</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>string</td>
+<td>Yes</td>
+<td>this is the currency associated with the amount field. [ BTC, ETH, BNB, USDT ]</td>
+</tr>
+<tr>
+<td>errorMessage</td>
+<td>string</td>
+<td>No</td>
+<td>represents human readable error reason of why request is not successful.</td>
+</tr>
+<tr>
+<td>hash</td>
+<td>string</td>
+<td>No</td>
+<td>transaction hash.</td>
+</tr>
+<tr>
+<td>id</td>
+<td>number</td>
+<td>Yes</td>
+<td>transaction id.</td>
+</tr>
+<tr>
+<td>lastAttemptsDate</td>
+<td>string</td>
+<td>No</td>
+<td>date of last attempt to send and complete the transaction.</td>
+</tr>
+<tr>
+<td>modifiedBy</td>
+<td>string</td>
+<td>Yes</td>
+<td>user who modified this deal.</td>
+</tr>
+<tr>
+<td>modifiedDate</td>
+<td>string</td>
+<td>Yes</td>
+<td>time of transaction modification.</td>
+</tr>
+<tr>
+<td>networkFee</td>
+<td>number</td>
+<td>Yes</td>
+<td>is a cryptocurrency transaction fee that is charged to users when performing crypto transactions.</td>
+</tr>
+<tr>
+<td>networkFeeCurrency</td>
+<td>string</td>
+<td>Yes</td>
+<td>this is the currency associated with the networkfee field. [ BTC, ETH, BNB, USDT ]</td>
+</tr>
+<tr>
+<td>networkFeeInFiats</td>
+<td>object</td>
+<td>Yes</td>
+<td>amount of the transaction fee in different fiat currencies.</td>
+</tr>
+<tr>
+<td>networkFeeInFiats.{currency}</td>
+<td>string</td>
+<td>Yes</td>
+<td>amount of the transaction fee in particular fiat currencies. [ USD, EUR, RUB, UAH, KZT ]</td>
+</tr>
+<tr>
+<td>networkFeePercentage</td>
+<td>number</td>
+<td>Yes</td>
+<td>describes percentage that should be applied to the executed transaction amount to calculate the commission amount.</td>
+</tr>
+<tr>
+<td>networkFeeRatio</td>
+<td>number</td>
+<td>Yes</td>
+<td>selected network fee coefficient (see get expected transaction fee).</td>
+</tr>
+<tr>
+<td>nonce</td>
+<td>number</td>
+<td>No</td>
+<td>sequence number of the transaction.</td>
+</tr>
+<tr>
+<td>numberOfAttempts</td>
+<td>number</td>
+<td>Yes</td>
+<td>the number of attempts to send and execute this transaction.</td>
+</tr>
+<tr>
+<td>state</td>
+<td>string</td>
+<td>Yes</td>
+<td>represents status of the transaction. [ DRAFT, IN_PROGRESS, COMPLETED, REPLACED, FAILED ]</td>
+</tr>
+<tr>
+<td>totalAmountInFiats</td>
+<td>object</td>
+<td>Yes</td>
+<td>the total amount of transactions in different fiat currencies.</td>
+</tr>
+<tr>
+<td>validationErrorsResolved</td>
+<td>boolean</td>
+<td>Yes</td>
+<td>flag indicating that the error was detected and resolved during the verification phase.</td>
+</tr>
+<tr>
+<td>withdrawalErrors</td>
+<td>array</td>
+<td>Yes</td>
+<td>this object contains error details.</td>
+</tr>
+<tr>
+<td>withdrawalErrors.errorMessage</td>
+<td>string</td>
+<td>No</td>
+<td>represents human readable error reason of why request is not successful.</td>
+</tr>
+<tr>
+<td>withdrawalErrors.errorResolved</td>
+<td>boolean</td>
+<td>Yes</td>
+<td>flag indicating that the error has been resolved.</td>
+</tr>
+<tr>
+<td>withdrawalErrors.id</td>
+<td>number</td>
+<td>Yes</td>
+<td>id of the withdrawal error that occurred.</td>
+</tr>
+<tr>
+<td>withdrawalErrors.status</td>
+<td>string</td>
+<td>Yes</td>
+<td>error status when withdrawing funds. [ SUCCESS, NO_PERMISSION, NO_BALANCE, NOT_ENOUGH_FUNDS, NOT_ENOUGH_FUNDS _FOR_COMMISSION ]</td>
+</tr>
+<tr>
+<td>withdrawalid</td>
+<td>number</td>
+<td>No</td>
+<td>transaction id.</td>
+</tr>
+</tbody></table>
+<h2 id='get-expected-transaction-fee'>Get Expected Transaction Fee</h2>
+<blockquote>
+<p>Request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>
+    curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.local/api/v1/public/payout/fee"</span> <span class="se">\</span>
+    <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+    <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+    <span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+    <span class="nt">--data-raw</span> <span class="s2">"{
+      </span><span class="se">\"</span><span class="s2">nonce</span><span class="se">\"</span><span class="s2">: 0,
+      </span><span class="se">\"</span><span class="s2">request</span><span class="se">\"</span><span class="s2">: {
+            </span><span class="se">\"</span><span class="s2">withdrawalAddress</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">string</span><span class="se">\"</span><span class="s2">,
+          </span><span class="se">\"</span><span class="s2">currency</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">BTC</span><span class="se">\"</span><span class="s2">,
+          </span><span class="se">\"</span><span class="s2">depositAddress</span><span class="se">\"</span><span class="s2">: </span><span class="se">\"</span><span class="s2">string</span><span class="se">\"</span><span class="s2">,
+          </span><span class="se">\"</span><span class="s2">amount</span><span class="se">\"</span><span class="s2">: 0
+      }
+    }"</span>
+
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/payout/fee'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+  "nonce": 0,
+  "request": {
+    "withdrawalAddress": "string",
+    "currency": "BTC",
+    "depositAddress": "string",
+    "amount": 0
+  }
+}'</span>
+
+</code></pre></div>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"maxRatio"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"minRatio"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"transactionFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>This endpoint retrieves the expected transaction fee.</p>
+<h5 id='http-request-10'>HTTP Request</h5>
+<p><code>POST http://public-gateway.calypso.local/api/v1/pub/payout/fee</code></p>
+<h5 id='header-10'>Header</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Key</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>&lt;your_api_key&gt;</td>
+</tr>
+<tr>
+<td>Sign</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>&lt;your_sign&gt;</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>must be set to application/json for requests to the Calypso API</td>
+</tr>
+</tbody></table>
+<h5 id='request-body-10'>Request Body</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>nonce</td>
+<td>NUMBER</td>
+<td>Yes</td>
+<td>Nonce used in construction of Sign header.</td>
+</tr>
+<tr>
+<td>request</td>
+<td>OBJECT</td>
+<td>Yes</td>
+<td>This object contains request details.</td>
+</tr>
+<tr>
 <td>request.withdrawalAddress</td>
 <td>STRING</td>
 <td>Yes</td>
@@ -5708,7 +6139,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </tr>
 <tr>
 <td>request.currency</td>
-<td>ENUM</td>
+<td>STRING</td>
 <td>Yes</td>
 <td>This is the currency associated with the amount field.</td>
 </tr>
@@ -5725,7 +6156,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>Transaction amount.</td>
 </tr>
 </tbody></table>
-<h5 id='response-body-9'>Response Body</h5>
+<h5 id='response-body-10'>Response Body</h5>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -5754,29 +6185,73 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </tr>
 </tbody></table>
 <h1 id='errors'>Errors</h1>
+<blockquote>
+<p>The format of errorr messages</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Internal Server Error"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Internal server problem. Please contact our support."</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
 <p>The Calypso API uses the following error codes:</p>
 
 <table><thead>
 <tr>
-<th>Error Code</th>
-<th>Meaning</th>
+<th>status</th>
+<th>error</th>
+<th>message</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>400</td>
-<td>Bad Request -- Request is invalid.</td>
+<td>Bad Request</td>
+<td>Request is invalid</td>
 </tr>
 <tr>
 <td>401</td>
-<td>Unauthorized -- API key error. Please try again.</td>
+<td>Unauthorized</td>
+<td>Api key error. The provided API key is invalid.</td>
+</tr>
+<tr>
+<td>404</td>
+<td>Not Found</td>
+<td>Requested object is not found.</td>
+</tr>
+<tr>
+<td>422</td>
+<td>Unprocessable Entity</td>
+<td>Missing {parameterName} parameter</td>
+</tr>
+<tr>
+<td>422</td>
+<td>Unprocessable Entity</td>
+<td>Invalid {parameterName} parameter</td>
+</tr>
+<tr>
+<td>422</td>
+<td>Unprocessable Entity</td>
+<td>Invalid nonce parameter. Nonce value must be greater than previous one</td>
 </tr>
 <tr>
 <td>500</td>
-<td>Internal Server Error -- Internal server problem. Please contact out support.</td>
+<td>Internal Server Error</td>
+<td>Internal server problem. Please contact our support.</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Internal Server Error</td>
+<td>Incorrect invoice type for withdrawal. Must be Unlimited.</td>
+</tr>
+<tr>
+<td>500</td>
+<td>Internal Server Error</td>
+<td>Zero balance of requested invoice. Withdrawal unavailable.</td>
 </tr>
 <tr>
 <td>503</td>
-<td>Service Unavailable -- Server is currently down. Please try again later.</td>
+<td>Service Unavailable</td>
+<td>Server is currently down. Please try again later.</td>
 </tr>
 </tbody></table>
 
