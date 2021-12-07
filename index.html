@@ -382,28 +382,28 @@
                     <a href="#get-assets-and-wallet-addresses" class="toc-h2 toc-link" data-title="Get Assets And Wallet Addresses">Get Assets And Wallet Addresses</a>
                   </li>
                   <li>
-                    <a href="#new-deal" class="toc-h2 toc-link" data-title="New Deal">New Deal</a>
+                    <a href="#new-payout" class="toc-h2 toc-link" data-title="New Payout">New Payout</a>
                   </li>
                   <li>
-                    <a href="#get-specific-deal" class="toc-h2 toc-link" data-title="Get Specific Deal">Get Specific Deal</a>
+                    <a href="#get-specific-payout" class="toc-h2 toc-link" data-title="Get Specific Payout">Get Specific Payout</a>
                   </li>
                   <li>
-                    <a href="#get-all-deals" class="toc-h2 toc-link" data-title="Get All Deals">Get All Deals</a>
+                    <a href="#get-all-payouts" class="toc-h2 toc-link" data-title="Get All Payouts">Get All Payouts</a>
                   </li>
                   <li>
-                    <a href="#new-mass-deal" class="toc-h2 toc-link" data-title="New Mass Deal">New Mass Deal</a>
+                    <a href="#new-mass-payout" class="toc-h2 toc-link" data-title="New Mass Payout">New Mass Payout</a>
                   </li>
                   <li>
-                    <a href="#get-all-mass-deals" class="toc-h2 toc-link" data-title="Get All Mass Deals">Get All Mass Deals</a>
+                    <a href="#get-all-mass-payouts" class="toc-h2 toc-link" data-title="Get All Mass Payouts">Get All Mass Payouts</a>
                   </li>
                   <li>
-                    <a href="#get-specific-mass-deal" class="toc-h2 toc-link" data-title="Get Specific Mass Deal">Get Specific Mass Deal</a>
+                    <a href="#get-specific-mass-payout" class="toc-h2 toc-link" data-title="Get Specific Mass Payout">Get Specific Mass Payout</a>
                   </li>
                   <li>
-                    <a href="#get-transactions-from-a-specific-mass-deal" class="toc-h2 toc-link" data-title="Get Transactions From a Specific Mass Deal">Get Transactions From a Specific Mass Deal</a>
+                    <a href="#get-transactions-from-a-specific-mass-payout" class="toc-h2 toc-link" data-title="Get Transactions From a Specific Mass Payout">Get Transactions From a Specific Mass Payout</a>
                   </li>
                   <li>
-                    <a href="#get-specific-transaction-from-a-mass-deal" class="toc-h2 toc-link" data-title="Get Specific Transaction From a Mass Deal">Get Specific Transaction From a Mass Deal</a>
+                    <a href="#get-specific-transaction-from-a-mass-payout" class="toc-h2 toc-link" data-title="Get Specific Transaction From a Mass Payout">Get Specific Transaction From a Mass Payout</a>
                   </li>
                   <li>
                     <a href="#get-expected-transaction-fee" class="toc-h2 toc-link" data-title="Get Expected Transaction Fee">Get Expected Transaction Fee</a>
@@ -760,7 +760,7 @@
 <p><strong>Payout</strong> is a payment of a reward, dividend, insurance compensation, etc. (i.e. a client may request to withdraw funds won in a casino). Withdrawal of funds is performed by <strong>Payment Processor</strong>.</p>
 <h5 id='terminology-and-entities-2'><strong>Terminology and entities</strong></h5>
 <ul>
-<li><strong>Deals</strong> is an object with data about a deal: deal ID, its status and data on the amount to be paid. The difference between the payment amount and the payout amount is the sum of all commissions.</li>
+<li><strong>Payout</strong> is an object with data about a payout: payout ID, its status and data on the amount to be paid. The difference between the payment amount and the payout amount is the sum of all commissions.</li>
 <li><strong>Wallet</strong> allows you to deposit and withdraw funds, as well as receive all information on payments made. A wallet in the Calypso system is set up in the context of the company.</li>
 <li><strong>Client</strong> is a payee. Client data can be re-included in the payment.</li>
 </ul>
@@ -775,7 +775,7 @@
 
 <p><em>More details on API access keys are available on the **Invoice API</em>* page.*</p>
 <h3 id='payout-wallets'><strong>Payout wallets</strong></h3>
-<p><strong>Invoice wallet</strong> is a unique wallet designed to deposit and withdraw funds by creating a deal. It is generated when creating a company.</p>
+<p><strong>Hot wallet</strong> is a wallet designed to deposit and withdraw funds by creating a payout. It can be created via interface in Wallets section.</p>
 <h5 id='features-4'><strong>Features</strong>:</h5>
 <ul>
 <li>View a balance</li>
@@ -794,22 +794,22 @@
 <li>In the response, find the link for payout in required currency by navigating through the “<strong>currency</strong>” fields in the “<strong>assets</strong>” array</li>
 <li>Copy a wallet address for required currency from the field “<strong>address</strong>” and transfer funds to this address</li>
 </ol>
-<h5 id='creating-payout-deal-via-api'><strong>Creating payout deal via API</strong></h5>
+<h5 id='creating-payout-via-api'><strong>Creating payout via API</strong></h5>
 <ol>
 <li>Check wallet balance and ensure enough funds for payouts are available by using the method <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/payout/asset/all</strong>;</li>
-<li>Before creating a deal, get a network commission coefficient by using the method <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/payout/fee</strong>. The received value must be passed in the parameter <strong>networkFeeRatio</strong> of the deal creation method.</li>
-<li>Create the deal by using the method <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/payout/create</strong>;</li>
-<li>Get the data on the deal and its status by using the method <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/payout</strong>;</li>
+<li>Before creating a payout, get a network commission coefficient by using the method <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/payout/fee</strong>. The received value must be passed in the parameter <strong>networkFeeRatio</strong> of the payout creation method.</li>
+<li>Create the payout by using the method <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/payout/create</strong>;</li>
+<li>Get the data on the payout and its status by using the method <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/payout</strong>;</li>
 </ol>
 <h5 id='scheme-of-information-process-interaction'><strong>Scheme of information process interaction</strong></h5>
-<p>Below is an example of creating a payout deal from a client’s site or application.</p>
+<p>Below is an example of creating a payout from a client’s site or application.</p>
 
 <p>Names of requests on the scheme indicate certain payment API methods.</p>
 
 <!-- Sequence от получения активов до создания сделки -->
 
 <p><img src="images/sequence-deal-db150984.png" width="90%" height="91%" style="margin: 5%"/></p>
-<h5 id='payout-deal-statuses'><strong>Payout deal statuses:</strong></h5>
+<h5 id='payout-statuses'><strong>Payout statuses:</strong></h5>
 <table><thead>
 <tr>
 <th>Status</th>
@@ -818,15 +818,15 @@
 </thead><tbody>
 <tr>
 <td>PENDING_CONFIRMATION</td>
-<td>A deal is created via UI and is awaiting confirmation from other process participants.</td>
+<td>A payout is created via UI and is awaiting confirmation from other process participants.</td>
 </tr>
 <tr>
 <td>CONFIRMED</td>
-<td>&#8226; A deal is created via UI and confirmed by other process participants. <br /> &#8226; A deal created via API is automatically created with this status.</td>
+<td>&#8226; A payout is created via UI and confirmed by other process participants. <br /> &#8226; A payout created via API is automatically created with this status.</td>
 </tr>
 <tr>
 <td>IN_PROGRESS</td>
-<td>&#8226; Transaction for a deal is created and is awaiting to be sent to the network. <br /> &#8226;Transaction for a deal is sent to the network to be sent to a block and is awaiting confirmation from nodes.</td>
+<td>&#8226; Transaction for a payout is created and is awaiting to be sent to the network. <br /> &#8226;Transaction for a payout is sent to the network to be sent to a block and is awaiting confirmation from nodes.</td>
 </tr>
 <tr>
 <td>COMPLETED</td>
@@ -834,17 +834,17 @@
 </tr>
 <tr>
 <td>FAILED</td>
-<td>An error occurred when sending funds. There can be many reasonsof the error. You may follow these remediation steps: <br /> 1. Wait a while and create a new similar deal. <br /> 2. Contact our technical support.</td>
+<td>An error occurred when sending funds. There can be many reasonsof the error. You may follow these remediation steps: <br /> 1. Wait a while and create a new similar payout. <br /> 2. Contact our technical support.</td>
 </tr>
 <tr>
 <td>CANCELED</td>
-<td>A deal has been canceled by merchant.</td>
+<td>A payout has been canceled by merchant.</td>
 </tr>
 </tbody></table>
 
 <p>Diagram nodes indicate payout statuses, arrows indicate processes a successful completion of which transfers a payout from one status to another.</p>
 
-<!-- Deal state machine diagram -->
+<!-- Payout state machine diagram -->
 
 <p><img src="images/payout_status_diagram-79b5c523.png" width="85%" height="80%" style="margin: 5%"/></p>
 <h5 id='notifications-about-events'><strong>Notifications about events</strong></h5>
@@ -852,7 +852,7 @@
 
 <ol>
 <li>Price has been changed during a transaction.</li>
-<li>There are not enough funds in the account to pay a commission after the payout deal creation and confirmation.</li>
+<li>There are not enough funds in the account to pay a commission after the payout creation and confirmation.</li>
 </ol>
 <h5 id='payout-limits'><strong>Payout limits</strong></h5>
 <p>Currently, the limit is 10,000 payouts per day. There are no limits for transaction amounts in the total payout amount.</p>
@@ -885,7 +885,7 @@
 
 <p>Mass payouts are perfect for sending salaries to subordinates, payouts to partners or e-commerce marketplaces.</p>
 <h5 id='how-to-implement-this-via-api-2'><strong>How to implement this via API?</strong></h5>
-<p>Below is an example of creating Mass Payout deals from the client’s site or application.</p>
+<p>Below is an example of creating Mass Payout from the client’s site or application.</p>
 
 <p>Names of requests on the scheme indicate certain payment API methods.</p>
 
@@ -893,7 +893,7 @@
 
 <p><img src="images/sequence_mass_deal-8feb7974.png" width="85%" height="80%" style="margin: 5%"/></p>
 <h5 id='limits'><strong>Limits</strong></h5>
-<p>Currently, the limit is 10,000 payout deals per day. There are no limits for transaction amounts in the total payout amount.</p>
+<p>Currently, the limit is 10,000 payouts per day. There are no limits for transaction amounts in the total payout amount.</p>
 <h2 id='references'><strong>References</strong></h2><h5 id='test-account'><strong>Test account</strong></h5>
 <p>To test payments and invoices, you can use a particular test account created in the test environment by default.</p>
 <h5 id='test-company'><strong>Test company</strong></h5>
@@ -3454,15 +3454,15 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </thead><tbody>
 <tr>
 <td>PENDING_CONFIRMATION</td>
-<td>A deal is created via UI and is awaiting confirmation from other process participants.</td>
+<td>A payout is created via UI and is awaiting confirmation from other process participants.</td>
 </tr>
 <tr>
 <td>CONFIRMED</td>
-<td>&#8226; A deal is created via UI and confirmed by other process participants. <br /> &#8226; A deal created via API is automatically created with this status.</td>
+<td>&#8226; A payout is created via UI and confirmed by other process participants. <br /> &#8226; A payout created via API is automatically created with this status.</td>
 </tr>
 <tr>
 <td>IN_PROGRESS</td>
-<td>&#8226; Transaction for a deal is created and is awaiting to be sent to the network. <br /> &#8226;Transaction for a deal is sent to the network to be sent to a block and is awaiting confirmation from nodes.</td>
+<td>&#8226; Transaction for a payout is created and is awaiting to be sent to the network. <br /> &#8226;Transaction for a payout is sent to the network to be sent to a block and is awaiting confirmation from nodes.</td>
 </tr>
 <tr>
 <td>COMPLETED</td>
@@ -3470,11 +3470,11 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </tr>
 <tr>
 <td>FAILED</td>
-<td>An error occurred when sending funds. There can be many reasonsof the error. You may follow these remediation steps: <br /> 1. Wait a while and create a new similar deal. <br /> 2. Contact our technical support.</td>
+<td>An error occurred when sending funds. There can be many reasonsof the error. You may follow these remediation steps: <br /> 1. Wait a while and create a new similar payout. <br /> 2. Contact our technical support.</td>
 </tr>
 <tr>
 <td>CANCELED</td>
-<td>A deal has been canceled by merchant.</td>
+<td>A payout has been canceled by merchant.</td>
 </tr>
 </tbody></table>
 <h2 id='get-assets-and-wallet-addresses'>Get Assets And Wallet Addresses</h2>
@@ -3701,7 +3701,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>the total balance in percentage of particular crypto currency.</td>
 </tr>
 </tbody></table>
-<h2 id='new-deal'>New Deal</h2>
+<h2 id='new-payout'>New Payout</h2>
 <blockquote>
 <p>Request</p>
 </blockquote>
@@ -3743,7 +3743,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>This endpoint creates a new deal.</p>
+<p>This endpoint creates a new payout.</p>
 <h5 id='http-request-2'>HTTP Request</h5>
 <p><code>POST http://public-gateway.calypso.local/api/v1/pub/payout/create</code></p>
 <h5 id='header-2'>Header</h5>
@@ -3829,7 +3829,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>request.comment</td>
 <td>string</td>
 <td>No</td>
-<td>comment for the deal.</td>
+<td>comment for the payout.</td>
 </tr>
 </tbody></table>
 <h5 id='response-body-2'>Response Body</h5>
@@ -3857,13 +3857,13 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>comment</td>
 <td>string</td>
 <td>No</td>
-<td>comment for the deal.</td>
+<td>comment for the payout.</td>
 </tr>
 <tr>
 <td>createdDate</td>
 <td>string</td>
 <td>Yes</td>
-<td>time of deal creation.</td>
+<td>time of payout creation.</td>
 </tr>
 <tr>
 <td>currency</td>
@@ -3881,7 +3881,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>id</td>
 <td>number</td>
 <td>Yes</td>
-<td>deal id</td>
+<td>payout id</td>
 </tr>
 <tr>
 <td>networkFee</td>
@@ -3899,7 +3899,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>networkFeePercentage</td>
 <td>number</td>
 <td>Yes</td>
-<td>describes percentage that should be applied to the executed deal amount to calculate the commission amount.</td>
+<td>describes percentage that should be applied to the executed payout amount to calculate the commission amount.</td>
 </tr>
 <tr>
 <td>networkFeeRatio</td>
@@ -3911,10 +3911,10 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>state</td>
 <td>string</td>
 <td>Yes</td>
-<td>represents status of the deal. [ PENDING_CONFIRMATION, CONFIRMED, IN_PROGRESS, COMPLETED, FAILED, CANCELED ]</td>
+<td>represents status of the payout. [ PENDING_CONFIRMATION, CONFIRMED, IN_PROGRESS, COMPLETED, FAILED, CANCELED ]</td>
 </tr>
 </tbody></table>
-<h2 id='get-specific-deal'>Get Specific Deal</h2>
+<h2 id='get-specific-payout'>Get Specific Payout</h2>
 <blockquote>
 <p>Request</p>
 </blockquote>
@@ -3951,7 +3951,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>This endpoint retrieves a specific deal.</p>
+<p>This endpoint retrieves a specific payout.</p>
 <h5 id='http-request-3'>HTTP Request</h5>
 <p><code>POST http://public-gateway.calypso.local/api/v1/pub/payout</code></p>
 <h5 id='header-3'>Header</h5>
@@ -4007,7 +4007,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>request.id</td>
 <td>NUMBER</td>
 <td>Yes</td>
-<td>The id of the deal you want to look up.</td>
+<td>The id of the payout you want to look up.</td>
 </tr>
 </tbody></table>
 <h5 id='response-body-3'>Response Body</h5>
@@ -4035,13 +4035,13 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>comment</td>
 <td>string</td>
 <td>No</td>
-<td>comment for the deal.</td>
+<td>comment for the payout.</td>
 </tr>
 <tr>
 <td>createdDate</td>
 <td>string</td>
 <td>Yes</td>
-<td>time of deal creation.</td>
+<td>time of payout creation.</td>
 </tr>
 <tr>
 <td>currency</td>
@@ -4059,7 +4059,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>id</td>
 <td>number</td>
 <td>Yes</td>
-<td>deal id</td>
+<td>payout id</td>
 </tr>
 <tr>
 <td>networkFee</td>
@@ -4077,7 +4077,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>networkFeePercentage</td>
 <td>number</td>
 <td>Yes</td>
-<td>describes percentage that should be applied to the executed deal amount to calculate the commission amount.</td>
+<td>describes percentage that should be applied to the executed payout amount to calculate the commission amount.</td>
 </tr>
 <tr>
 <td>networkFeeRatio</td>
@@ -4089,10 +4089,10 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>state</td>
 <td>string</td>
 <td>Yes</td>
-<td>represents status of the deal. [ PENDING_CONFIRMATION, CONFIRMED, IN_PROGRESS, COMPLETED, FAILED, CANCELED ]</td>
+<td>represents status of the payout. [ PENDING_CONFIRMATION, CONFIRMED, IN_PROGRESS, COMPLETED, FAILED, CANCELED ]</td>
 </tr>
 </tbody></table>
-<h2 id='get-all-deals'>Get All Deals</h2>
+<h2 id='get-all-payouts'>Get All Payouts</h2>
 <blockquote>
 <p>Request</p>
 </blockquote>
@@ -4140,7 +4140,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>This endpoint retreives all deals.</p>
+<p>This endpoint retreives all payouts.</p>
 <h5 id='http-request-4'>HTTP Request</h5>
 <p><code>POST http://public-gateway.calypso.local/api/v1/public/payout/all</code></p>
 <h5 id='header-4'>Header</h5>
@@ -4196,7 +4196,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>request.stateNames</td>
 <td>string</td>
 <td>Yes</td>
-<td>represents status of the deal. [ PENDING_CONFIRMATION, CONFIRMED, IN_PROGRESS, COMPLETED, FAILED, CANCELED ]</td>
+<td>represents status of the payout. [ PENDING_CONFIRMATION, CONFIRMED, IN_PROGRESS, COMPLETED, FAILED, CANCELED ]</td>
 </tr>
 <tr>
 <td>request.pageNumber</td>
@@ -4242,13 +4242,13 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>result.comment</td>
 <td>string</td>
 <td>No</td>
-<td>comment for the deal.</td>
+<td>comment for the payout.</td>
 </tr>
 <tr>
 <td>result.createdDate</td>
 <td>string</td>
 <td>Yes</td>
-<td>time of deal creation.</td>
+<td>time of payout creation.</td>
 </tr>
 <tr>
 <td>result.currency</td>
@@ -4266,7 +4266,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>result.id</td>
 <td>number</td>
 <td>Yes</td>
-<td>deal id</td>
+<td>payout id</td>
 </tr>
 <tr>
 <td>result.networkFee</td>
@@ -4284,7 +4284,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>result.networkFeePercentage</td>
 <td>number</td>
 <td>Yes</td>
-<td>describes percentage that should be applied to the executed deal amount to calculate the commission amount.</td>
+<td>describes percentage that should be applied to the executed payout amount to calculate the commission amount.</td>
 </tr>
 <tr>
 <td>result.networkFeeRatio</td>
@@ -4296,7 +4296,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>result.state</td>
 <td>string</td>
 <td>Yes</td>
-<td>represents status of the deal. [ PENDING_CONFIRMATION, CONFIRMED, IN_PROGRESS, COMPLETED, FAILED, CANCELED ]</td>
+<td>represents status of the payout. [ PENDING_CONFIRMATION, CONFIRMED, IN_PROGRESS, COMPLETED, FAILED, CANCELED ]</td>
 </tr>
 <tr>
 <td>page</td>
@@ -4317,7 +4317,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>the total number of resources matching the query.</td>
 </tr>
 </tbody></table>
-<h2 id='new-mass-deal'>New Mass Deal</h2>
+<h2 id='new-mass-payout'>New Mass Payout</h2>
 <blockquote>
 <p>Request</p>
 </blockquote>
@@ -4415,7 +4415,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>This endpoint creates a new mass deal.</p>
+<p>This endpoint creates a new mass payout.</p>
 <h5 id='http-request-5'>HTTP Request</h5>
 <p><code>POST http://public-gateway.calypso.local/api/v1/public/payout/mass/create</code></p>
 <h5 id='header-5'>Header</h5>
@@ -4471,19 +4471,19 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>request.name</td>
 <td>string</td>
 <td>Yes</td>
-<td>mass deal name.</td>
+<td>mass payout name.</td>
 </tr>
 <tr>
 <td>request.comment</td>
 <td>string</td>
 <td>No</td>
-<td>comment for the mass deal.</td>
+<td>comment for the mass payout.</td>
 </tr>
 <tr>
 <td>request.dealWithdrawals</td>
 <td>array</td>
 <td>Yes</td>
-<td>this object contains mass deal transactions.</td>
+<td>this object contains mass payout transactions.</td>
 </tr>
 <tr>
 <td>request.dealWithdrawals.withdrawalAddress</td>
@@ -4535,7 +4535,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>comment</td>
 <td>string</td>
 <td>Yes</td>
-<td>comment for the mass deal.</td>
+<td>comment for the mass payout.</td>
 </tr>
 <tr>
 <td>companyId</td>
@@ -4547,13 +4547,13 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>createdBy</td>
 <td>string</td>
 <td>Yes</td>
-<td>user who created this deal.</td>
+<td>user who created this payout.</td>
 </tr>
 <tr>
 <td>createdDate</td>
 <td>string</td>
 <td>Yes</td>
-<td>time of deal creation.</td>
+<td>time of payout creation.</td>
 </tr>
 <tr>
 <td>currency</td>
@@ -4565,7 +4565,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>dealWithdrawals</td>
 <td>array</td>
 <td>Yes</td>
-<td>this object contains mass deal transactions.</td>
+<td>this object contains mass payout transactions.</td>
 </tr>
 <tr>
 <td>dealWithdrawals.amount</td>
@@ -4601,19 +4601,19 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>dealWithdrawals.companyName</td>
 <td>string</td>
 <td>Yes</td>
-<td>company of the user who created the deal.</td>
+<td>company of the user who created the payout.</td>
 </tr>
 <tr>
 <td>dealWithdrawals.createdBy</td>
 <td>string</td>
 <td>Yes</td>
-<td>user who created this deal.</td>
+<td>user who created this payout.</td>
 </tr>
 <tr>
 <td>dealWithdrawals.createdDate</td>
 <td>string</td>
 <td>Yes</td>
-<td>time of deal creation.</td>
+<td>time of payout creation.</td>
 </tr>
 <tr>
 <td>dealWithdrawals.currency</td>
@@ -4649,7 +4649,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>dealWithdrawals.modifiedBy</td>
 <td>string</td>
 <td>Yes</td>
-<td>user who modified this deal.</td>
+<td>user who modified this payout.</td>
 </tr>
 <tr>
 <td>dealWithdrawals.modifiedDate</td>
@@ -4769,13 +4769,13 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>id</td>
 <td>number</td>
 <td>Yes</td>
-<td>mass deal id.</td>
+<td>mass payout id.</td>
 </tr>
 <tr>
 <td>name</td>
 <td>string</td>
 <td>Yes</td>
-<td>mass deal name.</td>
+<td>mass payout name.</td>
 </tr>
 <tr>
 <td>networkFeeCurrency</td>
@@ -4793,7 +4793,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>state</td>
 <td>enum</td>
 <td>Yes</td>
-<td>represents status of the mass deal.</td>
+<td>represents status of the mass payout.</td>
 </tr>
 <tr>
 <td>totalNetworkFee</td>
@@ -4811,10 +4811,10 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>totalWithdrawalAmount</td>
 <td>number</td>
 <td>Yes</td>
-<td>total amount of all transactions in a mass deal.</td>
+<td>total amount of all transactions in a mass payout.</td>
 </tr>
 </tbody></table>
-<h2 id='get-all-mass-deals'>Get All Mass Deals</h2>
+<h2 id='get-all-mass-payouts'>Get All Mass Payouts</h2>
 <blockquote>
 <p>Request</p>
 </blockquote>
@@ -4880,7 +4880,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>This endpoint retrieves all mass deals.</p>
+<p>This endpoint retrieves all mass payouts.</p>
 <h5 id='http-request-6'>HTTP Request</h5>
 <p><code>POST http://public-gateway.calypso.local/api/v1/public/payout/mass/all</code></p>
 <h5 id='header-6'>Header</h5>
@@ -4936,7 +4936,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>request.stateNames</td>
 <td>array</td>
 <td>Yes</td>
-<td>status of the deals you want to look up. [ PENDING_CONFIRMATION, CONFIRMED, IN_PROGRESS, COMPLETED, FAILED, CANCELED ]</td>
+<td>status of the payouts you want to look up. [ PENDING_CONFIRMATION, CONFIRMED, IN_PROGRESS, COMPLETED, FAILED, CANCELED ]</td>
 </tr>
 <tr>
 <td>request.pageNumber</td>
@@ -4970,19 +4970,19 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>result.amountInFiats</td>
 <td>object</td>
 <td>Yes</td>
-<td>amount of the mass deal in different fiat currencies.</td>
+<td>amount of the mass payout in different fiat currencies.</td>
 </tr>
 <tr>
 <td>result.amountInFiats.{currency}</td>
 <td>number</td>
 <td>Yes</td>
-<td>amount of the mass deal in particular fiat currencies. [ USD, EUR, RUB, UAH, KZT ]</td>
+<td>amount of the mass payout in particular fiat currencies. [ USD, EUR, RUB, UAH, KZT ]</td>
 </tr>
 <tr>
 <td>result.comment</td>
 <td>string</td>
 <td>Yes</td>
-<td>comment for the mass deal.</td>
+<td>comment for the mass payout.</td>
 </tr>
 <tr>
 <td>result.companyId</td>
@@ -4994,7 +4994,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>result.counter</td>
 <td>number</td>
 <td>Yes</td>
-<td>total number of transactions in the mass deal</td>
+<td>total number of transactions in the mass payout</td>
 </tr>
 <tr>
 <td>result.counterInCompleted</td>
@@ -5018,13 +5018,13 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>result.createdBy</td>
 <td>string</td>
 <td>Yes</td>
-<td>user who created this deal.</td>
+<td>user who created this payout.</td>
 </tr>
 <tr>
 <td>result.createdDate</td>
 <td>string</td>
 <td>Yes</td>
-<td>time of deal creation.</td>
+<td>time of payout creation.</td>
 </tr>
 <tr>
 <td>result.currency</td>
@@ -5036,13 +5036,13 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>result.id</td>
 <td>number</td>
 <td>Yes</td>
-<td>mass deal id.</td>
+<td>mass payout id.</td>
 </tr>
 <tr>
 <td>result.name</td>
 <td>string</td>
 <td>Yes</td>
-<td>mass deal name.</td>
+<td>mass payout name.</td>
 </tr>
 <tr>
 <td>result.networkFeeCurrency</td>
@@ -5066,13 +5066,13 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>result.state</td>
 <td>string</td>
 <td>Yes</td>
-<td>represents status of the mass deal.</td>
+<td>represents status of the mass payout.</td>
 </tr>
 <tr>
 <td>result.totalAmountInFiats</td>
 <td>object</td>
 <td>Yes</td>
-<td>total amount of the mass deal in different fiat currencies.</td>
+<td>total amount of the mass payout in different fiat currencies.</td>
 </tr>
 <tr>
 <td>result.totalNetworkFee</td>
@@ -5090,7 +5090,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>result.totalWithdrawalAmount</td>
 <td>number</td>
 <td>Yes</td>
-<td>sum of all transactions in a mass deal.</td>
+<td>sum of all transactions in a mass payout.</td>
 </tr>
 <tr>
 <td>page</td>
@@ -5111,7 +5111,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>the total number of resources matching the query.</td>
 </tr>
 </tbody></table>
-<h2 id='get-specific-mass-deal'>Get Specific Mass Deal</h2>
+<h2 id='get-specific-mass-payout'>Get Specific Mass Payout</h2>
 <blockquote>
 <p>Request</p>
 </blockquote>
@@ -5168,7 +5168,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>This endpoint retrieves a specific mass deal.</p>
+<p>This endpoint retrieves a specific mass payout.</p>
 <h5 id='http-request-7'>HTTP Request</h5>
 <p><code>POST http://public-gateway.calypso.local/api/v1/public/payout/mass</code></p>
 <h5 id='header-7'>Header</h5>
@@ -5224,7 +5224,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>request.dealId</td>
 <td>string</td>
 <td>Yes</td>
-<td>the id of the mass deal you want to look up.</td>
+<td>the id of the mass payout you want to look up.</td>
 </tr>
 </tbody></table>
 <h5 id='response-body-7'>Response Body</h5>
@@ -5240,19 +5240,19 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>amountInFiats</td>
 <td>object</td>
 <td>Yes</td>
-<td>amount of the mass deal in different fiat currencies.</td>
+<td>amount of the mass payout in different fiat currencies.</td>
 </tr>
 <tr>
 <td>amountInFiats.{currency}</td>
 <td>number</td>
 <td>Yes</td>
-<td>amount of the mass deal in particular fiat currencies. [ USD, EUR, RUB, UAH, KZT ]</td>
+<td>amount of the mass payout in particular fiat currencies. [ USD, EUR, RUB, UAH, KZT ]</td>
 </tr>
 <tr>
 <td>comment</td>
 <td>string</td>
 <td>Yes</td>
-<td>comment for the mass deal.</td>
+<td>comment for the mass payout.</td>
 </tr>
 <tr>
 <td>companyId</td>
@@ -5264,7 +5264,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>counter</td>
 <td>number</td>
 <td>Yes</td>
-<td>total number of transactions in the mass deal</td>
+<td>total number of transactions in the mass payout</td>
 </tr>
 <tr>
 <td>counterInCompleted</td>
@@ -5288,13 +5288,13 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>createdBy</td>
 <td>string</td>
 <td>Yes</td>
-<td>user who created this deal.</td>
+<td>user who created this payout.</td>
 </tr>
 <tr>
 <td>createdDate</td>
 <td>string</td>
 <td>Yes</td>
-<td>time of deal creation.</td>
+<td>time of payout creation.</td>
 </tr>
 <tr>
 <td>currency</td>
@@ -5306,13 +5306,13 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>id</td>
 <td>number</td>
 <td>Yes</td>
-<td>mass deal id.</td>
+<td>mass payout id.</td>
 </tr>
 <tr>
 <td>name</td>
 <td>string</td>
 <td>Yes</td>
-<td>mass deal name.</td>
+<td>mass payout name.</td>
 </tr>
 <tr>
 <td>networkFeeCurrency</td>
@@ -5336,13 +5336,13 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>state</td>
 <td>string</td>
 <td>Yes</td>
-<td>represents status of the mass deal.</td>
+<td>represents status of the mass payout.</td>
 </tr>
 <tr>
 <td>totalAmountInFiats</td>
 <td>object</td>
 <td>Yes</td>
-<td>total amount of the mass deal in different fiat currencies.</td>
+<td>total amount of the mass payout in different fiat currencies.</td>
 </tr>
 <tr>
 <td>totalNetworkFee</td>
@@ -5360,10 +5360,10 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>totalWithdrawalAmount</td>
 <td>number</td>
 <td>Yes</td>
-<td>sum of all transactions in a mass deal.</td>
+<td>sum of all transactions in a mass payout.</td>
 </tr>
 </tbody></table>
-<h2 id='get-transactions-from-a-specific-mass-deal'>Get Transactions From a Specific Mass Deal</h2>
+<h2 id='get-transactions-from-a-specific-mass-payout'>Get Transactions From a Specific Mass Payout</h2>
 <blockquote>
 <p>Request</p>
 </blockquote>
@@ -5436,7 +5436,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 </span><span class="p">]</span><span class="w">
 
 </span></code></pre></div>
-<p>This endpoint retrieves specific transactions from a mass deal.</p>
+<p>This endpoint retrieves specific transactions from a mass payout.</p>
 <h5 id='http-request-8'>HTTP Request</h5>
 <p><code>POST http://public-gateway.calypso.local/api/v1/pub/payout/mass/withdrawal/all</code></p>
 <h5 id='header-8'>Header</h5>
@@ -5492,7 +5492,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>request.dealId</td>
 <td>string</td>
 <td>Yes</td>
-<td>the id of the mass deal you want to look up.</td>
+<td>the id of the mass payout you want to look up.</td>
 </tr>
 <tr>
 <td>request.stateNames</td>
@@ -5526,7 +5526,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>amountInFiats.{currency}</td>
 <td>number</td>
 <td>Yes</td>
-<td>amount of the mass deal in particular fiat currencies. [ USD, EUR, RUB, UAH, KZT ]</td>
+<td>amount of the mass payout in particular fiat currencies. [ USD, EUR, RUB, UAH, KZT ]</td>
 </tr>
 <tr>
 <td>clientAddress</td>
@@ -5544,7 +5544,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>companyName</td>
 <td>string</td>
 <td>Yes</td>
-<td>company of the user who created the deal.</td>
+<td>company of the user who created the payout.</td>
 </tr>
 <tr>
 <td>createdBy</td>
@@ -5556,7 +5556,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>createdDate</td>
 <td>string</td>
 <td>Yes</td>
-<td>time of deal creation.</td>
+<td>time of payout creation.</td>
 </tr>
 <tr>
 <td>currency</td>
@@ -5592,7 +5592,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>modifiedBy</td>
 <td>string</td>
 <td>Yes</td>
-<td>user who modified this deal.</td>
+<td>user who modified this payout.</td>
 </tr>
 <tr>
 <td>modifiedDate</td>
@@ -5703,7 +5703,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>transaction id.</td>
 </tr>
 </tbody></table>
-<h2 id='get-specific-transaction-from-a-mass-deal'>Get Specific Transaction From a Mass Deal</h2>
+<h2 id='get-specific-transaction-from-a-mass-payout'>Get Specific Transaction From a Mass Payout</h2>
 <blockquote>
 <p>Request</p>
 </blockquote>
@@ -5773,7 +5773,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
-<p>This endpoint retrieves specific transaction from a mass deal.</p>
+<p>This endpoint retrieves specific transaction from a mass payout.</p>
 <h5 id='http-request-9'>HTTP Request</h5>
 <p><code>POST http://public-gateway.calypso.local/api/v1/pub/payout/mass/withdrawal</code></p>
 <h5 id='header-9'>Header</h5>
@@ -5857,7 +5857,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>amountInFiats.{currency}</td>
 <td>number</td>
 <td>Yes</td>
-<td>amount of the mass deal in particular fiat currencies. [ USD, EUR, RUB, UAH, KZT ]</td>
+<td>amount of the mass payout in particular fiat currencies. [ USD, EUR, RUB, UAH, KZT ]</td>
 </tr>
 <tr>
 <td>clientAddress</td>
@@ -5875,7 +5875,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>companyName</td>
 <td>string</td>
 <td>Yes</td>
-<td>company of the user who created the deal.</td>
+<td>company of the user who created the payout.</td>
 </tr>
 <tr>
 <td>createdBy</td>
@@ -5887,7 +5887,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>createdDate</td>
 <td>string</td>
 <td>Yes</td>
-<td>time of deal creation.</td>
+<td>time of payout creation.</td>
 </tr>
 <tr>
 <td>currency</td>
@@ -5923,7 +5923,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>modifiedBy</td>
 <td>string</td>
 <td>Yes</td>
-<td>user who modified this deal.</td>
+<td>user who modified this payout.</td>
 </tr>
 <tr>
 <td>modifiedDate</td>
