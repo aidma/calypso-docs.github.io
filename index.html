@@ -6189,8 +6189,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>The format of errorr messages</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
-    </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="mi">500</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Internal Server Error"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"errorCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"000"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Internal server problem. Please contact our support."</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
@@ -6198,60 +6197,65 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 
 <table><thead>
 <tr>
-<th>status</th>
-<th>error</th>
-<th>message</th>
+<th>errorCode</th>
+<th>Message</th>
 </tr>
 </thead><tbody>
 <tr>
-<td>400</td>
-<td>Bad Request</td>
-<td>Request is invalid</td>
-</tr>
-<tr>
-<td>401</td>
-<td>Unauthorized</td>
-<td>Api key error. The provided API key is invalid.</td>
-</tr>
-<tr>
-<td>404</td>
-<td>Not Found</td>
-<td>Requested object is not found.</td>
-</tr>
-<tr>
-<td>422</td>
-<td>Unprocessable Entity</td>
-<td>Missing {parameterName} parameter</td>
-</tr>
-<tr>
-<td>422</td>
-<td>Unprocessable Entity</td>
-<td>Invalid {parameterName} parameter</td>
-</tr>
-<tr>
-<td>422</td>
-<td>Unprocessable Entity</td>
-<td>Invalid nonce parameter. Nonce value must be greater than previous one</td>
-</tr>
-<tr>
-<td>500</td>
-<td>Internal Server Error</td>
+<td>000</td>
 <td>Internal server problem. Please contact our support.</td>
 </tr>
 <tr>
-<td>500</td>
-<td>Internal Server Error</td>
-<td>Incorrect invoice type for withdrawal. Must be Unlimited.</td>
+<td>001</td>
+<td>Request is invalid</td>
 </tr>
 <tr>
-<td>500</td>
-<td>Internal Server Error</td>
-<td>Zero balance of requested invoice. Withdrawal unavailable.</td>
+<td>002</td>
+<td>Incorrect sign</td>
 </tr>
 <tr>
-<td>503</td>
-<td>Service Unavailable</td>
-<td>Server is currently down. Please try again later.</td>
+<td>003</td>
+<td>Incorrect invoice type for withdrawal. Must be Unlimited</td>
+</tr>
+<tr>
+<td>004</td>
+<td>Invoice is in incorrect state for operation</td>
+</tr>
+<tr>
+<td>005</td>
+<td>Not enough funds in the selected unlimited invoice to create a withdrawal</td>
+</tr>
+<tr>
+<td>006</td>
+<td>Not enough funds in the selected wallet to create a payout</td>
+</tr>
+<tr>
+<td>007</td>
+<td>Fee ratio of currency is not in range of min and max fee ratio</td>
+</tr>
+<tr>
+<td>008</td>
+<td>Wallet doesn&#39;t belong to user company</td>
+</tr>
+<tr>
+<td>009</td>
+<td>Api key error. The provided API key is invalid.</td>
+</tr>
+<tr>
+<td>010</td>
+<td>Requested object is not found</td>
+</tr>
+<tr>
+<td>011</td>
+<td>Missing {parameterName} parameter</td>
+</tr>
+<tr>
+<td>012</td>
+<td>Invalid {parameterName} parameter</td>
+</tr>
+<tr>
+<td>013</td>
+<td>Invalid nonce parameter. Nonce value must be greater than previous one</td>
 </tr>
 </tbody></table>
 
