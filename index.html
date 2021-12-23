@@ -493,7 +493,7 @@
 <p>To make a payment from the Calypso payment form, there are the following steps to be performed:</p>
 
 <ul>
-<li>Send API request to create an invoice (<strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/create</strong>)</li>
+<li>Send API request to create an invoice (<strong>POST http://gateway.calypso.finance/api/v1/pub/invoice/create</strong>)</li>
 <li>Redirect a browser of a user to the link of the following format: <strong>http://ui.calypso.finance/invoices/</strong></li>
 </ul>
 
@@ -587,7 +587,7 @@
 <p>Calypso API enables you with creating your own Payment links</p>
 <h5 id='to-use-calypso-payment-link'><strong>To use Calypso Payment Link:</strong></h5>
 <ul>
-<li>Send API request to create an invoice (<strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/create</strong>)</li>
+<li>Send API request to create an invoice (<strong>POST http://gateway.calypso.finance/api/v1/pub/invoice/create</strong>)</li>
 <li>Copy generated invoice ID from the response</li>
 <li>Redirect a browser of a user to the link of the following format: <strong>http://ui.calypso.finance/invoices/</strong></li>
 </ul>
@@ -603,9 +603,9 @@
 <p><img src="images/create_invoice-9d73bf49.png" width="95%" height="90%" style="margin: 5%"/></p>
 <h5 id='to-create-your-own-payment-links-using-calypso'><strong>To create your own payment links using Calypso:</strong></h5>
 <ul>
-<li>Send API request to create an invoice (<strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/create</strong>)</li>
+<li>Send API request to create an invoice (<strong>POST http://gateway.calypso.finance/api/v1/pub/invoice/create</strong>)</li>
 <li>Copy generated invoice ID from the response</li>
-<li>Send API request <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice</strong> and copy the data required for a user to complete this invoice payment</li>
+<li>Send API request <strong>POST http://gateway.calypso.finance/api/v1/pub/invoice</strong> and copy the data required for a user to complete this invoice payment</li>
 <li>Add copied data to a payment page and share a page link with a user</li>
 </ul>
 
@@ -785,21 +785,21 @@
 <li>View statistics</li>
 </ul>
 <h5 id='working-with-payout-wallets-via-api'><strong>Working with payout wallets via API:</strong></h5>
-<p>Data on wallets and available assets in them can be received by using the method <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/payout/asset/all</strong>;</p>
+<p>Data on wallets and available assets in them can be received by using the method <strong>POST http://gateway.calypso.finance/api/v1/pub/payout/asset/all</strong>;</p>
 <h5 id='example'><strong>Example:</strong></h5>
 <p>To get a payout wallet address to deposit funds:</p>
 
 <ol>
-<li>Send API request <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/payout/asset/all</strong></li>
+<li>Send API request <strong>POST http://gateway.calypso.finance/api/v1/pub/payout/asset/all</strong></li>
 <li>In the response, find the link for payout in required currency by navigating through the “<strong>currency</strong>” fields in the “<strong>assets</strong>” array</li>
 <li>Copy a wallet address for required currency from the field “<strong>address</strong>” and transfer funds to this address</li>
 </ol>
 <h5 id='creating-payout-via-api'><strong>Creating payout via API</strong></h5>
 <ol>
-<li>Check wallet balance and ensure enough funds for payouts are available by using the method <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/payout/asset/all</strong>;</li>
-<li>Before creating a payout, get a network commission coefficient by using the method <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/payout/fee</strong>. The received value must be passed in the parameter <strong>networkFeeRatio</strong> of the payout creation method.</li>
-<li>Create the payout by using the method <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/payout/create</strong>;</li>
-<li>Get the data on the payout and its status by using the method <strong>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/payout</strong>;</li>
+<li>Check wallet balance and ensure enough funds for payouts are available by using the method <strong>POST http://gateway.calypso.finance/api/v1/pub/payout/asset/all</strong>;</li>
+<li>Before creating a payout, get a network commission coefficient by using the method <strong>POST http://gateway.calypso.finance/api/v1/pub/payout/fee</strong>. The received value must be passed in the parameter <strong>networkFeeRatio</strong> of the payout creation method.</li>
+<li>Create the payout by using the method <strong>POST http://gateway.calypso.finance/api/v1/pub/payout/create</strong>;</li>
+<li>Get the data on the payout and its status by using the method <strong>POST http://gateway.calypso.finance/api/v1/pub/payout</strong>;</li>
 </ol>
 <h5 id='scheme-of-information-process-interaction'><strong>Scheme of information process interaction</strong></h5>
 <p>Below is an example of creating a payout from a client’s site or application.</p>
@@ -932,7 +932,7 @@
     <span class="p">}</span>
 
     <span class="nx">request</span><span class="p">({</span>
-      <span class="na">url</span><span class="p">:</span> <span class="s2">`http://public-gateway.stage.k8s.deusops.com/api/v1/public/invoice/all,
+      <span class="na">url</span><span class="p">:</span> <span class="s2">`http://gateway.calypso.finance/api/v1/public/invoice/all,
       method: 'POST',
       headers: headers,
       json: true,
@@ -1018,7 +1018,7 @@
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/all'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/invoice/all'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -1091,7 +1091,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span></code></pre></div>
 <p>This endpoint retrieves all invoices.</p>
 <h5 id='http-request'>HTTP Request</h5>
-<p><code>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/all</code></p>
+<p><code>POST http://gateway.calypso.finance/api/v1/pub/invoice/all</code></p>
 <h5 id='header'>Header</h5>
 <table><thead>
 <tr>
@@ -1331,7 +1331,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/invoice'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -1388,7 +1388,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span></code></pre></div>
 <p>This endpoint retrieves a specific invoice.</p>
 <h5 id='http-request-2'>HTTP Request</h5>
-<p><code>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice</code></p>
+<p><code>POST http://gateway.calypso.finance/api/v1/pub/invoice</code></p>
 <h5 id='header-2'>Header</h5>
 <table><thead>
 <tr>
@@ -1598,7 +1598,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/pause'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/invoice/pause'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -1655,7 +1655,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span></code></pre></div>
 <p>This endpoint allows to pause the invoice.</p>
 <h5 id='http-request-3'>HTTP Request</h5>
-<p><code>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/pause</code></p>
+<p><code>POST http://gateway.calypso.finance/api/v1/pub/invoice/pause</code></p>
 <h5 id='header-3'>Header</h5>
 <table><thead>
 <tr>
@@ -1865,7 +1865,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/continue'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/invoice/continue'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -1922,7 +1922,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span></code></pre></div>
 <p>This endpoint allows you to resume paused invoice.</p>
 <h5 id='http-request-4'>HTTP Request</h5>
-<p><code>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/continue</code></p>
+<p><code>POST http://gateway.calypso.finance/api/v1/pub/invoice/continue</code></p>
 <h5 id='header-4'>Header</h5>
 <table><thead>
 <tr>
@@ -2138,7 +2138,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/create'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/invoice/create'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -2208,7 +2208,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span></code></pre></div>
 <p>This endpoint creates a new invoice.</p>
 <h5 id='http-request-5'>HTTP Request</h5>
-<p><code>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/create</code></p>
+<p><code>POST http://gateway.calypso.finance/api/v1/pub/invoice/create</code></p>
 <h5 id='header-5'>Header</h5>
 <table><thead>
 <tr>
@@ -2490,7 +2490,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/template/create'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/invoice/template/create'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -2547,7 +2547,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span></code></pre></div>
 <p>This endpoint creates a new invoice for the button.</p>
 <h5 id='http-request-6'>HTTP Request</h5>
-<p><code>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/template/create</code></p>
+<p><code>POST http://gateway.calypso.finance/api/v1/pub/invoice/template/create</code></p>
 <h5 id='header-6'>Header</h5>
 <table><thead>
 <tr>
@@ -2757,7 +2757,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/template/all'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/invoice/template/all'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -2811,7 +2811,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span></code></pre></div>
 <p>This endpoint retrieves all available buttons</p>
 <h5 id='http-request-7'>HTTP Request</h5>
-<p><code>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/template/all</code></p>
+<p><code>POST http://gateway.calypso.finance/api/v1/pub/invoice/template/all</code></p>
 <h5 id='header-7'>Header</h5>
 <table><thead>
 <tr>
@@ -3009,7 +3009,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/template'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/invoice/template'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -3044,7 +3044,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span></code></pre></div>
 <p>This endpoint retreives a specific button by id.</p>
 <h5 id='http-request-8'>HTTP Request</h5>
-<p><code>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/template</code></p>
+<p><code>POST http://gateway.calypso.finance/api/v1/pub/invoice/template</code></p>
 <h5 id='header-8'>Header</h5>
 <table><thead>
 <tr>
@@ -3176,7 +3176,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/unlimited/withdrawal'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/invoice/unlimited/withdrawal'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -3234,7 +3234,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span></code></pre></div>
 <p>This endpoint allow withdraw funds to internal crypto address.</p>
 <h5 id='http-request-9'>HTTP Request</h5>
-<p><code>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/invoice/unlimited/withdrawal</code></p>
+<p><code>POST http://gateway.calypso.finance/api/v1/pub/invoice/unlimited/withdrawal</code></p>
 <h5 id='header-9'>Header</h5>
 <table><thead>
 <tr>
@@ -3706,7 +3706,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/payout/create'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/payout/create'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -4322,7 +4322,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/payout/mass/create'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/payout/mass/create'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -4819,7 +4819,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/payout/mass/all'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/payout/mass/all'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -5116,7 +5116,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/payout/mass'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/payout/mass'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -6053,7 +6053,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
       }
     }"</span>
 
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/payout/fee'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/payout/fee'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
