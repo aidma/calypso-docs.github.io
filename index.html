@@ -784,7 +784,7 @@
 <p>To create a payment widget, there are the following steps to be performed:</p>
 
 <ul>
-<li>Send API request to generate a reusable key (<strong>POST http://gateway.calypso.finance/api/v1/reusable-key-service</strong>)</li>
+<li>Send API request to generate a reusable key (<strong>POST http://gateway.calypso.finance/api/v1/pub/reusable-key-service</strong>)</li>
 <li>Send link with payment widget and configured parameters to the client or embed it to the web-site where the payment is needed.</li>
 </ul>
 
@@ -3504,13 +3504,16 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/reusable-key-service'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/reusable-key-service'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
 <span class="nt">--data-raw</span> <span class="s1">'{
-  "expirationDate": "2022-02-10T11:04:24.435Z",
-  "quantity": 1
+  "nonce": 0,
+  "request": {
+    "expirationDate": "2022-02-10T11:04:24.435Z",
+    "quantity": 1
+    }
 }'</span>
 
 </code></pre></div>
@@ -3527,7 +3530,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span></code></pre></div>
 <p>This endpoint allows to create reusable api key for payment widget</p>
 <h5 id='http-request-10'>HTTP Request</h5>
-<p><code>POST http://public-gateway.stage.k8s.deusops.com/api/v1/reusable-key-service</code></p>
+<p><code>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/reusable-key-service</code></p>
 <h5 id='header-10'>Header</h5>
 <table><thead>
 <tr>
@@ -3566,13 +3569,25 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </tr>
 </thead><tbody>
 <tr>
-<td>expirationDate</td>
+<td>nonce</td>
+<td>number</td>
+<td>Yes</td>
+<td>nonce used in construction of sign header.</td>
+</tr>
+<tr>
+<td>request</td>
+<td>object</td>
+<td>Yes</td>
+<td>this object contains request details.</td>
+</tr>
+<tr>
+<td>request.expirationDate</td>
 <td>string</td>
 <td>Yes</td>
 <td>The date until which the key is valid</td>
 </tr>
 <tr>
-<td>quantity</td>
+<td>request.quantity</td>
 <td>number</td>
 <td>No</td>
 <td>limit of uasage the created api key. If not define, the created api key is unlimited</td>
