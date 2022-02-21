@@ -789,7 +789,7 @@
 </ul>
 
 <p>To access the widget, a link is formed with a certain set of parameters:
-<strong>https://ui.stage.k8s.deusops.com/payment?currency=<em>{fiat_currency}</em>&amp;amount=<em>{payment_amount}</em>&amp;description=<em>{text}</em>&amp;btc_wallet=<em>{btc_address}</em>&amp;eth_wallet=<em>{eth_address}</em>&amp;usdt_wallet=<em>{usdt_address}</em>&amp;key=<em>{genereted_reusable_key}</em>&amp;full=*{true_or_false}</strong>*</p>
+<strong>http://gateway.calypso.finance/payment?currency=<em>{fiat_currency}</em>&amp;amount=<em>{payment_amount}</em>&amp;description=<em>{text}</em>&amp;btc_wallet=<em>{btc_address}</em>&amp;eth_wallet=<em>{eth_address}</em>&amp;usdt_wallet=<em>{usdt_address}</em>&amp;key=<em>{genereted_reusable_key}</em>&amp;full=*{true_or_false}</strong>*</p>
 <h5 id='description-of-parameters'>Description of parameters</h5>
 <ul>
 <li><strong>currency</strong> - the currency in which the payment is made;</li>
@@ -3504,7 +3504,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.stage.k8s.deusops.com/api/v1/pub/reusable-key-service'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/reusable-key-service'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -3530,7 +3530,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span></code></pre></div>
 <p>This endpoint allows to create reusable api key for payment widget</p>
 <h5 id='http-request-10'>HTTP Request</h5>
-<p><code>POST http://public-gateway.stage.k8s.deusops.com/api/v1/pub/reusable-key-service</code></p>
+<p><code>POST http://gateway.calypso.finance/api/v1/pub/reusable-key-service</code></p>
 <h5 id='header-10'>Header</h5>
 <table><thead>
 <tr>
@@ -3893,6 +3893,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
     "clientAddress": "string",
     "amount": 0,
     "currency": "ETH",
+    "executionDate": "2022-02-21T13:46:15.823Z",
     "networkFeeRatio": 0,
     "comment": "string"
   }
@@ -3909,6 +3910,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
   </span><span class="nl">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-02T14:58:01.631Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"executionDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-02-21T13:50:25.814Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="nl">"networkFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
@@ -4007,6 +4009,12 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>No</td>
 <td>comment for the payout.</td>
 </tr>
+<tr>
+<td>request.executionDate</td>
+<td>string</td>
+<td>No</td>
+<td>execution date of payout. Can be used for payouts to date</td>
+</tr>
 </tbody></table>
 <h5 id='response-body-2'>Response Body</h5>
 <table><thead>
@@ -4046,6 +4054,12 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>string</td>
 <td>Yes</td>
 <td>this is the currency associated with the amount field.</td>
+</tr>
+<tr>
+<td>executionDate</td>
+<td>string</td>
+<td>No</td>
+<td>execution date of payout. Time when payout will be executed</td>
 </tr>
 <tr>
 <td>hash</td>
@@ -4117,6 +4131,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
   </span><span class="nl">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-02T15:13:22.364Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"executionDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-02-21T13:50:25.814Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="nl">"networkFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
@@ -4226,6 +4241,12 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>this is the currency associated with the amount field.</td>
 </tr>
 <tr>
+<td>executionDate</td>
+<td>string</td>
+<td>No</td>
+<td>execution date of payout. Time when payout will be executed</td>
+</tr>
+<tr>
 <td>hash</td>
 <td>string</td>
 <td>No</td>
@@ -4267,6 +4288,12 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>Yes</td>
 <td>represents status of the payout. [ PENDING_CONFIRMATION, CONFIRMED, IN_PROGRESS, COMPLETED, FAILED, CANCELED ]</td>
 </tr>
+<tr>
+<td>executionDate</td>
+<td>string</td>
+<td>No</td>
+<td>execution date of payout. Time when payout will be executed</td>
+</tr>
 </tbody></table>
 <h2 id='get-all-payouts'>Get All Payouts</h2>
 <blockquote>
@@ -4284,7 +4311,8 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
         "</span>PENDING_CONFIRMATION<span class="s2">" 
       ],
     "</span>size<span class="s2">": 0,
-    "</span>pageNumber<span class="s2">": 0 
+    "</span>pageNumber<span class="s2">": 0,
+    "</span>isExecutionDateInFuture<span class="s2">": true
   }
 }"</span>
 
@@ -4301,6 +4329,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
       </span><span class="nl">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-02T15:13:22.364Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"executionDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-02-21T13:50:25.814Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
       </span><span class="nl">"networkFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
@@ -4386,6 +4415,12 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>Yes</td>
 <td>a numeric value indicating the page size.</td>
 </tr>
+<tr>
+<td>request.isExecutionDateInFuture</td>
+<td>boolean</td>
+<td>No</td>
+<td>if true includes all payouts where execution date in future. if false includes all payouts where execution date in past. if null includes all payouts</td>
+</tr>
 </tbody></table>
 <h5 id='response-body-4'>Response Body</h5>
 <table><thead>
@@ -4431,6 +4466,12 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>string</td>
 <td>Yes</td>
 <td>this is the currency associated with the amount field.</td>
+</tr>
+<tr>
+<td>result.executionDate</td>
+<td>string</td>
+<td>No</td>
+<td>execution date of payout. Time when payout will be executed</td>
 </tr>
 <tr>
 <td>result.hash</td>
@@ -4507,6 +4548,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
   "request": {
     "name": "string",
     "comment": "string",
+    "executionDate": "2022-02-21T13:40:37.786Z",
     "dealWithdrawals": [
       {
         "withdrawalAddress": "string",
@@ -4531,6 +4573,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
   </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-03T07:41:59.795Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"executionDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-02-21T13:50:25.814Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"dealWithdrawals"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
@@ -4545,10 +4588,8 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
       </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-03T07:41:59.795Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"errorMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"lastAttemptsDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-03T07:41:59.795Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"modifiedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"modifiedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-03T07:41:59.795Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"networkFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
@@ -4561,14 +4602,12 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
       </span><span class="nl">"networkFeePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
       </span><span class="nl">"networkFeeRatio"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
       </span><span class="nl">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"numberOfAttempts"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
       </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DRAFT"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"totalAmountInFiats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
         </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
         </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
       </span><span class="p">},</span><span class="w">
-      </span><span class="nl">"validationErrorsResolved"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
       </span><span class="nl">"withdrawalErrors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
         </span><span class="p">{</span><span class="w">
           </span><span class="nl">"errorMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -4656,6 +4695,12 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>comment for the mass payout.</td>
 </tr>
 <tr>
+<td>request.executionDate</td>
+<td>string</td>
+<td>No</td>
+<td>execution date of payout. Can be used for payouts to date</td>
+</tr>
+<tr>
 <td>request.dealWithdrawals</td>
 <td>array</td>
 <td>Yes</td>
@@ -4738,6 +4783,12 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>transaction currency.</td>
 </tr>
 <tr>
+<td>executionDate</td>
+<td>string</td>
+<td>No</td>
+<td>execution date of payout. Time when payout will be executed</td>
+</tr>
+<tr>
 <td>dealWithdrawals</td>
 <td>array</td>
 <td>Yes</td>
@@ -4798,12 +4849,6 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>transaction currency.</td>
 </tr>
 <tr>
-<td>dealWithdrawals.errorMessage</td>
-<td>string</td>
-<td>No</td>
-<td>represents human readable error reason of why request is not successful.</td>
-</tr>
-<tr>
 <td>dealWithdrawals.hash</td>
 <td>string</td>
 <td>No</td>
@@ -4814,12 +4859,6 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>number</td>
 <td>Yes</td>
 <td>transaction id.</td>
-</tr>
-<tr>
-<td>dealWithdrawals.lastAttemptsDate</td>
-<td>string</td>
-<td>No</td>
-<td>date of last attempt to send and complete the transaction.</td>
 </tr>
 <tr>
 <td>dealWithdrawals.modifiedBy</td>
@@ -4876,12 +4915,6 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>sequence number of the transaction.</td>
 </tr>
 <tr>
-<td>dealWithdrawals.numberOfAttempts</td>
-<td>number</td>
-<td>Yes</td>
-<td>the number of attempts to send and execute this transaction.</td>
-</tr>
-<tr>
 <td>dealWithdrawals.state</td>
 <td>string</td>
 <td>Yes</td>
@@ -4898,12 +4931,6 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>number</td>
 <td>Yes</td>
 <td>total amount of the transactions in particular fiat currencies.</td>
-</tr>
-<tr>
-<td>dealWithdrawals.validationErrorsResolved</td>
-<td>boolean</td>
-<td>Yes</td>
-<td>flag indicating that the error was detected and resolved during the verification phase.</td>
 </tr>
 <tr>
 <td>dealWithdrawals.withdrawalErrors</td>
@@ -5000,10 +5027,13 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <span class="nt">--header</span> <span class="s1">'sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
 <span class="nt">--data-raw</span> <span class="s1">'{
-  "nonce": 1638518376519,
+  "nonce": 0,
   "request": {
+    "isExecutionDateInFuture": true,
+    "pageNumber": 0,
+    "size": 0,
     "stateNames": [
-      "PENDING_CONFIRMATION"
+      "CANCELED"
     ]
   }
 }'</span>
@@ -5030,6 +5060,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
       </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-03T07:56:39.336Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"executionDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-02-21T13:50:25.814Z"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
       </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"networkFeeCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
@@ -5126,6 +5157,12 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>Yes</td>
 <td>a numeric value indicating the page size.</td>
 </tr>
+<tr>
+<td>request.isExecutionDateInFuture</td>
+<td>boolean</td>
+<td>No</td>
+<td>if true includes all payouts where execution date in future. if false includes all payouts where execution date in past. if null includes all payouts</td>
+</tr>
 </tbody></table>
 <h5 id='response-body-6'>Response Body</h5>
 <table><thead>
@@ -5207,6 +5244,12 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>string</td>
 <td>Yes</td>
 <td>this is the currency associated with the amount field. [ BTC, ETH, BNB, USDT ]</td>
+</tr>
+<tr>
+<td>result.executionDate</td>
+<td>string</td>
+<td>No</td>
+<td>execution date of payout. Time when payout will be executed</td>
 </tr>
 <tr>
 <td>result.id</td>
@@ -5323,6 +5366,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
   </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-03T08:09:53.846Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"executionDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-02-21T13:50:25.814Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"networkFeeCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
@@ -5479,6 +5523,12 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>this is the currency associated with the amount field. [ BTC, ETH, BNB, USDT ]</td>
 </tr>
 <tr>
+<td>executionDate</td>
+<td>string</td>
+<td>No</td>
+<td>execution date of payout. Time when payout will be executed</td>
+</tr>
+<tr>
 <td>id</td>
 <td>number</td>
 <td>Yes</td>
@@ -5575,10 +5625,8 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
     </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-29T20:13:13.126Z"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"errorMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"lastAttemptsDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-29T20:13:13.126Z"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"modifiedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"modifiedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-10-29T20:13:13.126Z"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"networkFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
@@ -5591,14 +5639,12 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
     </span><span class="nl">"networkFeePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
     </span><span class="nl">"networkFeeRatio"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
     </span><span class="nl">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"numberOfAttempts"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
     </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DRAFT"</span><span class="p">,</span><span class="w">
     </span><span class="nl">"totalAmountInFiats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
       </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
       </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
     </span><span class="p">},</span><span class="w">
-    </span><span class="nl">"validationErrorsResolved"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
     </span><span class="nl">"withdrawalErrors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
       </span><span class="p">{</span><span class="w">
         </span><span class="nl">"errorMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -5741,12 +5787,6 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>this is the currency associated with the amount field. [ BTC, ETH, BNB, USDT ]</td>
 </tr>
 <tr>
-<td>errorMessage</td>
-<td>string</td>
-<td>No</td>
-<td>represents human readable error reason of why request is not successful.</td>
-</tr>
-<tr>
 <td>hash</td>
 <td>string</td>
 <td>No</td>
@@ -5757,12 +5797,6 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>number</td>
 <td>Yes</td>
 <td>transaction id.</td>
-</tr>
-<tr>
-<td>lastAttemptsDate</td>
-<td>string</td>
-<td>No</td>
-<td>date of last attempt to send and complete the transaction.</td>
 </tr>
 <tr>
 <td>modifiedBy</td>
@@ -5819,12 +5853,6 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>sequence number of the transaction.</td>
 </tr>
 <tr>
-<td>numberOfAttempts</td>
-<td>number</td>
-<td>Yes</td>
-<td>the number of attempts to send and execute this transaction.</td>
-</tr>
-<tr>
 <td>state</td>
 <td>string</td>
 <td>Yes</td>
@@ -5835,12 +5863,6 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>object</td>
 <td>Yes</td>
 <td>the total amount of transactions in different fiat currencies.</td>
-</tr>
-<tr>
-<td>validationErrorsResolved</td>
-<td>boolean</td>
-<td>Yes</td>
-<td>flag indicating that the error was detected and resolved during the verification phase.</td>
 </tr>
 <tr>
 <td>withdrawalErrors</td>
@@ -5913,10 +5935,8 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
   </span><span class="nl">"createdBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-03T09:08:28.116Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"errorMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"lastAttemptsDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-03T09:08:28.116Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"modifiedBy"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"modifiedDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2021-12-03T09:08:28.116Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"networkFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
@@ -5929,14 +5949,12 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
   </span><span class="nl">"networkFeePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="nl">"networkFeeRatio"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="nl">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"numberOfAttempts"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DRAFT"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"totalAmountInFiats"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
     </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
     </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
   </span><span class="p">},</span><span class="w">
-  </span><span class="nl">"validationErrorsResolved"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="nl">"withdrawalErrors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
     </span><span class="p">{</span><span class="w">
       </span><span class="nl">"errorMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
@@ -6072,12 +6090,6 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>this is the currency associated with the amount field. [ BTC, ETH, BNB, USDT ]</td>
 </tr>
 <tr>
-<td>errorMessage</td>
-<td>string</td>
-<td>No</td>
-<td>represents human readable error reason of why request is not successful.</td>
-</tr>
-<tr>
 <td>hash</td>
 <td>string</td>
 <td>No</td>
@@ -6088,12 +6100,6 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>number</td>
 <td>Yes</td>
 <td>transaction id.</td>
-</tr>
-<tr>
-<td>lastAttemptsDate</td>
-<td>string</td>
-<td>No</td>
-<td>date of last attempt to send and complete the transaction.</td>
 </tr>
 <tr>
 <td>modifiedBy</td>
@@ -6150,12 +6156,6 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>sequence number of the transaction.</td>
 </tr>
 <tr>
-<td>numberOfAttempts</td>
-<td>number</td>
-<td>Yes</td>
-<td>the number of attempts to send and execute this transaction.</td>
-</tr>
-<tr>
 <td>state</td>
 <td>string</td>
 <td>Yes</td>
@@ -6166,12 +6166,6 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>object</td>
 <td>Yes</td>
 <td>the total amount of transactions in different fiat currencies.</td>
-</tr>
-<tr>
-<td>validationErrorsResolved</td>
-<td>boolean</td>
-<td>Yes</td>
-<td>flag indicating that the error was detected and resolved during the verification phase.</td>
 </tr>
 <tr>
 <td>withdrawalErrors</td>
