@@ -414,6 +414,20 @@
               </ul>
           </li>
           <li>
+            <a href="#webhooks" class="toc-h1 toc-link" data-title="Webhooks">Webhooks</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#types-of-events" class="toc-h2 toc-link" data-title="Types of Events">Types of Events</a>
+                  </li>
+                  <li>
+                    <a href="#webhook-payload" class="toc-h2 toc-link" data-title="Webhook payload">Webhook payload</a>
+                  </li>
+                  <li>
+                    <a href="#webhook-api" class="toc-h2 toc-link" data-title="Webhook api">Webhook api</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
           </li>
       </ul>
@@ -1072,7 +1086,7 @@
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/invoice/all'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.calypso.finance/api/v1/pub/invoice/all'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -1145,7 +1159,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span></code></pre></div>
 <p>This endpoint retrieves all invoices.</p>
 <h5 id='http-request'>HTTP Request</h5>
-<p><code>POST http://gateway.calypso.finance/api/v1/pub/invoice/all</code></p>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/invoice/all</code></p>
 <h5 id='header'>Header</h5>
 <table><thead>
 <tr>
@@ -1385,7 +1399,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/invoice'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.calypso.finance/api/v1/pub/invoice'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -1442,7 +1456,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span></code></pre></div>
 <p>This endpoint retrieves a specific invoice.</p>
 <h5 id='http-request-2'>HTTP Request</h5>
-<p><code>POST http://gateway.calypso.finance/api/v1/pub/invoice</code></p>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/invoice</code></p>
 <h5 id='header-2'>Header</h5>
 <table><thead>
 <tr>
@@ -1652,7 +1666,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/invoice/pause'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.calypso.finance/api/v1/pub/invoice/pause'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -1709,7 +1723,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span></code></pre></div>
 <p>This endpoint allows to pause the invoice.</p>
 <h5 id='http-request-3'>HTTP Request</h5>
-<p><code>POST http://gateway.calypso.finance/api/v1/pub/invoice/pause</code></p>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/invoice/pause</code></p>
 <h5 id='header-3'>Header</h5>
 <table><thead>
 <tr>
@@ -1919,7 +1933,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/invoice/continue'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.calypso.finance/api/v1/pub/invoice/continue'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -1976,7 +1990,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span></code></pre></div>
 <p>This endpoint allows you to resume paused invoice.</p>
 <h5 id='http-request-4'>HTTP Request</h5>
-<p><code>POST http://gateway.calypso.finance/api/v1/pub/invoice/continue</code></p>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/invoice/continue</code></p>
 <h5 id='header-4'>Header</h5>
 <table><thead>
 <tr>
@@ -2192,7 +2206,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/invoice/create'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.calypso.finance/api/v1/pub/invoice/create'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -2262,7 +2276,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span></code></pre></div>
 <p>This endpoint creates a new invoice.</p>
 <h5 id='http-request-5'>HTTP Request</h5>
-<p><code>POST http://gateway.calypso.finance/api/v1/pub/invoice/create</code></p>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/invoice/create</code></p>
 <h5 id='header-5'>Header</h5>
 <table><thead>
 <tr>
@@ -2544,7 +2558,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/invoice/template/create'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.calypso.finance/api/v1/pub/invoice/template/create'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -2601,7 +2615,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span></code></pre></div>
 <p>This endpoint creates a new invoice for the button.</p>
 <h5 id='http-request-6'>HTTP Request</h5>
-<p><code>POST http://gateway.calypso.finance/api/v1/pub/invoice/template/create</code></p>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/invoice/template/create</code></p>
 <h5 id='header-6'>Header</h5>
 <table><thead>
 <tr>
@@ -2811,7 +2825,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/invoice/template/all'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.calypso.finance/api/v1/pub/invoice/template/all'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -2865,7 +2879,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span></code></pre></div>
 <p>This endpoint retrieves all available buttons</p>
 <h5 id='http-request-7'>HTTP Request</h5>
-<p><code>POST http://gateway.calypso.finance/api/v1/pub/invoice/template/all</code></p>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/invoice/template/all</code></p>
 <h5 id='header-7'>Header</h5>
 <table><thead>
 <tr>
@@ -3063,7 +3077,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/invoice/template'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.calypso.finance/api/v1/pub/invoice/template'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -3098,7 +3112,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span></code></pre></div>
 <p>This endpoint retreives a specific button by id.</p>
 <h5 id='http-request-8'>HTTP Request</h5>
-<p><code>POST http://gateway.calypso.finance/api/v1/pub/invoice/template</code></p>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/invoice/template</code></p>
 <h5 id='header-8'>Header</h5>
 <table><thead>
 <tr>
@@ -3230,7 +3244,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/invoice/unlimited/withdrawal'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.calypso.finance/api/v1/pub/invoice/unlimited/withdrawal'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -3288,7 +3302,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span></code></pre></div>
 <p>This endpoint allow withdraw funds to internal crypto address.</p>
 <h5 id='http-request-9'>HTTP Request</h5>
-<p><code>POST http://gateway.calypso.finance/api/v1/pub/invoice/unlimited/withdrawal</code></p>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/invoice/unlimited/withdrawal</code></p>
 <h5 id='header-9'>Header</h5>
 <table><thead>
 <tr>
@@ -3504,7 +3518,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/reusable-key-service'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.calypso.finance/api/v1/pub/reusable-key-service'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -3530,7 +3544,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span></code></pre></div>
 <p>This endpoint allows to create reusable api key for payment widget</p>
 <h5 id='http-request-10'>HTTP Request</h5>
-<p><code>POST http://gateway.calypso.finance/api/v1/pub/reusable-key-service</code></p>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/reusable-key-service</code></p>
 <h5 id='header-10'>Header</h5>
 <table><thead>
 <tr>
@@ -3658,7 +3672,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.local/api/v1/pub/payout/asset/all"</span> <span class="se">\</span>
+curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.finance/api/v1/pub/payout/asset/all"</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
@@ -3714,7 +3728,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 </span></code></pre></div>
 <p>This endpoint retrieves all assets and wallet addresses.</p>
 <h5 id='http-request'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.local/api/v1/pub/payout/asset/all</code></p>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/payout/asset/all</code></p>
 <h5 id='header'>Header</h5>
 <table><thead>
 <tr>
@@ -3882,7 +3896,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/payout/create'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.calypso.finance/api/v1/pub/payout/create'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -3923,7 +3937,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span></code></pre></div>
 <p>This endpoint creates a new payout.</p>
 <h5 id='http-request-2'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.local/api/v1/pub/payout/create</code></p>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/payout/create</code></p>
 <h5 id='header-2'>Header</h5>
 <table><thead>
 <tr>
@@ -4109,7 +4123,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.local/api/v1/pub/payout"</span> <span class="se">\</span>
+curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.finance/api/v1/pub/payout"</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
@@ -4144,7 +4158,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 </span></code></pre></div>
 <p>This endpoint retrieves a specific payout.</p>
 <h5 id='http-request-3'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.local/api/v1/pub/payout</code></p>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/payout</code></p>
 <h5 id='header-3'>Header</h5>
 <table><thead>
 <tr>
@@ -4300,7 +4314,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.local/api/v1/pub/payout/all"</span> <span class="se">\</span>
+curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.finance/api/v1/pub/payout/all"</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
@@ -4347,7 +4361,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 </span></code></pre></div>
 <p>This endpoint retreives all payouts.</p>
 <h5 id='http-request-4'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.local/api/v1/public/payout/all</code></p>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/public/payout/all</code></p>
 <h5 id='header-4'>Header</h5>
 <table><thead>
 <tr>
@@ -4539,7 +4553,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/payout/mass/create'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.calypso.finance/api/v1/pub/payout/mass/create'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -4632,7 +4646,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span></code></pre></div>
 <p>This endpoint creates a new mass payout.</p>
 <h5 id='http-request-5'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.local/api/v1/public/payout/mass/create</code></p>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/public/payout/mass/create</code></p>
 <h5 id='header-5'>Header</h5>
 <table><thead>
 <tr>
@@ -5022,7 +5036,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/payout/mass/all'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.calypso.finance/api/v1/pub/payout/mass/all'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -5089,7 +5103,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span></code></pre></div>
 <p>This endpoint retrieves all mass payouts.</p>
 <h5 id='http-request-6'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.local/api/v1/public/payout/mass/all</code></p>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/public/payout/mass/all</code></p>
 <h5 id='header-6'>Header</h5>
 <table><thead>
 <tr>
@@ -5335,7 +5349,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/payout/mass'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.calypso.finance/api/v1/pub/payout/mass'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -5390,7 +5404,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span></code></pre></div>
 <p>This endpoint retrieves a specific mass payout.</p>
 <h5 id='http-request-7'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.local/api/v1/public/payout/mass</code></p>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/public/payout/mass</code></p>
 <h5 id='header-7'>Header</h5>
 <table><thead>
 <tr>
@@ -5594,7 +5608,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.local/api/v1/pub/payout/mass/withdrawal/all"</span> <span class="se">\</span>
+curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.finance/api/v1/pub/payout/mass/withdrawal/all"</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
@@ -5660,7 +5674,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 </span></code></pre></div>
 <p>This endpoint retrieves specific transactions from a mass payout.</p>
 <h5 id='http-request-8'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.local/api/v1/pub/payout/mass/withdrawal/all</code></p>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/payout/mass/withdrawal/all</code></p>
 <h5 id='header-8'>Header</h5>
 <table><thead>
 <tr>
@@ -5906,7 +5920,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.local/api/v1/pub/payout/mass/withdrawal"</span> <span class="se">\</span>
+curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.finance/api/v1/pub/payout/mass/withdrawal"</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
@@ -5969,7 +5983,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 </span></code></pre></div>
 <p>This endpoint retrieves specific transaction from a mass payout.</p>
 <h5 id='http-request-9'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.local/api/v1/pub/payout/mass/withdrawal</code></p>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/payout/mass/withdrawal</code></p>
 <h5 id='header-9'>Header</h5>
 <table><thead>
 <tr>
@@ -6209,7 +6223,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <p>Request</p>
 </blockquote>
 <div class="highlight"><pre class="highlight shell tab-shell"><code>
-    curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.local/api/v1/public/payout/fee"</span> <span class="se">\</span>
+    curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.finance/api/v1/public/payout/fee"</span> <span class="se">\</span>
     <span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
     <span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
     <span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
@@ -6223,7 +6237,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
       }
     }"</span>
 
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://gateway.calypso.finance/api/v1/pub/payout/fee'</span> <span class="se">\</span>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.calypso.finance/api/v1/pub/payout/fee'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
 <span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
@@ -6251,7 +6265,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </span></code></pre></div>
 <p>This endpoint retrieves the expected transaction fee.</p>
 <h5 id='http-request-10'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.local/api/v1/pub/payout/fee</code></p>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/payout/fee</code></p>
 <h5 id='header-10'>Header</h5>
 <table><thead>
 <tr>
@@ -6352,6 +6366,1041 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>NUMBER</td>
 <td>Yes</td>
 <td>Represents the standard maximum fee per gas, calculated from unconfirmed transactions.</td>
+</tr>
+</tbody></table>
+<h1 id='webhooks'>Webhooks</h1>
+<p>The Webhooks API allows you to subscribe to events happening with your created objects (Invoices or Payouts) in Calypso. Rather than making an API call to check status of invoice or payout during processing, Calypso can send an HTTP request to an endpoint you configure. You can configure subscribed events using the endpoints detailed below.</p>
+<h4 id='how-it-works'>How it works?</h4>
+<p>In order to receive notifications you should send a POST request to the create webhook endpoint where you should transmit URL where you want to receive POST requests with event data from Calypso and event types or group of event types for which you need to receive notifications.</p>
+
+<p>Then when one of events for which you have subscription happens, Calypso sends a POST request to the configured URL with data about the event.</p>
+
+<p><em>Note:</em> In this version of webhook api Calypso does not retry the request if initial request fails.</p>
+
+<p>You can manage your subscription using the delete webhook endpoint and the change webhook endpoint.</p>
+
+<p>There is the get list of webhook subscriptions endpoint in order to get information about events and URLs you have a subscription.</p>
+<h3 id='types-of-events'>Types of Events</h3>
+<p>Calypso supports a number of different event types, and you can filter your notification requests depending on types or group of events you send in the request.</p>
+
+<p>There are two ways to subscribe to notifications. You can send values in one of following fields (or in both) using a POST request to the create webhook endpoint:</p>
+
+<ul>
+<li><strong>notificationServiceTypes</strong> - groups of possible event types: [INVOICE, PAYOUT]. Send values in this field to subscribe to all events of chosen group. See list of events in each group below in the section <strong>Events by group</strong>.</li>
+<li><strong>notificationEventTypes</strong> - event types for which you can receive notifications. Send values in this field to subscribe to particular events. See list of events below in the section <strong>Events by group</strong>.</li>
+</ul>
+<h4 id='events-by-group'>Events by group</h4>
+<p><strong>INVOICE</strong></p>
+
+<table><thead>
+<tr>
+<th>Event type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>INVOICE_CREATE_INVOICE</td>
+<td>New single invoice has been created</td>
+</tr>
+<tr>
+<td>INVOICE_CREATE_UNLIMITED_INVOICE</td>
+<td>New unlimited invoice has been created</td>
+</tr>
+<tr>
+<td>INVOICE_FUNDS_RECEIVED_FOR_INVOICE</td>
+<td>Funds have been received to invoice wallet</td>
+</tr>
+<tr>
+<td>INVOICE_TRANSLATION_TO_WALLET_COMPLETED</td>
+<td>Funds have been received from invoice wallet to hot wallet</td>
+</tr>
+<tr>
+<td>INVOICE_PENDING_INTERVENTION</td>
+<td>Invoice has changed state to INVOICE_PENDING_INTERVENTION. Either more or less funds was received to the invoice wallet than required</td>
+</tr>
+</tbody></table>
+
+<p><strong>PAYOUT</strong></p>
+
+<table><thead>
+<tr>
+<th>Event type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>PAYOUT_CHANGE_STATUS</td>
+<td>Payout has changed state to In Progress, Canceled, Failed or Completed</td>
+</tr>
+<tr>
+<td>PAYOUT_CONFIRMED</td>
+<td>Payout has changed state to Confirmed</td>
+</tr>
+<tr>
+<td>PAYOUT_SPEEDED_UP</td>
+<td>Payout has been speeded up</td>
+</tr>
+<tr>
+<td>PAYOUT_VALIDATION_ERROR</td>
+<td>Validation error has been occurred during payout processing</td>
+</tr>
+<tr>
+<td>PAYOUT_CRYPTO_TO_FIAT_COMPLETED</td>
+<td>Payout crypto-to-fiat has been completed. Funds have been sent to fiat exchange account</td>
+</tr>
+</tbody></table>
+<h2 id='webhook-payload'>Webhook payload</h2>
+<blockquote>
+<p>Webhook payload example</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"requestId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bf9348b7-2c14-46d7-868c-b597852da319"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-03-15T12:13:05.909616"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"level"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SUCCESS"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"service"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INVOICE"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"eventType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INVOICE_CREATE_INVOICE"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"data"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"invoiceId"</span><span class="p">:</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mf">0.01</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ETH"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Invoice example"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-03-15T12:13:03.157015"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"INVOICE_CREATE_INVOICE"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"externalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"5b0ca8da-6af4-4a1c-9efd-5cbfc19ace09"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>Webhooks deliver the responses to your service in JSON format. The parameters that webhook payload inludes are listed in the table below.</p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>requestId</td>
+<td>string</td>
+<td>Yes</td>
+<td>id of the request that created webhook subscription.</td>
+</tr>
+<tr>
+<td>id</td>
+<td>number</td>
+<td>Yes</td>
+<td>id of the event.</td>
+</tr>
+<tr>
+<td>createdDate</td>
+<td>string</td>
+<td>Yes</td>
+<td>creation date of the event.</td>
+</tr>
+<tr>
+<td>level</td>
+<td>string</td>
+<td>Yes</td>
+<td>level of the notification for the event. [SUCCESS, INFO, WARNING]</td>
+</tr>
+<tr>
+<td>service</td>
+<td>string</td>
+<td>Yes</td>
+<td>group of events which the event belongs to.</td>
+</tr>
+<tr>
+<td>data</td>
+<td>object</td>
+<td>Yes</td>
+<td>set of data depending on the event type. See list of field for each event type below.</td>
+</tr>
+</tbody></table>
+<h3 id='data-object-depending-on-event-type'>Data object depending on event type</h3><h5 id='invoice_create_invoice'>INVOICE_CREATE_INVOICE</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>event type: INVOICE_CREATE_INVOICE</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>number</td>
+<td>amount of money in invoice.</td>
+</tr>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>text of the invoice.</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>string</td>
+<td>currency of the invoice.</td>
+</tr>
+<tr>
+<td>invoiceId</td>
+<td>number</td>
+<td>system id of the invoice.</td>
+</tr>
+<tr>
+<td>createdDate</td>
+<td>string</td>
+<td>date and time of invoice creation</td>
+</tr>
+<tr>
+<td>externalId</td>
+<td>string</td>
+<td>id assigned by external system.</td>
+</tr>
+</tbody></table>
+<h5 id='invoice_create_unlimited_invoice'>INVOICE_CREATE_UNLIMITED_INVOICE</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>event type: INVOICE_CREATE_UNLIMITED_INVOICE</td>
+</tr>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>text of the invoice.</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>string</td>
+<td>currency of the invoice.</td>
+</tr>
+<tr>
+<td>invoiceId</td>
+<td>number</td>
+<td>system id of the invoice.</td>
+</tr>
+<tr>
+<td>createdDate</td>
+<td>string</td>
+<td>date and time of invoice creation</td>
+</tr>
+<tr>
+<td>externalId</td>
+<td>string</td>
+<td>id assigned by external system.</td>
+</tr>
+</tbody></table>
+<h5 id='invoice_funds_received_for_invoice'>INVOICE_FUNDS_RECEIVED_FOR_INVOICE</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>event type: INVOICE_FUNDS_RECEIVED_FOR_INVOICE</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>number</td>
+<td>amount of money in invoice.</td>
+</tr>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>text of the invoice.</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>string</td>
+<td>currency of the invoice.</td>
+</tr>
+<tr>
+<td>invoiceId</td>
+<td>number</td>
+<td>system id of the invoice.</td>
+</tr>
+<tr>
+<td>createdDate</td>
+<td>string</td>
+<td>date and time of invoice creation</td>
+</tr>
+<tr>
+<td>senderAddress</td>
+<td>string</td>
+<td>wallet address from where funds were sent.</td>
+</tr>
+<tr>
+<td>externalId</td>
+<td>string</td>
+<td>id assigned by external system.</td>
+</tr>
+</tbody></table>
+<h5 id='invoice_translation_to_wallet_completed'>INVOICE_TRANSLATION_TO_WALLET_COMPLETED</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>event type: INVOICE_TRANSLATION_TO_WALLET_COMPLETED</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>number</td>
+<td>amount of money in invoice.</td>
+</tr>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>text of the invoice.</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>string</td>
+<td>currency of the invoice.</td>
+</tr>
+<tr>
+<td>invoiceId</td>
+<td>number</td>
+<td>system id of the invoice.</td>
+</tr>
+<tr>
+<td>createdDate</td>
+<td>string</td>
+<td>date and time of invoice creation</td>
+</tr>
+<tr>
+<td>senderAddress</td>
+<td>string</td>
+<td>invoice wallet address from where funds were sent.</td>
+</tr>
+<tr>
+<td>walletParameter</td>
+<td>string</td>
+<td>hot wallet Parameter where funds were sent.</td>
+</tr>
+<tr>
+<td>walletAddress</td>
+<td>string</td>
+<td>hot wallet address where funds were sent.</td>
+</tr>
+<tr>
+<td>externalId</td>
+<td>string</td>
+<td>id assigned by external system.</td>
+</tr>
+</tbody></table>
+<h5 id='invoice_pending_intervention'>INVOICE_PENDING_INTERVENTION</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>Event type: INVOICE_PENDING_INTERVENTION</td>
+</tr>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>text of the invoice.</td>
+</tr>
+<tr>
+<td>invoiceId</td>
+<td>number</td>
+<td>system id of the invoice.</td>
+</tr>
+<tr>
+<td>externalId</td>
+<td>string</td>
+<td>id assigned by external system.</td>
+</tr>
+</tbody></table>
+<h5 id='payout_change_status'>PAYOUT_CHANGE_STATUS</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>hash</td>
+<td>string</td>
+<td>transaction hash.</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>event type: PAYOUT_CHANGE_STATUS.</td>
+</tr>
+<tr>
+<td>dealId</td>
+<td>number</td>
+<td>system id of the payout.</td>
+</tr>
+<tr>
+<td>createdDate</td>
+<td>string</td>
+<td>date and time of payout creation.</td>
+</tr>
+<tr>
+<td>payoutStatus</td>
+<td>string</td>
+<td>current state of the payout.</td>
+</tr>
+<tr>
+<td>externalId</td>
+<td>string</td>
+<td>id assigned by external system.</td>
+</tr>
+</tbody></table>
+<h5 id='payout_confirmed'>PAYOUT_CONFIRMED</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>event type: PAYOUT_CONFIRMED.</td>
+</tr>
+<tr>
+<td>dealId</td>
+<td>number</td>
+<td>system id of the payout.</td>
+</tr>
+<tr>
+<td>createdDate</td>
+<td>string</td>
+<td>date and time of payout creation.</td>
+</tr>
+<tr>
+<td>approved</td>
+<td>array</td>
+<td>list of users who approved the payout.</td>
+</tr>
+<tr>
+<td>externalId</td>
+<td>string</td>
+<td>id assigned by external system.</td>
+</tr>
+</tbody></table>
+<h5 id='payout_speeded_up'>PAYOUT_SPEEDED_UP</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>Event type: PAYOUT_SPEEDED_UP.</td>
+</tr>
+<tr>
+<td>dealId</td>
+<td>number</td>
+<td>system id of the payout.</td>
+</tr>
+<tr>
+<td>createdDate</td>
+<td>string</td>
+<td>date and time of payout creation.</td>
+</tr>
+<tr>
+<td>speededUpParameter</td>
+<td>string</td>
+<td>user who speeded up the payout transaction.</td>
+</tr>
+<tr>
+<td>externalId</td>
+<td>string</td>
+<td>id assigned by external system.</td>
+</tr>
+</tbody></table>
+<h5 id='payout_validation_error'>PAYOUT_VALIDATION_ERROR</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>event type: PAYOUT_VALIDATION_ERROR.</td>
+</tr>
+<tr>
+<td>dealId</td>
+<td>number</td>
+<td>system id of the payout.</td>
+</tr>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>validation error message.</td>
+</tr>
+<tr>
+<td>createdDate</td>
+<td>string</td>
+<td>date and time of payout creation.</td>
+</tr>
+<tr>
+<td>dealWithdrawalId</td>
+<td>number</td>
+<td>system id of withdrawal where validation error occured.</td>
+</tr>
+<tr>
+<td>validationStatus</td>
+<td>string</td>
+<td>the reason of validation error.</td>
+</tr>
+<tr>
+<td>externalId</td>
+<td>string</td>
+<td>id assigned by external system.</td>
+</tr>
+</tbody></table>
+<h5 id='payout_crypto_to_fiat_completed'>PAYOUT_CRYPTO_TO_FIAT_COMPLETED</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>hash</td>
+<td>string</td>
+<td>transaction hash.</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>event type: PAYOUT_CRYPTO_TO_FIAT_COMPLETED</td>
+</tr>
+<tr>
+<td>dealId</td>
+<td>number</td>
+<td>system id of the payout.</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>number</td>
+<td>transferred amount in EUR.</td>
+</tr>
+<tr>
+<td>createdDate</td>
+<td>string</td>
+<td>date and time of payout creation.</td>
+</tr>
+<tr>
+<td>fiatType</td>
+<td>string</td>
+<td>transfer type:  SEPA, SWIFT</td>
+</tr>
+<tr>
+<td>fiatRequisitesId</td>
+<td>string</td>
+<td>system id of requisites where money will be transferred to (requisites api is in development)</td>
+</tr>
+<tr>
+<td>externalId</td>
+<td>string</td>
+<td>id assigned by external system.</td>
+</tr>
+</tbody></table>
+<h2 id='webhook-api'>Webhook api</h2><h3 id='get-list-of-webhook-subscriptions'>Get List Of Webhook Subscriptions</h3>
+<blockquote>
+<p>Request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>
+curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.finance/api/v1/pub/subscription/webhook"</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s2">"{
+  "</span>nonce<span class="s2">": 0
+}"</span>
+</code></pre></div>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"subscriptions"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"notificationEventTypes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"PAYOUT"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"requestId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint retrieves list of webhook subscriptions.</p>
+<h5 id='http-request'>HTTP Request</h5>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/subscription/webhook</code></p>
+<h5 id='header'>Header</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Key</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>&lt;your_api_key&gt;</td>
+</tr>
+<tr>
+<td>Sign</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>&lt;your_sign&gt;</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>must be set to application/json for requests to the Calypso API</td>
+</tr>
+</tbody></table>
+<h5 id='request-body'>Request Body</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>nonce</td>
+<td>NUMBER</td>
+<td>Yes</td>
+<td>Nonce used in construction of Sign header.</td>
+</tr>
+</tbody></table>
+<h5 id='response-body'>Response Body</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>subscriptions</td>
+<td>array</td>
+<td>Yes</td>
+<td>array of webhook settings.</td>
+</tr>
+<tr>
+<td>subscriptions.notificationEventTypes</td>
+<td>array</td>
+<td>Yes</td>
+<td>array of event types for webhook subscription. See Event types section for full list of values.</td>
+</tr>
+<tr>
+<td>subscriptions.requestId</td>
+<td>string</td>
+<td>Yes</td>
+<td>id of the request that has created webhook subscription.</td>
+</tr>
+<tr>
+<td>subscriptions.url</td>
+<td>string</td>
+<td>Yes</td>
+<td>web address where request with webhook will be send to.</td>
+</tr>
+</tbody></table>
+<h3 id='create-webhook'>Create Webhook</h3>
+<blockquote>
+<p>Request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.calypso.finance/api/v1/pub/subscription/webhook/create'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+  "nonce": 0,
+  "request": {
+    "notificationEventTypes": [
+      "INVOICE_CREATE_UNLIMITED_INVOICE"
+    ],
+    "notificationServiceTypes": [
+      "INVOICE"
+    ],
+    "requestId": "bf9348b7-2c14-46d7-868c-b597852da319",
+    "url": "string"
+  }
+}'</span>
+
+</code></pre></div>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"notificationEventTypes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"INVOICE_CREATE_UNLIMITED_INVOICE"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"requestId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint creates a subscription to events.</p>
+<h5 id='http-request-2'>HTTP Request</h5>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/subscription/webhook/create</code></p>
+<h5 id='header-2'>Header</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Key</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>&lt;your_api_key&gt;</td>
+</tr>
+<tr>
+<td>Sign</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>&lt;your_sign&gt;</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>must be set to application/json for requests to the Calypso API</td>
+</tr>
+</tbody></table>
+<h5 id='request-body-2'>Request Body</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>nonce</td>
+<td>number</td>
+<td>Yes</td>
+<td>nonce used in construction of sign header.</td>
+</tr>
+<tr>
+<td>request</td>
+<td>object</td>
+<td>Yes</td>
+<td>this object contains request details.</td>
+</tr>
+<tr>
+<td>request.notificationEventTypes</td>
+<td>array</td>
+<td>No</td>
+<td>array of event types for webhook subscription. See Event types section for full list of values.</td>
+</tr>
+<tr>
+<td>request.notificationServiceTypes</td>
+<td>array</td>
+<td>No</td>
+<td>array of groups of the events for webhook subscription. If the value is set, a subscription is created for all types of events in this group. [INVOICE, PAYOUT]</td>
+</tr>
+<tr>
+<td>request.requestId</td>
+<td>string</td>
+<td>Yes</td>
+<td>id of the request that has created webhook subscription.</td>
+</tr>
+<tr>
+<td>request.url</td>
+<td>string</td>
+<td>Yes</td>
+<td>web address where request with webhook will be send to.</td>
+</tr>
+</tbody></table>
+<h5 id='response-body-2'>Response Body</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>notificationEventTypes</td>
+<td>array</td>
+<td>Yes</td>
+<td>array of event types for webhook subscription. See Event types section for full list of values.</td>
+</tr>
+<tr>
+<td>requestId</td>
+<td>string</td>
+<td>Yes</td>
+<td>id of the request that has created webhook subscription.</td>
+</tr>
+<tr>
+<td>url</td>
+<td>string</td>
+<td>Yes</td>
+<td>web address where request with webhook will be send to.</td>
+</tr>
+</tbody></table>
+<h3 id='change-webhook'>Change Webhook</h3>
+<blockquote>
+<p>Request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.calypso.finance//api/v1/pub/subscription/webhook/change'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+  "nonce": 0,
+  "request": {
+    "notificationEventTypes": [
+      "INVOICE_CREATE_UNLIMITED_INVOICE"
+    ],
+    "notificationServiceTypes": [
+      "INVOICE"
+    ],
+    "requestId": "bf9348b7-2c14-46d7-868c-b597852da319",
+    "url": "string"
+  }
+}'</span>
+
+</code></pre></div>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"notificationEventTypes"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"INVOICE_CREATE_UNLIMITED_INVOICE"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"requestId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"url"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint changes a configuration of subscription.</p>
+<h5 id='http-request-3'>HTTP Request</h5>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/subscription/webhook/change</code></p>
+<h5 id='header-3'>Header</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Key</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>&lt;your_api_key&gt;</td>
+</tr>
+<tr>
+<td>Sign</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>&lt;your_sign&gt;</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>must be set to application/json for requests to the Calypso API</td>
+</tr>
+</tbody></table>
+<h5 id='request-body-3'>Request Body</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>nonce</td>
+<td>number</td>
+<td>Yes</td>
+<td>nonce used in construction of sign header.</td>
+</tr>
+<tr>
+<td>request</td>
+<td>object</td>
+<td>Yes</td>
+<td>this object contains request details.</td>
+</tr>
+<tr>
+<td>request.notificationEventTypes</td>
+<td>array</td>
+<td>No</td>
+<td>array of event types for webhook subscription. See Event types section for full list of values.</td>
+</tr>
+<tr>
+<td>request.notificationServiceTypes</td>
+<td>array</td>
+<td>No</td>
+<td>array of groups of the events for webhook subscription. If the value is set, a subscription is created for all types of events in this group. [INVOICE, PAYOUT]</td>
+</tr>
+<tr>
+<td>request.requestId</td>
+<td>string</td>
+<td>Yes</td>
+<td>id of the request that has created webhook subscription.</td>
+</tr>
+<tr>
+<td>request.url</td>
+<td>string</td>
+<td>Yes</td>
+<td>web address where request with webhook will be send to.</td>
+</tr>
+</tbody></table>
+<h5 id='response-body-3'>Response Body</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>notificationEventTypes</td>
+<td>array</td>
+<td>Yes</td>
+<td>array of event types for webhook subscription. See Event types section for full list of values.</td>
+</tr>
+<tr>
+<td>requestId</td>
+<td>string</td>
+<td>Yes</td>
+<td>id of the request that has created webhook subscription.</td>
+</tr>
+<tr>
+<td>url</td>
+<td>string</td>
+<td>Yes</td>
+<td>web address where request with webhook will be send to.</td>
+</tr>
+</tbody></table>
+<h3 id='delete-webhook'>Delete Webhook</h3>
+<blockquote>
+<p>Request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>
+curl <span class="nt">--location</span> <span class="nt">--request</span> DELETE <span class="s1">'http://public-gateway.calypso.finance//api/v1/pub/subscription/webhook'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+  "nonce": 0,
+  "request": {
+    "requestId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+  }
+}'</span>
+
+</code></pre></div>
+<p>This endpoint deletes a subscription to events.</p>
+<h5 id='http-request-4'>HTTP Request</h5>
+<p><code>DELETE http://public-gateway.calypso.finance/api/v1/pub/subscription/webhook</code></p>
+<h5 id='header-4'>Header</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Key</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>&lt;your_api_key&gt;</td>
+</tr>
+<tr>
+<td>Sign</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>&lt;your_sign&gt;</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>must be set to application/json for requests to the Calypso API</td>
+</tr>
+</tbody></table>
+<h5 id='request-body-4'>Request Body</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>nonce</td>
+<td>number</td>
+<td>Yes</td>
+<td>nonce used in construction of sign header.</td>
+</tr>
+<tr>
+<td>request</td>
+<td>object</td>
+<td>Yes</td>
+<td>this object contains request details.</td>
+</tr>
+<tr>
+<td>request.requestId</td>
+<td>string</td>
+<td>Yes</td>
+<td>id of the request that has created webhook subscription.</td>
 </tr>
 </tbody></table>
 <h1 id='errors'>Errors</h1>
