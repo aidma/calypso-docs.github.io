@@ -6182,11 +6182,11 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 
 <p>Then when one of events for which you have subscription happens, Calypso sends a POST request to the configured URL with data about the event.</p>
 
-<p><em>Note:</em> In this version of webhook api Calypso does not retry the request if initial request fails.</p>
-
 <p>You can manage your subscription using the delete webhook endpoint and the change webhook endpoint.</p>
 
 <p>There is the get list of webhook subscriptions endpoint in order to get information about events and URLs you have a subscription.</p>
+<h4 id='retry-policy'>Retry policy</h4>
+<p>If the receiving party returned an error when sending the webhook to the configured URL, Calypso will be trying to resend the webhook. The first retry will be occured in 30 seconds. The next retries will be proceeded in Fibonacci sequence: 30 s, 60 s, 90 s, 150 s, 240 s and so on. The last period of retry is 125 430 s (~ 34 hours). The last webhook will try to be resent after 125 430 s and then will be stopped. There are 19 retries in total.</p>
 <h3 id='types-of-events'>Types of Events</h3>
 <p>Calypso supports a number of different event types, and you can filter your notification requests depending on types or group of events you send in the request.</p>
 
