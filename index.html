@@ -6690,6 +6690,10 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>INVOICE_PENDING_INTERVENTION</td>
 <td>Invoice has changed state to INVOICE_PENDING_INTERVENTION. Either more or less funds was received to the invoice wallet than required</td>
 </tr>
+<tr>
+<td>INVOICE_FAILED</td>
+<td>Not enough funds in base currency for token invoice in order to send money from invoice wallet to your wallet</td>
+</tr>
 </tbody></table>
 
 <p><strong>PAYOUT</strong></p>
@@ -6719,6 +6723,14 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <tr>
 <td>PAYOUT_CRYPTO_TO_FIAT_COMPLETED</td>
 <td>Payout crypto-to-fiat has been completed. Funds have been sent to fiat exchange account</td>
+</tr>
+<tr>
+<td>PAYOUT_WITHDRAWALS_CREATING_VALIDATION_ERROR</td>
+<td>Mass payout is failed because of the validation error in it withdrawal(s)</td>
+</tr>
+<tr>
+<td>PAYOUT_ETHEREUM_APPROVAL_VALIDATION_ERROR</td>
+<td>Error in mass payout during transaction validation in blockchain (Ethereum only)</td>
 </tr>
 </tbody></table>
 <h2 id='webhook-payload'>Webhook payload</h2>
@@ -6806,7 +6818,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <tr>
 <td>amount</td>
 <td>number</td>
-<td>amount of money in invoice.</td>
+<td>money amount of the created invoice.</td>
 </tr>
 <tr>
 <td>message</td>
@@ -6889,7 +6901,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <tr>
 <td>amount</td>
 <td>number</td>
-<td>amount of money in invoice.</td>
+<td>amount of recieved money to invoice wallet.</td>
 </tr>
 <tr>
 <td>message</td>
@@ -6909,7 +6921,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <tr>
 <td>createdDate</td>
 <td>string</td>
-<td>date and time of invoice creation</td>
+<td>date and time of invoice creation.</td>
 </tr>
 <tr>
 <td>senderAddress</td>
@@ -6938,7 +6950,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <tr>
 <td>amount</td>
 <td>number</td>
-<td>amount of money in invoice.</td>
+<td>money amount of the invoice.</td>
 </tr>
 <tr>
 <td>message</td>
@@ -6958,7 +6970,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <tr>
 <td>createdDate</td>
 <td>string</td>
-<td>date and time of invoice creation</td>
+<td>date and time of invoice creation.</td>
 </tr>
 <tr>
 <td>senderAddress</td>
@@ -7008,6 +7020,50 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>idempotencyKey</td>
 <td>string</td>
 <td>the external id that was generated while invoice creating through api.</td>
+</tr>
+</tbody></table>
+<h5 id='invoice_failed'>INVOICE_FAILED</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>invoiceId</td>
+<td>number</td>
+<td>system id of the invoice.</td>
+</tr>
+<tr>
+<td>idempotencyKey</td>
+<td>string</td>
+<td>the external id that was generated while invoice creating through api.</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>number</td>
+<td>money amount of the invoice.</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>string</td>
+<td>currency of the invoice.</td>
+</tr>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>description of the invoice.</td>
+</tr>
+<tr>
+<td>createdDate</td>
+<td>string</td>
+<td>date and time of invoice creation.</td>
+</tr>
+<tr>
+<td>transactionHash</td>
+<td>string</td>
+<td>hash of the incoming transaction to the invoice wallet.</td>
 </tr>
 </tbody></table>
 <h5 id='payout_change_status'>PAYOUT_CHANGE_STATUS</h5>
@@ -7208,6 +7264,30 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>idempotencyKey</td>
 <td>string</td>
 <td>the external id that was generated while payout creating through api.</td>
+</tr>
+</tbody></table>
+<h5 id='payout_withdrawals_creating_validation_error'>PAYOUT_WITHDRAWALS_CREATING_VALIDATION_ERROR</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>dealId</td>
+<td>number</td>
+<td>system id of the payout.</td>
+</tr>
+<tr>
+<td>idempotencyKey</td>
+<td>string</td>
+<td>the external id that was generated while payout creating through api.</td>
+</tr>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>validation error message.</td>
 </tr>
 </tbody></table>
 <h2 id='webhook-api'>Webhook api</h2><h3 id='get-list-of-webhook-subscriptions'>Get List Of Webhook Subscriptions</h3>
