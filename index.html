@@ -1214,7 +1214,8 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
       </span><span class="nl">"payAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
       </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ARCHIVED"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"totalDebitAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE"</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"upperCommission"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
@@ -1567,6 +1568,18 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>the total amount received on the invoice wallet.</td>
 </tr>
 <tr>
+<td>result.type</td>
+<td>sring</td>
+<td>Yes</td>
+<td>the type of the invoice. SINGLE - allows to recieve one payment in crypto-currency. SINGLE_FIAT - allows to recieve one payment in crypto-currency but amount to pay is set in fiat currency. UNLIMITED - allows to receive unlimited amount of payments in crypto-currency</td>
+</tr>
+<tr>
+<td>result.upperCommission</td>
+<td>boolean</td>
+<td>No</td>
+<td>defines whether network transaction fee for transfer from invoice wallet to your wallet will be  substracted from transfer amount (false) or not (true).</td>
+</tr>
+<tr>
 <td>size</td>
 <td>number</td>
 <td>Yes</td>
@@ -1659,7 +1672,8 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
   </span><span class="nl">"payAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ARCHIVED"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"totalDebitAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE"</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"upperCommission"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
@@ -1971,6 +1985,18 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>Yes</td>
 <td>the total amount received on the invoice wallet.</td>
 </tr>
+<tr>
+<td>type</td>
+<td>sring</td>
+<td>Yes</td>
+<td>the type of the invoice. SINGLE - allows to recieve one payment in crypto-currency. SINGLE_FIAT - allows to recieve one payment in crypto-currency but amount to pay is set in fiat currency. UNLIMITED - allows to receive unlimited amount of payments in crypto-currency</td>
+</tr>
+<tr>
+<td>upperCommission</td>
+<td>boolean</td>
+<td>No</td>
+<td>defines whether network transaction fee for transfer from invoice wallet to your wallet will be  substracted from transfer amount (false) or not (true).</td>
+</tr>
 </tbody></table>
 <h2 id='new-invoice'>New Invoice</h2>
 <blockquote>
@@ -1999,6 +2025,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
     ],
     "hotWalletAddress": "string",
     "idempotencyKey": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "upperCommission": true
   }
 }'</span>
 
@@ -2065,7 +2092,8 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
   </span><span class="nl">"payAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ARCHIVED"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"totalDebitAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE"</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"upperCommission"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
@@ -2204,6 +2232,12 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>string</td>
 <td>No</td>
 <td>the external id that can be generated by user while creating the invoice</td>
+</tr>
+<tr>
+<td>request.upperCommission</td>
+<td>boolean</td>
+<td>No</td>
+<td>defines whether network transaction fee for transfer from invoice wallet to your wallet will be  substracted from transfer amount (false) or not (true).</td>
 </tr>
 </tbody></table>
 <h5 id='response-body-3'>Response Body</h5>
@@ -2449,6 +2483,18 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>Yes</td>
 <td>the total amount received on the invoice wallet.</td>
 </tr>
+<tr>
+<td>type</td>
+<td>sring</td>
+<td>Yes</td>
+<td>the type of the invoice. SINGLE - allows to recieve one payment in crypto-currency. SINGLE_FIAT - allows to recieve one payment in crypto-currency but amount to pay is set in fiat currency. UNLIMITED - allows to receive unlimited amount of payments in crypto-currency</td>
+</tr>
+<tr>
+<td>upperCommission</td>
+<td>boolean</td>
+<td>No</td>
+<td>defines whether network transaction fee for transfer from invoice wallet to your wallet will be  substracted from transfer amount (false) or not (true).</td>
+</tr>
 </tbody></table>
 <h2 id='new-invoice-button'>New Invoice (Button)</h2>
 <blockquote>
@@ -2530,7 +2576,8 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
   </span><span class="nl">"payAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ARCHIVED"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"totalDebitAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE"</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"upperCommission"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
@@ -2841,6 +2888,18 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>number</td>
 <td>Yes</td>
 <td>the total amount received on the invoice wallet.</td>
+</tr>
+<tr>
+<td>type</td>
+<td>sring</td>
+<td>Yes</td>
+<td>the type of the invoice. SINGLE - allows to recieve one payment in crypto-currency. SINGLE_FIAT - allows to recieve one payment in crypto-currency but amount to pay is set in fiat currency. UNLIMITED - allows to receive unlimited amount of payments in crypto-currency</td>
+</tr>
+<tr>
+<td>upperCommission</td>
+<td>boolean</td>
+<td>No</td>
+<td>defines whether network transaction fee for transfer from invoice wallet to your wallet will be  substracted from transfer amount (false) or not (true).</td>
 </tr>
 </tbody></table>
 <h2 id='get-all-available-buttons'>Get All Available Buttons</h2>
@@ -3343,7 +3402,8 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
   </span><span class="nl">"payAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ARCHIVED"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"totalDebitAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE"</span><span class="w">
+  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"upperCommission"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
@@ -3660,6 +3720,18 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>number</td>
 <td>Yes</td>
 <td>the total amount received on the invoice wallet.</td>
+</tr>
+<tr>
+<td>type</td>
+<td>sring</td>
+<td>Yes</td>
+<td>the type of the invoice. SINGLE - allows to recieve one payment in crypto-currency. SINGLE_FIAT - allows to recieve one payment in crypto-currency but amount to pay is set in fiat currency. UNLIMITED - allows to receive unlimited amount of payments in crypto-currency</td>
+</tr>
+<tr>
+<td>upperCommission</td>
+<td>boolean</td>
+<td>No</td>
+<td>defines whether network transaction fee for transfer from invoice wallet to your wallet will be  substracted from transfer amount (false) or not (true).</td>
 </tr>
 </tbody></table>
 <h2 id='generate-reusable-api-key'>Generate reusable api key</h2>
