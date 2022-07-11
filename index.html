@@ -520,7 +520,7 @@
 
 <ul>
 <li>Send API request to create an invoice (<strong>POST http://public-gateway.calypso.finance/api/v1/pub/invoice/create</strong>)</li>
-<li>Redirect a browser of a user to the link of the following format: <strong>https://calypso.finance/invoices/{idempotencyKey}</strong></li>
+<li>Redirect a browser of a user to the link of the following format: <strong>https://ui.calypso.finance/invoices/{idempotencyKey}</strong></li>
 </ul>
 
 <blockquote>
@@ -630,7 +630,7 @@
 <ul>
 <li>Send API request to create an invoice (<strong>POST http://public-gateway.calypso.finance/api/v1/pub/invoice/create</strong>)</li>
 <li>Copy generated idempotencyKey from the response</li>
-<li>Redirect a browser of a user to the link of the following format: <strong>https://calypso.finance/invoices/{idempotencyKey}</strong></li>
+<li>Redirect a browser of a user to the link of the following format: <strong>https://ui.calypso.finance/invoices/{idempotencyKey}</strong></li>
 </ul>
 
 <p>Further steps to complete payment are performed by a user in the payment form.</p>
@@ -848,7 +848,7 @@
 </ul>
 
 <p>To access the widget, a link is formed with a certain set of parameters:
-<strong>https://calypso.finance/payment?currency=<em>{fiat_currency}</em>&amp;amount=<em>{payment_amount}</em>&amp;description=<em>{text}</em>&amp;btc_wallet=<em>{btc_address}</em>&amp;eth_wallet=<em>{eth_address}</em>&amp;usdt_wallet=<em>{usdt_address}</em>&amp;key=<em>{genereted_reusable_key}</em>&amp;full={<em>true_or_false</em>}</strong></p>
+<strong>https://ui.calypso.finance/payment?currency=<em>{fiat_currency}</em>&amp;amount=<em>{payment_amount}</em>&amp;description=<em>{text}</em>&amp;btc_wallet=<em>{btc_address}</em>&amp;eth_wallet=<em>{eth_address}</em>&amp;usdt_wallet=<em>{usdt_address}</em>&amp;key=<em>{genereted_reusable_key}</em>&amp;full={<em>true_or_false</em>}</strong></p>
 <h5 id='description-of-parameters'>Description of parameters</h5>
 <ul>
 <li><strong>currency</strong> - the currency in which the payment is made;</li>
