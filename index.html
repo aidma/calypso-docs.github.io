@@ -455,6 +455,17 @@
           <li>
             <a href="#errors" class="toc-h1 toc-link" data-title="Errors">Errors</a>
           </li>
+          <li>
+            <a href="#payment-widget-for-cms-wordpress" class="toc-h1 toc-link" data-title="Payment Widget for CMS (Wordpress)">Payment Widget for CMS (Wordpress)</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#how-to-install-the-plugin" class="toc-h2 toc-link" data-title="How to install the plugin"><strong>How to install the plugin</strong></a>
+                  </li>
+                  <li>
+                    <a href="#how-to-add-plugin-on-the-page" class="toc-h2 toc-link" data-title="How to add plugin on the page">How to add plugin on the page</a>
+                  </li>
+              </ul>
+          </li>
       </ul>
         <ul class="toc-footer">
             <li><a href='https://calypso.finance' class="calypso-link">Calypso Finance <svg class="calypso-link-icon" width="24" height="24" viewBox="0 -3.6 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9 5.5H6C5.44772 5.5 5 5.94772 5 6.5V18.5C5 19.0523 5.44772 19.5 6 19.5H18C18.5523 19.5 19 19.0523 19 18.5V15.5" stroke="#376FFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 12.5L19 5.5M19 5.5V11M19 5.5H13.5" stroke="#376FFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></a></li>
@@ -1906,7 +1917,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
   "nonce": 0,
   "request": {
     "amount": 0,
-    "expiration": null,
+    "expiration": "2022-07-19T08:30Z",
     "currency": "BTC",
     "description": "string",
     "type": "SINGLE",
@@ -6488,19 +6499,19 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>maxRatio</td>
 <td>NUMBER</td>
 <td>Yes</td>
-<td>Represents a fast maximum transaction fee, calculated from unconfirmed transactions.</td>
+<td>Represents a max ratio by which the transaction fee can be multiplied in order to precalculate max possible transaction fee.</td>
 </tr>
 <tr>
 <td>minRatio</td>
 <td>NUMBER</td>
 <td>Yes</td>
-<td>Represents the slow minimum transaction fee, calculated from unconfirmed transactions.</td>
+<td>Represents a min ratio by which the transaction fee can be multiplied in order to precalculate min possible transaction fee.</td>
 </tr>
 <tr>
 <td>transactionFee</td>
 <td>NUMBER</td>
 <td>Yes</td>
-<td>Represents the standard maximum fee per gas, calculated from unconfirmed transactions.</td>
+<td>Represents a medium transaction fee which can be multiplied by ratio in order to precalculate possible transaction fee.</td>
 </tr>
 </tbody></table>
 <h2 id='get-specific-crypto-to-fiat-payout'>Get Specific Crypto-to-fiat Payout</h2>
@@ -9745,7 +9756,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> DELETE
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
     </span><span class="nl">"errorCode"</span><span class="p">:</span><span class="w"> </span><span class="s2">"000"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Internal server problem. Please contact our support."</span><span class="w">
+    </span><span class="nl">"message"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Internal server error"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div>
 <p>The Calypso API uses the following error codes:</p>
@@ -9754,65 +9765,154 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> DELETE
 <tr>
 <th>errorCode</th>
 <th>Message</th>
+<th>Comment</th>
 </tr>
 </thead><tbody>
 <tr>
 <td>000</td>
-<td>Internal server problem. Please contact our support.</td>
+<td>Internal server error</td>
+<td>Error on system side. Please contact the support.</td>
 </tr>
 <tr>
 <td>001</td>
-<td>Request is invalid</td>
+<td>Bad request</td>
+<td>Incorrect input data.</td>
 </tr>
 <tr>
 <td>002</td>
-<td>Incorrect sign</td>
+<td>Invalid api key</td>
+<td>Invalid public api key in request.</td>
 </tr>
 <tr>
 <td>003</td>
-<td>Incorrect invoice type for withdrawal. Must be Unlimited</td>
+<td>Wrong sign</td>
+<td>Sign transmitted in request is built incorrectly.</td>
 </tr>
 <tr>
 <td>004</td>
-<td>Invoice is in incorrect state for operation</td>
-</tr>
-<tr>
-<td>005</td>
-<td>Not enough funds in the selected unlimited invoice to create a withdrawal</td>
+<td>Wallet with this address {address} does not exist</td>
+<td>Error occurs when non-existent wallet address transmitted in request</td>
 </tr>
 <tr>
 <td>006</td>
-<td>Not enough funds in the selected wallet to create a payout</td>
-</tr>
-<tr>
-<td>007</td>
-<td>Fee ratio of currency is not in range of min and max fee ratio</td>
-</tr>
-<tr>
-<td>008</td>
-<td>Wallet doesn&#39;t belong to user company</td>
+<td>Invoice is in incorrect state for operation</td>
+<td></td>
 </tr>
 <tr>
 <td>009</td>
-<td>Api key error. The provided API key is invalid.</td>
+<td>Fee ratio of currency is not in range of min and max fee ratio</td>
+<td></td>
 </tr>
 <tr>
 <td>010</td>
-<td>Requested object is not found</td>
+<td>Wallet doesn&#39;t belong to user company</td>
+<td></td>
 </tr>
 <tr>
 <td>011</td>
-<td>Missing {parameterName} parameter</td>
+<td>Invalid nonce parameter. Nonce value must be greater than previous one</td>
+<td></td>
 </tr>
 <tr>
 <td>012</td>
-<td>Invalid {parameterName} parameter</td>
+<td>Invalid Payout state</td>
+<td></td>
 </tr>
 <tr>
-<td>013</td>
-<td>Invalid nonce parameter. Nonce value must be greater than previous one</td>
+<td>014</td>
+<td>Invalid hot wallet currency</td>
+<td></td>
+</tr>
+<tr>
+<td>015</td>
+<td>Currency does not match wallet blockchain</td>
+<td></td>
+</tr>
+<tr>
+<td>016</td>
+<td>IdempotencyKey {idemmpotencyKeyUUID} already exists</td>
+<td>In the payout creation request already used uuid for idempotency key is transmitted</td>
+</tr>
+<tr>
+<td>016</td>
+<td>Can not create deal. Validation failed</td>
+<td>Validation error in payout creation. One or more request parameters were not validated</td>
+</tr>
+<tr>
+<td>028</td>
+<td>Can not create invoice payment for invoice 134. Allow only for UNLIMITED invoices</td>
+<td>Error occures when in the request &quot;create withdrawal from unlimited invoice&quot; invoice of incorrect type is transmitted</td>
 </tr>
 </tbody></table>
+<h1 id='payment-widget-for-cms-wordpress'>Payment Widget for CMS (Wordpress)</h1>
+<p>If you are using Content Management System Wordpress to run and maintain your web-application here you may find a manual how you can install and set Payment Widget via Admin Dashboard of Wordpress. </p>
+<h3 id='how-to-install-the-plugin'><strong>How to install the plugin</strong></h3>
+<ol>
+<li><p>Download Payment Widget plugin for Wordpress using this
+<a href="files/calypso-payment-widget.zip" download>link</a>.</p></li>
+<li><p>Login to your web-application Wordpress Admin Dashboard:
+<img src="images/wordpress_login_1-47794d04.png" width="55%" height="50%" style="margin: 5%"/>
+<img src="images/wordpress_login_2-3aa159b1.png" width="95%" height="90%" style="margin: 5%"/></p></li>
+<li><p>Go to the <strong>Plugins</strong>-&gt;<strong>Add new</strong> directory in the main menu:
+<img src="images/wordpress_plugins_1-2ea08ae0.png" width="95%" height="90%" style="margin: 5%"/>
+<img src="images/wordpress_plugins_2-8f0d0f26.png" width="95%" height="90%" style="margin: 5%"/></p></li>
+<li><p>Press <strong>Upload Plugin</strong> button, select/drag downloaded earlier .zip archive and press <strong>Install Now</strong> button:
+<img src="images/wordpress_plugins_install_1-3420c768.png" width="95%" height="90%" style="margin: 5%"/>
+<img src="images/wordpress_plugins_install_2-962a7cb2.png" width="95%" height="90%" style="margin: 5%"/></p></li>
+<li><p>After you successfully installed the plugin click <strong>Activate Plugin</strong> button to get access to plugin settings:
+<img src="images/wordpress_plugins_install_4-4e8f17e5.png" width="95%" height="90%" style="margin: 5%"/></p></li>
+</ol>
+
+<p>The plugin was succesfully installed and activated!</p>
+<h4 id='plugin-settings'><strong>Plugin settings</strong></h4>
+<p>You can access the Calypso Payment Widget plugin settings using corresponding main menu directory:
+<img src="images/wordpress_settings_1-3eb02a3d.png" width="95%" height="90%" style="margin: 5%"/>
+<img src="images/wordpress_settings_2-f6644ea3.png" width="95%" height="90%" style="margin: 5%"/></p>
+<h5 id='description-of-settings'>Description of settings</h5>
+<ul>
+<li><strong>Url</strong> - for production environment always use <strong>https://ui.calypso.finance/payment</strong> value</li>
+<li><strong>Reusable Key</strong> - a reusable key with a limited validity period, which is generated by the user via the Public API using the api key.</li>
+<li><strong>Currency</strong> - the currency in which the payment is made;</li>
+<li><strong>Ethereum Wallet</strong> - the address of the ethereum wallet to which the funds from the invoice payment will be received;</li>
+<li><strong>Bitcoin Wallet</strong> - the address of the bitcoin wallet to which the funds from the invoice payment will be received;</li>
+<li><strong>Tron Wallet</strong> - the address of the tron wallet to which the funds from the invoice payment will be received;</li>
+<li><strong>USDT Tron Wallet</strong> - the address of the tron wallet to which the funds from the invoice payment will be received in USDT;</li>
+<li><strong>Full size</strong> - if selected, the full version of the widget will is displayed, if unselected, the mini version of the widget is shown.</li>
+</ul>
+<h3 id='how-to-add-plugin-on-the-page'>How to add plugin on the page</h3>
+<p>To add plugin in your site’s web page:</p>
+
+<ol>
+<li><p>Go to the  <strong>Pages</strong> -&gt; <strong>All pages</strong> directory in the main menu:
+<img src="images/wordpress_plugin_add_to_page_1-12d3d6e8.png" width="95%" height="90%" style="margin: 5%"/></p></li>
+<li><p>Select the page you want to add plugin to and click <strong>Edit</strong> button:
+<img src="images/wordpress_plugin_add_to_page_2-eb49196d.png" width="95%" height="90%" style="margin: 5%"/></p></li>
+<li><p>On the page select the space you want to add button for opening Payment Widget, click the + button, type in Shortcode and click on it to add the element on the page:
+<img src="images/wordpress_plugin_add_to_page_3-1340c566.png" width="95%" height="90%" style="margin: 5%"/>
+<img src="images/wordpress_plugin_add_to_page_4-7e63aa84.png" width="95%" height="90%" style="margin: 5%"/></p></li>
+<li><p>In Shortcode element add the following line of code:</p></li>
+</ol>
+
+<p><strong>[calypso-payment-widget-button description=&#39;&#39; amount=&#39;&#39;]</strong></p>
+
+<p>Description of values:</p>
+
+<ul>
+<li><strong>amount</strong> - the amount for which the payment is made;</li>
+<li><strong>description</strong> - description or comment that is displayed in the widget;</li>
+</ul>
+
+<p>Values <strong>must not</strong> be empty:
+<img src="images/wordpress_plugin_add_to_page_5-c3a7fa4d.png" width="95%" height="90%" style="margin: 5%"/></p>
+
+<ol>
+<li><p>To save changes made on the page click <strong>Update</strong> button at the top-right corner:
+<img src="images/wordpress_plugin_add_to_page_6-6bf7ba95.png" width="95%" height="90%" style="margin: 5%"/>
+<img src="images/wordpress_plugin_add_to_page_7-c7483b3e.png" width="95%" height="90%" style="margin: 5%"/></p></li>
+<li><p>Now <strong>Pay</strong> button is visible for your web-application users:
+<img src="images/wordpress_plugin_add_to_page_8-945195c4.png" width="95%" height="90%" style="margin: 5%"/>
+<img src="images/wordpress_plugin_showcase_1-33a2f5d9.png" width="95%" height="90%" style="margin: 5%"/></p></li>
+</ol>
 
       </div>
       <div class="dark-box">
