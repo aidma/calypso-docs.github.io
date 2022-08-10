@@ -402,15 +402,6 @@
                   <li>
                     <a href="#get-expected-transaction-fee" class="toc-h2 toc-link" data-title="Get Expected Transaction Fee">Get Expected Transaction Fee</a>
                   </li>
-                  <li>
-                    <a href="#get-specific-crypto-to-fiat-payout" class="toc-h2 toc-link" data-title="Get Specific Crypto-to-fiat Payout">Get Specific Crypto-to-fiat Payout</a>
-                  </li>
-                  <li>
-                    <a href="#create-crypto-to-fiat-payout" class="toc-h2 toc-link" data-title="Create Crypto-to-fiat Payout">Create Crypto-to-fiat Payout</a>
-                  </li>
-                  <li>
-                    <a href="#get-all-crypto-to-fiat-payouts" class="toc-h2 toc-link" data-title="Get All Crypto-to-fiat Payouts">Get All Crypto-to-fiat Payouts</a>
-                  </li>
               </ul>
           </li>
           <li>
@@ -429,23 +420,6 @@
                   </li>
                   <li>
                     <a href="#get-exchange-rates" class="toc-h2 toc-link" data-title="Get exchange rates">Get exchange rates</a>
-                  </li>
-              </ul>
-          </li>
-          <li>
-            <a href="#bank-requisites-api" class="toc-h1 toc-link" data-title="Bank Requisites API">Bank Requisites API</a>
-              <ul class="toc-list-h2">
-                  <li>
-                    <a href="#get-specific-requisites" class="toc-h2 toc-link" data-title="Get Specific Requisites">Get Specific Requisites</a>
-                  </li>
-                  <li>
-                    <a href="#get-all-requisites" class="toc-h2 toc-link" data-title="Get All Requisites">Get All Requisites</a>
-                  </li>
-                  <li>
-                    <a href="#create-sepa-requisites" class="toc-h2 toc-link" data-title="Create SEPA Requisites">Create SEPA Requisites</a>
-                  </li>
-                  <li>
-                    <a href="#create-swift-requisites" class="toc-h2 toc-link" data-title="Create SWIFT Requisites">Create SWIFT Requisites</a>
                   </li>
               </ul>
           </li>
@@ -1140,7 +1114,8 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
       </span><span class="nl">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"totalDebitAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
       </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"upperCommission"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+      </span><span class="nl">"upperCommission"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"useLiquidity"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
     </span><span class="p">}</span><span class="w">
   </span><span class="p">],</span><span class="w">
   </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
@@ -1531,7 +1506,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </tr>
 <tr>
 <td>result.type</td>
-<td>sring</td>
+<td>string</td>
 <td>Yes</td>
 <td>the type of the invoice. SINGLE - allows to recieve one payment in crypto-currency. SINGLE_FIAT - allows to recieve one payment in crypto-currency but amount to pay is set in fiat currency. UNLIMITED - allows to receive unlimited amount of payments in crypto-currency</td>
 </tr>
@@ -1540,6 +1515,12 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>boolean</td>
 <td>No</td>
 <td>defines whether network transaction fee for transfer from invoice wallet to your wallet will be  substracted from transfer amount (false) or not (true). true is by default.</td>
+</tr>
+<tr>
+<td>result.useLiquidity</td>
+<td>boolean</td>
+<td>No</td>
+<td>defines whether fee for transaction will be charged from liquidity wallet of Calypso (true) or from merchant wallet (false)</td>
 </tr>
 <tr>
 <td>size</td>
@@ -1648,7 +1629,8 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
   </span><span class="nl">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"totalDebitAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"upperCommission"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+  </span><span class="nl">"upperCommission"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"useLiquidity"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
@@ -1998,7 +1980,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </tr>
 <tr>
 <td>type</td>
-<td>sring</td>
+<td>string</td>
 <td>Yes</td>
 <td>the type of the invoice. SINGLE - allows to recieve one payment in crypto-currency. SINGLE_FIAT - allows to recieve one payment in crypto-currency but amount to pay is set in fiat currency. UNLIMITED - allows to receive unlimited amount of payments in crypto-currency</td>
 </tr>
@@ -2007,6 +1989,12 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>boolean</td>
 <td>No</td>
 <td>defines whether network transaction fee for transfer from invoice wallet to your wallet will be  substracted from transfer amount (false) or not (true). true is by default.</td>
+</tr>
+<tr>
+<td>useLiquidity</td>
+<td>boolean</td>
+<td>No</td>
+<td>defines whether fee for transaction will be charged from liquidity wallet of Calypso (true) or from merchant wallet (false)</td>
 </tr>
 </tbody></table>
 <h2 id='new-invoice'>New Invoice</h2>
@@ -2040,7 +2028,8 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
     "returnUrl": "string",
     "supportUrl": "string",
     "type": "SINGLE",
-    "upperCommission": true
+    "upperCommission": true,
+    "useLiquidity": false
   }
 }'</span>
 
@@ -2115,7 +2104,8 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
   </span><span class="nl">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"totalDebitAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"upperCommission"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+  </span><span class="nl">"upperCommission"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"useLiquidity"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
@@ -2179,7 +2169,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </tr>
 <tr>
 <td>request.fiatCurrency</td>
-<td>strint</td>
+<td>string</td>
 <td>No</td>
 <td>received fiat currency. [ USD, EUR, RUB, UAH, KZT ]. Required for SINGLE_FIAT invoices.</td>
 </tr>
@@ -2206,12 +2196,6 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>string</td>
 <td>Yes</td>
 <td>short invoice description.</td>
-</tr>
-<tr>
-<td>request.type</td>
-<td>string</td>
-<td>Yes</td>
-<td>invoice type. [ SINGLE, SINGLE_FIAT, UNLIMITED ]</td>
 </tr>
 <tr>
 <td>request.cartItems</td>
@@ -2275,7 +2259,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </tr>
 <tr>
 <td>request.type</td>
-<td>sring</td>
+<td>string</td>
 <td>Yes</td>
 <td>the type of the invoice. SINGLE - allows to recieve one payment in crypto-currency. SINGLE_FIAT - allows to recieve one payment in crypto-currency but amount to pay is set in fiat currency. UNLIMITED - allows to receive unlimited amount of payments in crypto-currency</td>
 </tr>
@@ -2284,6 +2268,12 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>boolean</td>
 <td>No</td>
 <td>defines whether network transaction fee for transfer from invoice wallet to your wallet will be  substracted from transfer amount (false) or not (true). true is by default.</td>
+</tr>
+<tr>
+<td>useLiquidity</td>
+<td>boolean</td>
+<td>No</td>
+<td>defines whether fee for transaction will be charged from liquidity wallet of Calypso (true) or from merchant wallet (false)</td>
 </tr>
 </tbody></table>
 <h5 id='response-body-3'>Response Body</h5>
@@ -2567,7 +2557,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </tr>
 <tr>
 <td>type</td>
-<td>sring</td>
+<td>string</td>
 <td>Yes</td>
 <td>the type of the invoice. SINGLE - allows to recieve one payment in crypto-currency. SINGLE_FIAT - allows to recieve one payment in crypto-currency but amount to pay is set in fiat currency. UNLIMITED - allows to receive unlimited amount of payments in crypto-currency</td>
 </tr>
@@ -2576,6 +2566,12 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>boolean</td>
 <td>No</td>
 <td>defines whether network transaction fee for transfer from invoice wallet to your wallet will be  substracted from transfer amount (false) or not (true). true is by default.</td>
+</tr>
+<tr>
+<td>useLiquidity</td>
+<td>boolean</td>
+<td>No</td>
+<td>defines whether fee for transaction will be charged from liquidity wallet of Calypso (true) or from merchant wallet (false)</td>
 </tr>
 </tbody></table>
 <h2 id='funds-withdrawal-from-unlimited-invoice'>Funds Withdrawal (from unlimited invoice)</h2>
@@ -2667,7 +2663,8 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
   </span><span class="nl">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"totalDebitAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"upperCommission"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+  </span><span class="nl">"upperCommission"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"useLiquidity"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
@@ -3023,7 +3020,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </tr>
 <tr>
 <td>type</td>
-<td>sring</td>
+<td>string</td>
 <td>Yes</td>
 <td>the type of the invoice. SINGLE - allows to recieve one payment in crypto-currency. SINGLE_FIAT - allows to recieve one payment in crypto-currency but amount to pay is set in fiat currency. UNLIMITED - allows to receive unlimited amount of payments in crypto-currency</td>
 </tr>
@@ -3032,6 +3029,12 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>boolean</td>
 <td>No</td>
 <td>defines whether network transaction fee for transfer from invoice wallet to your wallet will be  substracted from transfer amount (false) or not (true). true is by default.</td>
+</tr>
+<tr>
+<td>useLiquidity</td>
+<td>boolean</td>
+<td>No</td>
+<td>defines whether fee for transaction will be charged from liquidity wallet of Calypso (true) or from merchant wallet (false)</td>
 </tr>
 </tbody></table>
 <h2 id='generate-reusable-api-key'>Generate reusable api key</h2>
@@ -3244,7 +3247,8 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
   </span><span class="nl">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"totalDebitAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"upperCommission"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+  </span><span class="nl">"upperCommission"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"useLiquidity"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
@@ -3594,7 +3598,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </tr>
 <tr>
 <td>type</td>
-<td>sring</td>
+<td>string</td>
 <td>Yes</td>
 <td>the type of the invoice. SINGLE - allows to recieve one payment in crypto-currency. SINGLE_FIAT - allows to recieve one payment in crypto-currency but amount to pay is set in fiat currency. UNLIMITED - allows to receive unlimited amount of payments in crypto-currency</td>
 </tr>
@@ -3603,6 +3607,12 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>boolean</td>
 <td>No</td>
 <td>defines whether network transaction fee for transfer from invoice wallet to your wallet will be  substracted from transfer amount (false) or not (true). true is by default.</td>
+</tr>
+<tr>
+<td>useLiquidity</td>
+<td>boolean</td>
+<td>No</td>
+<td>defines whether fee for transaction will be charged from liquidity wallet of Calypso (true) or from merchant wallet (false)</td>
 </tr>
 </tbody></table>
 <h2 id='resolve-intervention-and-receive-money-to-the-wallet'>Resolve intervention and receive money to the wallet</h2>
@@ -3693,7 +3703,8 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
   </span><span class="nl">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"totalDebitAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"upperCommission"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+  </span><span class="nl">"upperCommission"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"useLiquidity"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
@@ -4043,7 +4054,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </tr>
 <tr>
 <td>type</td>
-<td>sring</td>
+<td>string</td>
 <td>Yes</td>
 <td>the type of the invoice. SINGLE - allows to recieve one payment in crypto-currency. SINGLE_FIAT - allows to recieve one payment in crypto-currency but amount to pay is set in fiat currency. UNLIMITED - allows to receive unlimited amount of payments in crypto-currency</td>
 </tr>
@@ -4052,6 +4063,12 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>boolean</td>
 <td>No</td>
 <td>defines whether network transaction fee for transfer from invoice wallet to your wallet will be  substracted from transfer amount (false) or not (true). true is by default.</td>
+</tr>
+<tr>
+<td>useLiquidity</td>
+<td>boolean</td>
+<td>No</td>
+<td>defines whether fee for transaction will be charged from liquidity wallet of Calypso (true) or from merchant wallet (false)</td>
 </tr>
 </tbody></table>
 <h1 id='payout-api'>Payout API</h1>
@@ -6817,1200 +6834,455 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>Represents a medium transaction fee which can be multiplied by ratio in order to precalculate possible transaction fee.</td>
 </tr>
 </tbody></table>
-<h2 id='get-specific-crypto-to-fiat-payout'>Get Specific Crypto-to-fiat Payout</h2>
-<blockquote>
-<p>Request</p>
-</blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.finance/api/v1/pub/payout/crypto-to-fiat"</span> <span class="se">\</span>
-<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
-<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
-<span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-<span class="nt">--data-raw</span> <span class="s2">"{
-  "</span>nonce<span class="s2">": 0,
-  "</span>request<span class="s2">": {
-    "</span><span class="nb">id</span><span class="s2">": 0,
-    "</span>idempotencyKey<span class="s2">": "</span>3fa85f64-5717-4562-b3fc-2c963f66afa6<span class="s2">"
+
+<!-- Get Specific Crypto-to-fiat Payout
+-----------------
+
+> Request
+
+```shell
+
+curl --silent --location --request POST "http://public-gateway.calypso.finance/api/v1/pub/payout/crypto-to-fiat" \
+--header 'Key: <your_api_key>' \
+--header 'Sign: <your_sign>' \
+--header "Content-Type: application/json" \
+--data-raw "{
+  "nonce": 0,
+  "request": {
+    "id": 0,
+    "idempotencyKey": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
   }
-}"</span>
+}"
 
-</code></pre></div>
-<blockquote>
-<p>Response</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="w">
-  </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"clientAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-07-06T09:24:46.913Z"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"cancellation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"cancelMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"cancelRole"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ADMIN"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"canceledByFirstname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"canceledByLastname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"canceledByUserId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BNB"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"dealExchange"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"destinationCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"destinationAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"exchangeFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"fiatRequisitesId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"fiatType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SEPA"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AWAITING_TRANSFER"</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-  </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"withdrawalErrors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-          </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"errorMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"errorResolved"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NOT_ENOUGH_FUNDS"</span><span class="w">
-          </span><span class="p">}</span><span class="w">
-        </span><span class="p">],</span><span class="w">
-        </span><span class="nl">"withdrawalId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nl">"executionDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-07-06T09:24:46.913Z"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"idempotencyKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"networkFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"networkFeeCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BNB"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"networkFeePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"networkFeeRatio"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CANCELED"</span><span class="w">
-</span><span class="p">}</span><span class="w">
+```
+> Response
 
-</span></code></pre></div>
-<p>This endpoint retrieves a specific crypto-to-fiat payout.</p>
-<h5 id='http-request-11'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/payout/crypto-to-fiat</code></p>
-<h5 id='header-11'>Header</h5>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>Key</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>&lt;your_api_key&gt;</td>
-</tr>
-<tr>
-<td>Sign</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>&lt;your_sign&gt;</td>
-</tr>
-<tr>
-<td>Content-Type</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>must be set to application/json for requests to the Calypso API</td>
-</tr>
-</tbody></table>
-<h5 id='request-body-11'>Request Body</h5>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>nonce</td>
-<td>number</td>
-<td>Yes</td>
-<td>Nonce used in construction of Sign header.</td>
-</tr>
-<tr>
-<td>request</td>
-<td>object</td>
-<td>Yes</td>
-<td>This object contains request details.</td>
-</tr>
-<tr>
-<td>request.id</td>
-<td>number</td>
-<td>Yes</td>
-<td>The id of the payout you want to look up.</td>
-</tr>
-<tr>
-<td>request.idempotencyKey</td>
-<td>string</td>
-<td>No</td>
-<td>the external id that can be generated by user while creating the payout</td>
-</tr>
-</tbody></table>
-<h5 id='response-body-11'>Response Body</h5>
-<table><thead>
-<tr>
-<th>parameter</th>
-<th>type</th>
-<th>mandatory</th>
-<th>description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>amount</td>
-<td>number</td>
-<td>Yes</td>
-<td>withdrawal amount.</td>
-</tr>
-<tr>
-<td>cancellation</td>
-<td>object</td>
-<td>No</td>
-<td>object with information about payout cancellation.</td>
-</tr>
-<tr>
-<td>cancellation.cancelMessage</td>
-<td>string</td>
-<td>No</td>
-<td>the reason of the payout cancellation.</td>
-</tr>
-<tr>
-<td>cancellation.cancelRole</td>
-<td>string</td>
-<td>No</td>
-<td>role of the user who cancelled the payout [ADMIN, MANAGER, USER]</td>
-</tr>
-<tr>
-<td>cancellation.canceledByFirstname</td>
-<td>string</td>
-<td>No</td>
-<td>first name of the user who cancelled the payout.</td>
-</tr>
-<tr>
-<td>cancellation.canceledByLastname</td>
-<td>string</td>
-<td>No</td>
-<td>last name of the user who cancelled the payout.</td>
-</tr>
-<tr>
-<td>cancellation.canceledByUserId</td>
-<td>string</td>
-<td>No</td>
-<td>system user id of the user who cancelled the payout.</td>
-</tr>
-<tr>
-<td>clientAddress</td>
-<td>string</td>
-<td>Yes</td>
-<td>crypto address for deposit.</td>
-</tr>
-<tr>
-<td>comment</td>
-<td>string</td>
-<td>No</td>
-<td>comment for the payout.</td>
-</tr>
-<tr>
-<td>createdDate</td>
-<td>string</td>
-<td>Yes</td>
-<td>time of payout creation.</td>
-</tr>
-<tr>
-<td>currency</td>
-<td>string</td>
-<td>Yes</td>
-<td>this is the currency associated with the amount field.</td>
-</tr>
-<tr>
-<td>dealExchange</td>
-<td>object</td>
-<td>No</td>
-<td>object with information about exchange process.</td>
-</tr>
-<tr>
-<td>dealExchange.destinationAmount</td>
-<td>number</td>
-<td>No</td>
-<td>amount in fiat currency that will be received after exchange.</td>
-</tr>
-<tr>
-<td>dealExchange.destinationCurrency</td>
-<td>string</td>
-<td>No</td>
-<td>fiat currency that will be received after exchange [ EUR ]</td>
-</tr>
-<tr>
-<td>dealExchange.exchangeFee</td>
-<td>number</td>
-<td>No</td>
-<td>fee that will be charged by exchange provider.</td>
-</tr>
-<tr>
-<td>dealExchange.fiatRequisitesId</td>
-<td>string</td>
-<td>No</td>
-<td>identificator of requisites where bank transfer will be sent to. Manage requisites is possible through requisites api.</td>
-</tr>
-<tr>
-<td>dealExchange.fiatType</td>
-<td>string</td>
-<td>No</td>
-<td>type of bank transfer [SEPA, SWIFT]</td>
-</tr>
-<tr>
-<td>dealExchange.id</td>
-<td>string</td>
-<td>No</td>
-<td>system id of the exchange</td>
-</tr>
-<tr>
-<td>dealExchange.state</td>
-<td>string</td>
-<td>No</td>
-<td>state of the exchange [AWAITING_TRANSFER, COMPLETED, CREATED, FAILED, IN_PROGRESS]</td>
-</tr>
-<tr>
-<td>errors</td>
-<td>object</td>
-<td>No</td>
-<td>payout errors</td>
-</tr>
-<tr>
-<td>errors.withdrawalErrors</td>
-<td>array</td>
-<td>Yes</td>
-<td>list of validation errors</td>
-</tr>
-<tr>
-<td>errors.withdrawalErrors.errors</td>
-<td>array</td>
-<td>Yes</td>
-<td>list of validation errors of a particular withdrawal</td>
-</tr>
-<tr>
-<td>errors.withdrawalErrors.errors.errorMessage</td>
-<td>string</td>
-<td>No</td>
-<td>text of the error message</td>
-</tr>
-<tr>
-<td>errors.withdrawalErrors.errors.errorResolved</td>
-<td>boolean</td>
-<td>Yes</td>
-<td>represents whether errors were resolved or not</td>
-</tr>
-<tr>
-<td>errors.withdrawalErrors.errors.id</td>
-<td>number</td>
-<td>Yes</td>
-<td>id of the error</td>
-</tr>
-<tr>
-<td>errors.withdrawalErrors.errors.status</td>
-<td>string</td>
-<td>Yes</td>
-<td>validation status of the withdrawal [NOT_ENOUGH_FUNDS, NOT_ENOUGH_FUNDS_FOR_COMMISSION, NO_BALANCE, NO_PERMISSION, SUCCESS]</td>
-</tr>
-<tr>
-<td>errors.withdrawalErrors.withdrawalId</td>
-<td>number</td>
-<td>Yes</td>
-<td>id of the withdrawal where error occured</td>
-</tr>
-<tr>
-<td>executionDate</td>
-<td>string</td>
-<td>No</td>
-<td>execution date of payout. Time when payout will be executed</td>
-</tr>
-<tr>
-<td>hash</td>
-<td>string</td>
-<td>No</td>
-<td>transaction hash.</td>
-</tr>
-<tr>
-<td>id</td>
-<td>number</td>
-<td>Yes</td>
-<td>payout id</td>
-</tr>
-<tr>
-<td>networkFee</td>
-<td>number</td>
-<td>Yes</td>
-<td>is a cryptocurrency transaction fee that is charged to users when performing crypto transactions.</td>
-</tr>
-<tr>
-<td>networkFeeCurrency</td>
-<td>string</td>
-<td>Yes</td>
-<td>this is the currency associated with the networkfee field.</td>
-</tr>
-<tr>
-<td>networkFeePercentage</td>
-<td>number</td>
-<td>Yes</td>
-<td>describes percentage that should be applied to the executed payout amount to calculate the commission amount.</td>
-</tr>
-<tr>
-<td>networkFeeRatio</td>
-<td>number</td>
-<td>Yes</td>
-<td>selected network fee coefficient (see get expected transaction fee).</td>
-</tr>
-<tr>
-<td>state</td>
-<td>string</td>
-<td>Yes</td>
-<td>represents status of the payout. [ PENDING_CONFIRMATION, CONFIRMED, IN_PROGRESS, COMPLETED, FAILED, CANCELED ]</td>
-</tr>
-<tr>
-<td>executionDate</td>
-<td>string</td>
-<td>No</td>
-<td>execution date of payout. Time when payout will be executed</td>
-</tr>
-<tr>
-<td>idempotencyKey</td>
-<td>string</td>
-<td>No</td>
-<td>the external id that can be generated by user while creating the payout</td>
-</tr>
-</tbody></table>
-<h2 id='create-crypto-to-fiat-payout'>Create Crypto-to-fiat Payout</h2>
-<blockquote>
-<p>Request</p>
-</blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.finance/api/v1/pub/payout/crypto-to-fiat/create"</span> <span class="se">\</span>
-<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
-<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
-<span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-<span class="nt">--data-raw</span> <span class="s2">"{
-  "</span>nonce<span class="s2">": 0,
-  "</span>request<span class="s2">": {
-    "</span>amount<span class="s2">": 0,
-    "</span>comment<span class="s2">": "</span>string<span class="s2">",
-    "</span>currency<span class="s2">": "</span>BNB<span class="s2">",
-    "</span>fiatRequisitesId<span class="s2">": "</span>3fa85f64-5717-4562-b3fc-2c963f66afa6<span class="s2">",
-    "</span>fiatType<span class="s2">": "</span>SEPA<span class="s2">",
-    "</span>networkFeeRatio<span class="s2">": 0,
-    "</span>withdrawalAddress<span class="s2">": "</span>string<span class="s2">",
-    "</span>idempotencyKey<span class="s2">": "</span>3fa85f64-5717-4562-b3fc-2c963f66afa6<span class="s2">"
+```json
+
+{
+  "amount": 0,
+  "clientAddress": "string",
+  "comment": "string",
+  "createdDate": "2022-07-06T09:24:46.913Z",
+  "cancellation": {
+    "cancelMessage": "string",
+    "cancelRole": "ADMIN",
+    "canceledByFirstname": "string",
+    "canceledByLastname": "string",
+    "canceledByUserId": "string"
+  },
+  "currency": "BNB",
+    "dealExchange": {
+            "destinationCurrency": "EUR",
+            "destinationAmount": 0,
+        "exchangeFee": 0,
+        "fiatRequisitesId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "fiatType": "SEPA",
+        "id": 0,
+        "state": "AWAITING_TRANSFER"
+      },
+  "errors": {
+    "withdrawalErrors": [
+      {
+        "errors": [
+          {
+            "errorMessage": "string",
+            "errorResolved": false,
+            "id": 0,
+            "status": "NOT_ENOUGH_FUNDS"
+          }
+        ],
+        "withdrawalId": 0
+      }
+    ]
+  },
+  "executionDate": "2022-07-06T09:24:46.913Z",
+  "hash": "string",
+  "id": 0,
+  "idempotencyKey": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "networkFee": 0,
+  "networkFeeCurrency": "BNB",
+  "networkFeePercentage": 0,
+  "networkFeeRatio": 0,
+  "state": "CANCELED"
+}
+
+```
+
+This endpoint retrieves a specific crypto-to-fiat payout.
+
+##### HTTP Request
+
+`POST http://public-gateway.calypso.finance/api/v1/pub/payout/crypto-to-fiat`
+
+##### Header
+
+Parameter | Type | Mandatory | Description
+--- | --- | --- | ---
+Key | STRING | Yes | &lt;your\_api\_key&gt;
+Sign | STRING | Yes | &lt;your_sign&gt;
+Content-Type | STRING | Yes | must be set to application/json for requests to the Calypso API
+
+##### Request Body
+
+Parameter | Type | Mandatory | Description
+--- | --- | --- | ---
+nonce | number | Yes | Nonce used in construction of Sign header.
+request | object     | Yes | This object contains request details.
+request.id | number | Yes | The id of the payout you want to look up.
+request.idempotencyKey | string | No | the external id that can be generated by user while creating the payout
+
+##### Response Body
+
+|parameter|type|mandatory|description|
+|---------|----|---------|-----------|
+|amount   |number|Yes      |withdrawal amount.|
+|cancellation |object|No |object with information about payout cancellation.|
+|cancellation.cancelMessage |string |No |the reason of the payout cancellation.|
+|cancellation.cancelRole|string|No |role of the user who cancelled the payout [ADMIN, MANAGER, USER]|
+|cancellation.canceledByFirstname|string|No|first name of the user who cancelled the payout.|
+|cancellation.canceledByLastname|string|No|last name of the user who cancelled the payout.|
+|cancellation.canceledByUserId|string|No|system user id of the user who cancelled the payout.|
+|clientAddress|string|Yes      |crypto address for deposit.|
+|comment  |string|No       |comment for the payout.|
+|createdDate|string|Yes      |time of payout creation.|
+|currency |string|Yes      |this is the currency associated with the amount field.|
+|dealExchange |object |No |object with information about exchange process.|
+|dealExchange.destinationAmount |number |No |amount in fiat currency that will be received after exchange. |
+|dealExchange.destinationCurrency |string |No |fiat currency that will be received after exchange [ EUR ] |
+|dealExchange.exchangeFee |number |No |fee that will be charged by exchange provider. |
+|dealExchange.fiatRequisitesId |string |No |identificator of requisites where bank transfer will be sent to. Manage requisites is possible through requisites api. |
+|dealExchange.fiatType |string |No |type of bank transfer [SEPA, SWIFT]|
+|dealExchange.id|string |No |system id of the exchange |
+|dealExchange.state |string |No |state of the exchange [AWAITING_TRANSFER, COMPLETED, CREATED, FAILED, IN_PROGRESS] |
+|errors |object|No |payout errors|
+|errors.withdrawalErrors|array|Yes|list of validation errors|
+|errors.withdrawalErrors.errors|array|Yes|list of validation errors of a particular withdrawal|
+|errors.withdrawalErrors.errors.errorMessage|string|No|text of the error message|
+|errors.withdrawalErrors.errors.errorResolved|boolean|Yes|represents whether errors were resolved or not|
+|errors.withdrawalErrors.errors.id|number|Yes|id of the error|
+|errors.withdrawalErrors.errors.status|string|Yes|validation status of the withdrawal [NOT_ENOUGH_FUNDS, NOT_ENOUGH_FUNDS_FOR_COMMISSION, NO_BALANCE, NO_PERMISSION, SUCCESS]|
+|errors.withdrawalErrors.withdrawalId|number|Yes|id of the withdrawal where error occured|
+|executionDate    |string|No      |execution date of payout. Time when payout will be executed|
+|hash     |string|No       |transaction hash.|
+|id       |number|Yes      |payout id    |
+|networkFee|number|Yes      |is a cryptocurrency transaction fee that is charged to users when performing crypto transactions.|
+|networkFeeCurrency|string|Yes      |this is the currency associated with the networkfee field.|
+|networkFeePercentage|number|Yes      |describes percentage that should be applied to the executed payout amount to calculate the commission amount.|
+|networkFeeRatio|number|Yes      |selected network fee coefficient (see get expected transaction fee).|
+|state    |string|Yes      |represents status of the payout. [ PENDING_CONFIRMATION, CONFIRMED, IN_PROGRESS, COMPLETED, FAILED, CANCELED ]|
+|executionDate    |string|No      |execution date of payout. Time when payout will be executed|
+|idempotencyKey|string|No|the external id that can be generated by user while creating the payout|
+
+
+Create Crypto-to-fiat Payout
+-----------------
+
+> Request
+
+```shell
+
+curl --silent --location --request POST "http://public-gateway.calypso.finance/api/v1/pub/payout/crypto-to-fiat/create" \
+--header 'Key: <your_api_key>' \
+--header 'Sign: <your_sign>' \
+--header "Content-Type: application/json" \
+--data-raw "{
+  "nonce": 0,
+  "request": {
+    "amount": 0,
+    "comment": "string",
+    "currency": "BNB",
+    "fiatRequisitesId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "fiatType": "SEPA",
+    "networkFeeRatio": 0,
+    "withdrawalAddress": "string",
+    "idempotencyKey": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
   }
-}"</span>
+}"
 
-</code></pre></div>
-<blockquote>
-<p>Response</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="w">
-  </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"clientAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-07-06T09:24:46.913Z"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"cancellation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"cancelMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"cancelRole"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ADMIN"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"canceledByFirstname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"canceledByLastname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"canceledByUserId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BNB"</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"dealExchange"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"destinationCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"destinationAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"exchangeFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"fiatRequisitesId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"fiatType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SEPA"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AWAITING_TRANSFER"</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-  </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"withdrawalErrors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-      </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-          </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"errorMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"errorResolved"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"NOT_ENOUGH_FUNDS"</span><span class="w">
-          </span><span class="p">}</span><span class="w">
-        </span><span class="p">],</span><span class="w">
-        </span><span class="nl">"withdrawalId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-      </span><span class="p">}</span><span class="w">
-    </span><span class="p">]</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nl">"executionDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-07-06T09:24:46.913Z"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"idempotencyKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"networkFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"networkFeeCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BNB"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"networkFeePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"networkFeeRatio"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CANCELED"</span><span class="w">
-</span><span class="p">}</span><span class="w">
+```
+> Response
 
-</span></code></pre></div>
-<p>This endpoint creates a crypto-to-fiat payout.</p>
-<h5 id='http-request-12'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/payout/crypto-to-fiat/create</code></p>
-<h5 id='header-12'>Header</h5>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>Key</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>&lt;your_api_key&gt;</td>
-</tr>
-<tr>
-<td>Sign</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>&lt;your_sign&gt;</td>
-</tr>
-<tr>
-<td>Content-Type</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>must be set to application/json for requests to the Calypso API</td>
-</tr>
-</tbody></table>
-<h5 id='request-body-12'>Request Body</h5>
-<table><thead>
-<tr>
-<th>parameter</th>
-<th>type</th>
-<th>mandatory</th>
-<th>description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>nonce</td>
-<td>number</td>
-<td>Yes</td>
-<td>nonce used in construction of sign header.</td>
-</tr>
-<tr>
-<td>request</td>
-<td>object</td>
-<td>Yes</td>
-<td>this object contains request details.</td>
-</tr>
-<tr>
-<td>request.withdrawalAddress</td>
-<td>string</td>
-<td>Yes</td>
-<td>sender&#39;s cryptoaddress.</td>
-</tr>
-<tr>
-<td>request.amount</td>
-<td>number</td>
-<td>Yes</td>
-<td>withdrawal amount.</td>
-</tr>
-<tr>
-<td>request.currency</td>
-<td>string</td>
-<td>Yes</td>
-<td>this is the currency associated with the amount field. [ BTC, BUSD_ETH, DAI, ETH, FRAX, TRX, USDT, USDT_TRX, XDG ]</td>
-</tr>
-<tr>
-<td>request.fiatRequisitesId</td>
-<td>string</td>
-<td>Yes</td>
-<td>identificator of requisites where bank transfer will be sent to. Manage requisites is possible through requisites api.</td>
-</tr>
-<tr>
-<td>request.fiatType</td>
-<td>string</td>
-<td>Yes</td>
-<td>type of bank transfer [SEPA, SWIFT]</td>
-</tr>
-<tr>
-<td>request.networkFeeRatio</td>
-<td>number</td>
-<td>Yes</td>
-<td>selected network fee coefficient (see get expected transaction fee).</td>
-</tr>
-<tr>
-<td>request.comment</td>
-<td>string</td>
-<td>No</td>
-<td>comment for the payout.</td>
-</tr>
-<tr>
-<td>request.idempotencyKey</td>
-<td>string</td>
-<td>No</td>
-<td>the external id that can be generated by user while creating the payout.</td>
-</tr>
-</tbody></table>
-<h5 id='response-body-12'>Response Body</h5>
-<table><thead>
-<tr>
-<th>parameter</th>
-<th>type</th>
-<th>mandatory</th>
-<th>description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>amount</td>
-<td>number</td>
-<td>Yes</td>
-<td>withdrawal amount.</td>
-</tr>
-<tr>
-<td>cancellation</td>
-<td>object</td>
-<td>No</td>
-<td>object with information about payout cancellation.</td>
-</tr>
-<tr>
-<td>cancellation.cancelMessage</td>
-<td>string</td>
-<td>No</td>
-<td>the reason of the payout cancellation.</td>
-</tr>
-<tr>
-<td>cancellation.cancelRole</td>
-<td>string</td>
-<td>No</td>
-<td>role of the user who cancelled the payout [ADMIN, MANAGER, USER]</td>
-</tr>
-<tr>
-<td>cancellation.canceledByFirstname</td>
-<td>string</td>
-<td>No</td>
-<td>first name of the user who cancelled the payout.</td>
-</tr>
-<tr>
-<td>cancellation.canceledByLastname</td>
-<td>string</td>
-<td>No</td>
-<td>last name of the user who cancelled the payout.</td>
-</tr>
-<tr>
-<td>cancellation.canceledByUserId</td>
-<td>string</td>
-<td>No</td>
-<td>system user id of the user who cancelled the payout.</td>
-</tr>
-<tr>
-<td>clientAddress</td>
-<td>string</td>
-<td>Yes</td>
-<td>crypto address for deposit.</td>
-</tr>
-<tr>
-<td>comment</td>
-<td>string</td>
-<td>No</td>
-<td>comment for the payout.</td>
-</tr>
-<tr>
-<td>createdDate</td>
-<td>string</td>
-<td>Yes</td>
-<td>time of payout creation.</td>
-</tr>
-<tr>
-<td>currency</td>
-<td>string</td>
-<td>Yes</td>
-<td>this is the currency associated with the amount field.</td>
-</tr>
-<tr>
-<td>dealExchange</td>
-<td>object</td>
-<td>No</td>
-<td>object with information about exchange process.</td>
-</tr>
-<tr>
-<td>dealExchange.destinationAmount</td>
-<td>number</td>
-<td>No</td>
-<td>amount in fiat currency that will be received after exchange.</td>
-</tr>
-<tr>
-<td>dealExchange.destinationCurrency</td>
-<td>string</td>
-<td>No</td>
-<td>fiat currency that will be received after exchange [ EUR ]</td>
-</tr>
-<tr>
-<td>dealExchange.exchangeFee</td>
-<td>number</td>
-<td>No</td>
-<td>fee that will be charged by exchange provider.</td>
-</tr>
-<tr>
-<td>dealExchange.fiatRequisitesId</td>
-<td>string</td>
-<td>No</td>
-<td>identificator of requisites where bank transfer will be sent to. Manage requisites is possible through requisites api.</td>
-</tr>
-<tr>
-<td>dealExchange.fiatType</td>
-<td>string</td>
-<td>No</td>
-<td>type of bank transfer [SEPA, SWIFT]</td>
-</tr>
-<tr>
-<td>dealExchange.id</td>
-<td>string</td>
-<td>No</td>
-<td>system id of the exchange</td>
-</tr>
-<tr>
-<td>dealExchange.state</td>
-<td>string</td>
-<td>No</td>
-<td>state of the exchange [AWAITING_TRANSFER, COMPLETED, CREATED, FAILED, IN_PROGRESS]</td>
-</tr>
-<tr>
-<td>errors</td>
-<td>object</td>
-<td>No</td>
-<td>payout errors</td>
-</tr>
-<tr>
-<td>errors.withdrawalErrors</td>
-<td>array</td>
-<td>Yes</td>
-<td>list of validation errors</td>
-</tr>
-<tr>
-<td>errors.withdrawalErrors.errors</td>
-<td>array</td>
-<td>Yes</td>
-<td>list of validation errors of a particular withdrawal</td>
-</tr>
-<tr>
-<td>errors.withdrawalErrors.errors.errorMessage</td>
-<td>string</td>
-<td>No</td>
-<td>text of the error message</td>
-</tr>
-<tr>
-<td>errors.withdrawalErrors.errors.errorResolved</td>
-<td>boolean</td>
-<td>Yes</td>
-<td>represents whether errors were resolved or not</td>
-</tr>
-<tr>
-<td>errors.withdrawalErrors.errors.id</td>
-<td>number</td>
-<td>Yes</td>
-<td>id of the error</td>
-</tr>
-<tr>
-<td>errors.withdrawalErrors.errors.status</td>
-<td>string</td>
-<td>Yes</td>
-<td>validation status of the withdrawal [NOT_ENOUGH_FUNDS, NOT_ENOUGH_FUNDS_FOR_COMMISSION, NO_BALANCE, NO_PERMISSION, SUCCESS]</td>
-</tr>
-<tr>
-<td>errors.withdrawalErrors.withdrawalId</td>
-<td>number</td>
-<td>Yes</td>
-<td>id of the withdrawal where error occured</td>
-</tr>
-<tr>
-<td>executionDate</td>
-<td>string</td>
-<td>No</td>
-<td>execution date of payout. Time when payout will be executed</td>
-</tr>
-<tr>
-<td>hash</td>
-<td>string</td>
-<td>No</td>
-<td>transaction hash.</td>
-</tr>
-<tr>
-<td>id</td>
-<td>number</td>
-<td>Yes</td>
-<td>payout id</td>
-</tr>
-<tr>
-<td>networkFee</td>
-<td>number</td>
-<td>Yes</td>
-<td>is a cryptocurrency transaction fee that is charged to users when performing crypto transactions.</td>
-</tr>
-<tr>
-<td>networkFeeCurrency</td>
-<td>string</td>
-<td>Yes</td>
-<td>this is the currency associated with the networkfee field.</td>
-</tr>
-<tr>
-<td>networkFeePercentage</td>
-<td>number</td>
-<td>Yes</td>
-<td>describes percentage that should be applied to the executed payout amount to calculate the commission amount.</td>
-</tr>
-<tr>
-<td>networkFeeRatio</td>
-<td>number</td>
-<td>Yes</td>
-<td>selected network fee coefficient (see get expected transaction fee).</td>
-</tr>
-<tr>
-<td>state</td>
-<td>string</td>
-<td>Yes</td>
-<td>represents status of the payout. [ PENDING_CONFIRMATION, CONFIRMED, IN_PROGRESS, COMPLETED, FAILED, CANCELED ]</td>
-</tr>
-<tr>
-<td>executionDate</td>
-<td>string</td>
-<td>No</td>
-<td>execution date of payout. Time when payout will be executed</td>
-</tr>
-<tr>
-<td>idempotencyKey</td>
-<td>string</td>
-<td>No</td>
-<td>the external id that can be generated by user while creating the payout</td>
-</tr>
-</tbody></table>
-<h2 id='get-all-crypto-to-fiat-payouts'>Get All Crypto-to-fiat Payouts</h2>
-<blockquote>
-<p>Request</p>
-</blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--silent</span> <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s2">"http://public-gateway.calypso.finance/api/v1/pub/payout/crypto-to-fiat/all"</span> <span class="se">\</span>
-<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
-<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
-<span class="nt">--header</span> <span class="s2">"Content-Type: application/json"</span> <span class="se">\</span>
-<span class="nt">--data-raw</span> <span class="s2">"{
-  "</span>nonce<span class="s2">": 0,
-  "</span>request<span class="s2">": {
-    "</span>isExecutionDateInFuture<span class="s2">": false,
-    "</span>pageNumber<span class="s2">": 0,
-    "</span>size<span class="s2">": 0,
-    "</span>stateNames<span class="s2">": [
-      "</span>CANCELED<span class="s2">"
+```json
+
+{
+  "amount": 0,
+  "clientAddress": "string",
+  "comment": "string",
+  "createdDate": "2022-07-06T09:24:46.913Z",
+  "cancellation": {
+    "cancelMessage": "string",
+    "cancelRole": "ADMIN",
+    "canceledByFirstname": "string",
+    "canceledByLastname": "string",
+    "canceledByUserId": "string"
+  },
+  "currency": "BNB",
+    "dealExchange": {
+            "destinationCurrency": "EUR",
+            "destinationAmount": 0,
+        "exchangeFee": 0,
+        "fiatRequisitesId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "fiatType": "SEPA",
+        "id": 0,
+        "state": "AWAITING_TRANSFER"
+      },
+  "errors": {
+    "withdrawalErrors": [
+      {
+        "errors": [
+          {
+            "errorMessage": "string",
+            "errorResolved": false,
+            "id": 0,
+            "status": "NOT_ENOUGH_FUNDS"
+          }
+        ],
+        "withdrawalId": 0
+      }
+    ]
+  },
+  "executionDate": "2022-07-06T09:24:46.913Z",
+  "hash": "string",
+  "id": 0,
+  "idempotencyKey": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "networkFee": 0,
+  "networkFeeCurrency": "BNB",
+  "networkFeePercentage": 0,
+  "networkFeeRatio": 0,
+  "state": "CANCELED"
+}
+
+```
+
+This endpoint creates a crypto-to-fiat payout.
+
+##### HTTP Request
+
+`POST http://public-gateway.calypso.finance/api/v1/pub/payout/crypto-to-fiat/create`
+
+##### Header
+
+Parameter | Type | Mandatory | Description
+--- | --- | --- | ---
+Key | STRING | Yes | &lt;your\_api\_key&gt;
+Sign | STRING | Yes | &lt;your_sign&gt;
+Content-Type | STRING | Yes | must be set to application/json for requests to the Calypso API
+
+##### Request Body
+
+|parameter|type|mandatory|description|
+|---------|----|---------|-----------|
+|nonce    |number|Yes      |nonce used in construction of sign header.|
+|request  |object|Yes      |this object contains request details.|
+|request.withdrawalAddress|string|Yes      |sender's cryptoaddress.|
+|request.amount|number|Yes      |withdrawal amount.|
+|request.currency|string|Yes      |this is the currency associated with the amount field. [ BTC, BUSD_ETH, DAI, ETH, FRAX, TRX, USDT, USDT_TRX, XDG ]|
+|request.fiatRequisitesId|string|Yes|identificator of requisites where bank transfer will be sent to. Manage requisites is possible through requisites api. |
+|request.fiatType|string|Yes|type of bank transfer [SEPA, SWIFT] |
+|request.networkFeeRatio|number|Yes      |selected network fee coefficient (see get expected transaction fee).|
+|request.comment|string|No       |comment for the payout.|
+|request.idempotencyKey|string|No|the external id that can be generated by user while creating the payout.|
+
+##### Response Body
+
+|parameter|type|mandatory|description|
+|---------|----|---------|-----------|
+|amount   |number|Yes      |withdrawal amount.|
+|cancellation |object|No |object with information about payout cancellation.|
+|cancellation.cancelMessage |string |No |the reason of the payout cancellation.|
+|cancellation.cancelRole|string|No |role of the user who cancelled the payout [ADMIN, MANAGER, USER]|
+|cancellation.canceledByFirstname|string|No|first name of the user who cancelled the payout.|
+|cancellation.canceledByLastname|string|No|last name of the user who cancelled the payout.|
+|cancellation.canceledByUserId|string|No|system user id of the user who cancelled the payout.|
+|clientAddress|string|Yes      |crypto address for deposit.|
+|comment  |string|No       |comment for the payout.|
+|createdDate|string|Yes      |time of payout creation.|
+|currency |string|Yes      |this is the currency associated with the amount field.|
+|dealExchange |object |No |object with information about exchange process.|
+|dealExchange.destinationAmount |number |No |amount in fiat currency that will be received after exchange. |
+|dealExchange.destinationCurrency |string |No |fiat currency that will be received after exchange [ EUR ] |
+|dealExchange.exchangeFee |number |No |fee that will be charged by exchange provider. |
+|dealExchange.fiatRequisitesId |string |No |identificator of requisites where bank transfer will be sent to. Manage requisites is possible through requisites api. |
+|dealExchange.fiatType |string |No |type of bank transfer [SEPA, SWIFT]|
+|dealExchange.id|string |No |system id of the exchange |
+|dealExchange.state |string |No |state of the exchange [AWAITING_TRANSFER, COMPLETED, CREATED, FAILED, IN_PROGRESS] |
+|errors |object|No |payout errors|
+|errors.withdrawalErrors|array|Yes|list of validation errors|
+|errors.withdrawalErrors.errors|array|Yes|list of validation errors of a particular withdrawal|
+|errors.withdrawalErrors.errors.errorMessage|string|No|text of the error message|
+|errors.withdrawalErrors.errors.errorResolved|boolean|Yes|represents whether errors were resolved or not|
+|errors.withdrawalErrors.errors.id|number|Yes|id of the error|
+|errors.withdrawalErrors.errors.status|string|Yes|validation status of the withdrawal [NOT_ENOUGH_FUNDS, NOT_ENOUGH_FUNDS_FOR_COMMISSION, NO_BALANCE, NO_PERMISSION, SUCCESS]|
+|errors.withdrawalErrors.withdrawalId|number|Yes|id of the withdrawal where error occured|
+|executionDate    |string|No      |execution date of payout. Time when payout will be executed|
+|hash     |string|No       |transaction hash.|
+|id       |number|Yes      |payout id    |
+|networkFee|number|Yes      |is a cryptocurrency transaction fee that is charged to users when performing crypto transactions.|
+|networkFeeCurrency|string|Yes      |this is the currency associated with the networkfee field.|
+|networkFeePercentage|number|Yes      |describes percentage that should be applied to the executed payout amount to calculate the commission amount.|
+|networkFeeRatio|number|Yes      |selected network fee coefficient (see get expected transaction fee).|
+|state    |string|Yes      |represents status of the payout. [ PENDING_CONFIRMATION, CONFIRMED, IN_PROGRESS, COMPLETED, FAILED, CANCELED ]|
+|executionDate    |string|No      |execution date of payout. Time when payout will be executed|
+|idempotencyKey|string|No|the external id that can be generated by user while creating the payout|
+
+
+Get All Crypto-to-fiat Payouts
+-----------------
+
+> Request
+
+```shell
+
+curl --silent --location --request POST "http://public-gateway.calypso.finance/api/v1/pub/payout/crypto-to-fiat/all" \
+--header 'Key: <your_api_key>' \
+--header 'Sign: <your_sign>' \
+--header "Content-Type: application/json" \
+--data-raw "{
+  "nonce": 0,
+  "request": {
+    "isExecutionDateInFuture": false,
+    "pageNumber": 0,
+    "size": 0,
+    "stateNames": [
+      "CANCELED"
     ]
   }
-}"</span>
+}"
 
-</code></pre></div>
-<blockquote>
-<p>Response</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="w">
-  </span><span class="nl">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"cancellation"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"cancelMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"cancelRole"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ADMIN"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"canceledByFirstname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"canceledByLastname"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"canceledByUserId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="nl">"clientAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"comment"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-07-12T11:00:46.142Z"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BNB"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"dealExchange"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"destinationAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"destinationCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BNB"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"exchangeFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"fiatRequisitesId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"fiatType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SEPA"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"AWAITING_TRANSFER"</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"withdrawalErrors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-          </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"errors"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-              </span><span class="p">{</span><span class="w">
-                </span><span class="nl">"errorMessage"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-                </span><span class="nl">"errorResolved"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-                </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-                </span><span class="nl">"status"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EXCEEDING_LIMIT"</span><span class="w">
-              </span><span class="p">}</span><span class="w">
-            </span><span class="p">],</span><span class="w">
-            </span><span class="nl">"withdrawalId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-          </span><span class="p">}</span><span class="w">
-        </span><span class="p">]</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="nl">"executionDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-07-12T11:00:46.142Z"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"hash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"idempotencyKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"networkFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"networkFeeCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BNB"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"networkFeePercentage"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"networkFeeRatio"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CANCELED"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"totalElements"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-</span><span class="p">}</span><span class="w">
+```
+> Response
 
-</span></code></pre></div>
-<p>This endpoint retrieves all crypto-to-fiat payouts.</p>
-<h5 id='http-request-13'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/payout/crypto-to-fiat/all</code></p>
-<h5 id='header-13'>Header</h5>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>Key</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>&lt;your_api_key&gt;</td>
-</tr>
-<tr>
-<td>Sign</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>&lt;your_sign&gt;</td>
-</tr>
-<tr>
-<td>Content-Type</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>must be set to application/json for requests to the Calypso API</td>
-</tr>
-</tbody></table>
-<h5 id='request-body-13'>Request Body</h5>
-<table><thead>
-<tr>
-<th>parameter</th>
-<th>type</th>
-<th>mandatory</th>
-<th>description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>nonce</td>
-<td>number</td>
-<td>Yes</td>
-<td>nonce used in construction of sign header.</td>
-</tr>
-<tr>
-<td>request</td>
-<td>object</td>
-<td>Yes</td>
-<td>this object contains request details.</td>
-</tr>
-<tr>
-<td>request.stateNames</td>
-<td>string</td>
-<td>Yes</td>
-<td>represents status of the payout. [ PENDING_CONFIRMATION, CONFIRMED, IN_PROGRESS, COMPLETED, FAILED, CANCELED ]</td>
-</tr>
-<tr>
-<td>request.pageNumber</td>
-<td>number</td>
-<td>Yes</td>
-<td>specify the page of results to return.</td>
-</tr>
-<tr>
-<td>request.size</td>
-<td>number</td>
-<td>Yes</td>
-<td>a numeric value indicating the page size.</td>
-</tr>
-</tbody></table>
-<h5 id='response-body-13'>Response Body</h5>
-<table><thead>
-<tr>
-<th>parameter</th>
-<th>type</th>
-<th>mandatory</th>
-<th>description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>result</td>
-<td>array</td>
-<td>Yes</td>
-<td>this object contains response details.</td>
-</tr>
-<tr>
-<td>result.amount</td>
-<td>number</td>
-<td>Yes</td>
-<td>withdrawal amount.</td>
-</tr>
-<tr>
-<td>result.cancellation</td>
-<td>object</td>
-<td>No</td>
-<td>object with information about payout cancellation.</td>
-</tr>
-<tr>
-<td>result.cancellation.cancelMessage</td>
-<td>string</td>
-<td>No</td>
-<td>the reason of the payout cancellation.</td>
-</tr>
-<tr>
-<td>result.cancellation.cancelRole</td>
-<td>string</td>
-<td>No</td>
-<td>role of the user who cancelled the payout [ADMIN, MANAGER, USER]</td>
-</tr>
-<tr>
-<td>result.cancellation.canceledByFirstname</td>
-<td>string</td>
-<td>No</td>
-<td>first name of the user who cancelled the payout.</td>
-</tr>
-<tr>
-<td>result.cancellation.canceledByLastname</td>
-<td>string</td>
-<td>No</td>
-<td>last name of the user who cancelled the payout.</td>
-</tr>
-<tr>
-<td>result.cancellation.canceledByUserId</td>
-<td>string</td>
-<td>No</td>
-<td>system user id of the user who cancelled the payout.</td>
-</tr>
-<tr>
-<td>result.clientAddress</td>
-<td>string</td>
-<td>Yes</td>
-<td>crypto address for deposit.</td>
-</tr>
-<tr>
-<td>result.comment</td>
-<td>string</td>
-<td>No</td>
-<td>comment for the payout.</td>
-</tr>
-<tr>
-<td>result.createdDate</td>
-<td>string</td>
-<td>Yes</td>
-<td>time of payout creation.</td>
-</tr>
-<tr>
-<td>result.currency</td>
-<td>string</td>
-<td>Yes</td>
-<td>this is the currency associated with the amount field.</td>
-</tr>
-<tr>
-<td>result.dealExchange</td>
-<td>object</td>
-<td>No</td>
-<td>object with information about exchange process.</td>
-</tr>
-<tr>
-<td>result.dealExchange.destinationAmount</td>
-<td>number</td>
-<td>No</td>
-<td>amount in fiat currency that will be received after exchange.</td>
-</tr>
-<tr>
-<td>result.dealExchange.destinationCurrency</td>
-<td>string</td>
-<td>No</td>
-<td>fiat currency that will be received after exchange [ EUR ]</td>
-</tr>
-<tr>
-<td>result.dealExchange.exchangeFee</td>
-<td>number</td>
-<td>No</td>
-<td>fee that will be charged by exchange provider.</td>
-</tr>
-<tr>
-<td>result.dealExchange.fiatRequisitesId</td>
-<td>string</td>
-<td>No</td>
-<td>identificator of requisites where bank transfer will be sent to. Manage requisites is possible through requisites api.</td>
-</tr>
-<tr>
-<td>result.dealExchange.fiatType</td>
-<td>string</td>
-<td>No</td>
-<td>type of bank transfer [SEPA, SWIFT]</td>
-</tr>
-<tr>
-<td>result.dealExchange.id</td>
-<td>string</td>
-<td>No</td>
-<td>system id of the exchange</td>
-</tr>
-<tr>
-<td>result.dealExchange.state</td>
-<td>string</td>
-<td>No</td>
-<td>state of the exchange [AWAITING_TRANSFER, COMPLETED, CREATED, FAILED, IN_PROGRESS]</td>
-</tr>
-<tr>
-<td>result.errors</td>
-<td>object</td>
-<td>No</td>
-<td>payout errors</td>
-</tr>
-<tr>
-<td>result.errors.withdrawalErrors</td>
-<td>array</td>
-<td>Yes</td>
-<td>list of validation errors</td>
-</tr>
-<tr>
-<td>result.errors.withdrawalErrors.errors</td>
-<td>array</td>
-<td>Yes</td>
-<td>list of validation errors of a particular withdrawal</td>
-</tr>
-<tr>
-<td>result.errors.withdrawalErrors.errors.errorMessage</td>
-<td>string</td>
-<td>No</td>
-<td>text of the error message</td>
-</tr>
-<tr>
-<td>result.errors.withdrawalErrors.errors.errorResolved</td>
-<td>boolean</td>
-<td>Yes</td>
-<td>represents whether errors were resolved or not</td>
-</tr>
-<tr>
-<td>result.errors.withdrawalErrors.errors.id</td>
-<td>number</td>
-<td>Yes</td>
-<td>id of the error</td>
-</tr>
-<tr>
-<td>result.errors.withdrawalErrors.errors.status</td>
-<td>string</td>
-<td>Yes</td>
-<td>validation status of the withdrawal [NOT_ENOUGH_FUNDS, NOT_ENOUGH_FUNDS_FOR_COMMISSION, NO_BALANCE, NO_PERMISSION, SUCCESS]</td>
-</tr>
-<tr>
-<td>result.errors.withdrawalErrors.withdrawalId</td>
-<td>number</td>
-<td>Yes</td>
-<td>id of the withdrawal where error occured</td>
-</tr>
-<tr>
-<td>result.executionDate</td>
-<td>string</td>
-<td>No</td>
-<td>execution date of payout. Time when payout will be executed</td>
-</tr>
-<tr>
-<td>result.hash</td>
-<td>string</td>
-<td>No</td>
-<td>transaction hash.</td>
-</tr>
-<tr>
-<td>result.id</td>
-<td>number</td>
-<td>Yes</td>
-<td>payout id</td>
-</tr>
-<tr>
-<td>result.networkFee</td>
-<td>number</td>
-<td>Yes</td>
-<td>is a cryptocurrency transaction fee that is charged to users when performing crypto transactions.</td>
-</tr>
-<tr>
-<td>result.networkFeeCurrency</td>
-<td>string</td>
-<td>Yes</td>
-<td>this is the currency associated with the networkfee field.</td>
-</tr>
-<tr>
-<td>result.networkFeePercentage</td>
-<td>number</td>
-<td>Yes</td>
-<td>describes percentage that should be applied to the executed payout amount to calculate the commission amount.</td>
-</tr>
-<tr>
-<td>result.networkFeeRatio</td>
-<td>number</td>
-<td>Yes</td>
-<td>selected network fee coefficient (see get expected transaction fee).</td>
-</tr>
-<tr>
-<td>result.state</td>
-<td>string</td>
-<td>Yes</td>
-<td>represents status of the payout. [ PENDING_CONFIRMATION, CONFIRMED, IN_PROGRESS, COMPLETED, FAILED, CANCELED ]</td>
-</tr>
-<tr>
-<td>result.executionDate</td>
-<td>string</td>
-<td>No</td>
-<td>execution date of payout. Time when payout will be executed</td>
-</tr>
-<tr>
-<td>result.idempotencyKey</td>
-<td>string</td>
-<td>No</td>
-<td>the external id that can be generated by user while creating the payout</td>
-</tr>
-<tr>
-<td>page</td>
-<td>number</td>
-<td>Yes</td>
-<td>result page number.</td>
-</tr>
-<tr>
-<td>size</td>
-<td>number</td>
-<td>Yes</td>
-<td>a numeric value indicating the page size.</td>
-</tr>
-<tr>
-<td>total</td>
-<td>number</td>
-<td>Yes</td>
-<td>the total number of pages matching the query.</td>
-</tr>
-<tr>
-<td>totalElements</td>
-<td>number</td>
-<td>Yes</td>
-<td>the total number of objects matching the query.</td>
-</tr>
-</tbody></table>
+```json
+
+{
+  "page": 0,
+  "result": [
+    {
+      "amount": 0,
+      "cancellation": {
+        "cancelMessage": "string",
+        "cancelRole": "ADMIN",
+        "canceledByFirstname": "string",
+        "canceledByLastname": "string",
+        "canceledByUserId": "string"
+      },
+      "clientAddress": "string",
+      "comment": "string",
+      "createdDate": "2022-07-12T11:00:46.142Z",
+      "currency": "BNB",
+      "dealExchange": {
+        "destinationAmount": 0,
+        "destinationCurrency": "BNB",
+        "exchangeFee": 0,
+        "fiatRequisitesId": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "fiatType": "SEPA",
+        "id": 0,
+        "state": "AWAITING_TRANSFER"
+      },
+      "errors": {
+        "withdrawalErrors": [
+          {
+            "errors": [
+              {
+                "errorMessage": "string",
+                "errorResolved": false,
+                "id": 0,
+                "status": "EXCEEDING_LIMIT"
+              }
+            ],
+            "withdrawalId": 0
+          }
+        ]
+      },
+      "executionDate": "2022-07-12T11:00:46.142Z",
+      "hash": "string",
+      "id": 0,
+      "idempotencyKey": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "networkFee": 0,
+      "networkFeeCurrency": "BNB",
+      "networkFeePercentage": 0,
+      "networkFeeRatio": 0,
+      "state": "CANCELED"
+    }
+  ],
+  "size": 0,
+  "total": 0,
+  "totalElements": 0
+}
+
+```
+
+This endpoint retrieves all crypto-to-fiat payouts.
+
+##### HTTP Request
+
+`POST http://public-gateway.calypso.finance/api/v1/pub/payout/crypto-to-fiat/all`
+
+##### Header
+
+Parameter | Type | Mandatory | Description
+--- | --- | --- | ---
+Key | STRING | Yes | &lt;your\_api\_key&gt;
+Sign | STRING | Yes | &lt;your_sign&gt;
+Content-Type | STRING | Yes | must be set to application/json for requests to the Calypso API
+
+##### Request Body
+
+|parameter|type|mandatory|description|
+|---------|----|---------|-----------|
+|nonce    |number|Yes      |nonce used in construction of sign header.|
+|request  |object|Yes      |this object contains request details.|
+|request.stateNames|string|Yes      |represents status of the payout. [ PENDING_CONFIRMATION, CONFIRMED, IN_PROGRESS, COMPLETED, FAILED, CANCELED ]|
+|request.pageNumber|number|Yes      |specify the page of results to return.|
+|request.size|number|Yes      |a numeric value indicating the page size.|
+
+##### Response Body
+
+|parameter|type|mandatory|description|
+|---------|----|---------|-----------|
+|result   |array|Yes      |this object contains response details.|
+|result.amount   |number|Yes      |withdrawal amount.|
+|result.cancellation |object|No |object with information about payout cancellation.|
+|result.cancellation.cancelMessage |string |No |the reason of the payout cancellation.|
+|result.cancellation.cancelRole|string|No |role of the user who cancelled the payout [ADMIN, MANAGER, USER]|
+|result.cancellation.canceledByFirstname|string|No|first name of the user who cancelled the payout.|
+|result.cancellation.canceledByLastname|string|No|last name of the user who cancelled the payout.|
+|result.cancellation.canceledByUserId|string|No|system user id of the user who cancelled the payout.|
+|result.clientAddress|string|Yes      |crypto address for deposit.|
+|result.comment  |string|No       |comment for the payout.|
+|result.createdDate|string|Yes      |time of payout creation.|
+|result.currency |string|Yes      |this is the currency associated with the amount field.|
+|result.dealExchange |object |No |object with information about exchange process.|
+|result.dealExchange.destinationAmount |number |No |amount in fiat currency that will be received after exchange. |
+|result.dealExchange.destinationCurrency |string |No |fiat currency that will be received after exchange [ EUR ] |
+|result.dealExchange.exchangeFee |number |No |fee that will be charged by exchange provider. |
+|result.dealExchange.fiatRequisitesId |string |No |identificator of requisites where bank transfer will be sent to. Manage requisites is possible through requisites api. |
+|result.dealExchange.fiatType |string |No |type of bank transfer [SEPA, SWIFT]|
+|result.dealExchange.id|string |No |system id of the exchange |
+|result.dealExchange.state |string |No |state of the exchange [AWAITING_TRANSFER, COMPLETED, CREATED, FAILED, IN_PROGRESS] |
+|result.errors |object|No |payout errors|
+|result.errors.withdrawalErrors|array|Yes|list of validation errors|
+|result.errors.withdrawalErrors.errors|array|Yes|list of validation errors of a particular withdrawal|
+|result.errors.withdrawalErrors.errors.errorMessage|string|No|text of the error message|
+|result.errors.withdrawalErrors.errors.errorResolved|boolean|Yes|represents whether errors were resolved or not|
+|result.errors.withdrawalErrors.errors.id|number|Yes|id of the error|
+|result.errors.withdrawalErrors.errors.status|string|Yes|validation status of the withdrawal [NOT_ENOUGH_FUNDS, NOT_ENOUGH_FUNDS_FOR_COMMISSION, NO_BALANCE, NO_PERMISSION, SUCCESS]|
+|result.errors.withdrawalErrors.withdrawalId|number|Yes|id of the withdrawal where error occured|
+|result.executionDate    |string|No      |execution date of payout. Time when payout will be executed|
+|result.hash     |string|No       |transaction hash.|
+|result.id       |number|Yes      |payout id    |
+|result.networkFee|number|Yes      |is a cryptocurrency transaction fee that is charged to users when performing crypto transactions.|
+|result.networkFeeCurrency|string|Yes      |this is the currency associated with the networkfee field.|
+|result.networkFeePercentage|number|Yes      |describes percentage that should be applied to the executed payout amount to calculate the commission amount.|
+|result.networkFeeRatio|number|Yes      |selected network fee coefficient (see get expected transaction fee).|
+|result.state    |string|Yes      |represents status of the payout. [ PENDING_CONFIRMATION, CONFIRMED, IN_PROGRESS, COMPLETED, FAILED, CANCELED ]|
+|result.executionDate    |string|No      |execution date of payout. Time when payout will be executed|
+|result.idempotencyKey|string|No|the external id that can be generated by user while creating the payout|
+|page     |number|Yes      |result page number.|
+|size     |number|Yes      |a numeric value indicating the page size.|
+|total    |number|Yes      |the total number of pages matching the query.|
+|totalElements |number|Yes |the total number of objects matching the query. |  -->
 <h1 id='wallet-api'>Wallet API</h1><h2 id='new-wallet'>New Wallet</h2>
 <blockquote>
 <p>Request</p>
@@ -8383,810 +7655,6 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>date relative to which rate is provided</td>
 </tr>
 </tbody></table>
-<h1 id='bank-requisites-api'>Bank Requisites API</h1><h2 id='get-specific-requisites'>Get Specific Requisites</h2>
-<blockquote>
-<p>Request</p>
-</blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.calypso.finance/api/v1/pub/requisite'</span> <span class="se">\</span>
-<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
-<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
-<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
-<span class="nt">--data-raw</span> <span class="s1">'{
-  "nonce": 0,
-  "request": {
-    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
-  }
-}'</span>
-
-</code></pre></div>
-<blockquote>
-<p>Response</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="w">
-  </span><span class="nl">"accountNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"archived"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"bankAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"bankName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"companyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"recipientName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"swift"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SEPA"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"uenNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"ibanNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"bicNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span></code></pre></div>
-<p>This endpoint retrieves requisites by id.</p>
-<h5 id='http-request'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/requisite</code></p>
-<h5 id='header'>Header</h5>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>Key</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>&lt;your_api_key&gt;</td>
-</tr>
-<tr>
-<td>Sign</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>&lt;your_sign&gt;</td>
-</tr>
-<tr>
-<td>Content-Type</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>must be set to application/json for requests to the Calypso API</td>
-</tr>
-</tbody></table>
-<h5 id='request-body'>Request Body</h5>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>nonce</td>
-<td>number</td>
-<td>Yes</td>
-<td>Nonce used in construction of Sign header.</td>
-</tr>
-<tr>
-<td>request</td>
-<td>object</td>
-<td>Yes</td>
-<td>This object contains request details.</td>
-</tr>
-<tr>
-<td>request.id</td>
-<td>number</td>
-<td>Yes</td>
-<td>identificator of requisites where bank transfer will be sent to.</td>
-</tr>
-</tbody></table>
-<h5 id='response-body'>Response Body</h5>
-<table><thead>
-<tr>
-<th>parameter</th>
-<th>type</th>
-<th>mandatory</th>
-<th>description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>accountNumber</td>
-<td>string</td>
-<td>No</td>
-<td>bank account number. Requied only for SWIFT.</td>
-</tr>
-<tr>
-<td>archived</td>
-<td>boolean</td>
-<td>Yes</td>
-<td>represents whether requisites archived or not. Archived requisites can not be used.</td>
-</tr>
-<tr>
-<td>bankAddress</td>
-<td>string</td>
-<td>Yes</td>
-<td>bank address of reciever.</td>
-</tr>
-<tr>
-<td>bankName</td>
-<td>string</td>
-<td>Yes</td>
-<td>bank name of reciever.</td>
-</tr>
-<tr>
-<td>companyId</td>
-<td>string</td>
-<td>Yes</td>
-<td>system identificator of your company.</td>
-</tr>
-<tr>
-<td>id</td>
-<td>string</td>
-<td>Yes</td>
-<td>system identificator of requisites. It is used in crypto-to-fiat payout creation.</td>
-</tr>
-<tr>
-<td>recipientName</td>
-<td>string</td>
-<td>Yes</td>
-<td>company name of the recipient.</td>
-</tr>
-<tr>
-<td>swift</td>
-<td>string</td>
-<td>Yes</td>
-<td>swift number of recipient. Required only for SWIFT.</td>
-</tr>
-<tr>
-<td>type</td>
-<td>string</td>
-<td>Yes</td>
-<td>type of bank transfer [ SEPA, SWIFT ]</td>
-</tr>
-<tr>
-<td>uenNumber</td>
-<td>string</td>
-<td>No</td>
-<td>UEN number of recipient. Required only for SWIFT.</td>
-</tr>
-<tr>
-<td>ibanNumber</td>
-<td>string</td>
-<td>No</td>
-<td>IBAN number of recipient. Required only for SEPA.</td>
-</tr>
-<tr>
-<td>bicNumber</td>
-<td>string</td>
-<td>No</td>
-<td>BIC number of recipient. Required only for SEPA.</td>
-</tr>
-</tbody></table>
-<h2 id='get-all-requisites'>Get All Requisites</h2>
-<blockquote>
-<p>Request</p>
-</blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.calypso.finance/api/v1/pub/requisite/all'</span> <span class="se">\</span>
-<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
-<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
-<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
-<span class="nt">--data-raw</span> <span class="s1">'{
-  "nonce": 0,
-  "request": {
-    "pageNumber": 0,
-    "size": 0,
-    "type": "SEPA"
-  }
-}'</span>
-
-</code></pre></div>
-<blockquote>
-<p>Response</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="w">
-  </span><span class="nl">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"accountNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"archived"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"bankAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"bankName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"companyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"recipientName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"swift"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SEPA"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"uenNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"ibanNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"bicNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"totalElements"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span></code></pre></div>
-<p>This endpoint retrieves all requisites.</p>
-<h5 id='http-request-2'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/requisite/all</code></p>
-<h5 id='header-2'>Header</h5>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>Key</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>&lt;your_api_key&gt;</td>
-</tr>
-<tr>
-<td>Sign</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>&lt;your_sign&gt;</td>
-</tr>
-<tr>
-<td>Content-Type</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>must be set to application/json for requests to the Calypso API</td>
-</tr>
-</tbody></table>
-<h5 id='request-body-2'>Request Body</h5>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>nonce</td>
-<td>number</td>
-<td>Yes</td>
-<td>Nonce used in construction of Sign header.</td>
-</tr>
-<tr>
-<td>request</td>
-<td>object</td>
-<td>Yes</td>
-<td>This object contains request details.</td>
-</tr>
-<tr>
-<td>request.pageNumber</td>
-<td>number</td>
-<td>Yes</td>
-<td>specify the page of results to return.</td>
-</tr>
-<tr>
-<td>request.size</td>
-<td>number</td>
-<td>Yes</td>
-<td>a numeric value indicating the page size.</td>
-</tr>
-<tr>
-<td>reques.type</td>
-<td>string</td>
-<td>Yes</td>
-<td>type of bank transfer [ SEPA, SWIFT ]</td>
-</tr>
-</tbody></table>
-<h5 id='response-body-2'>Response Body</h5>
-<table><thead>
-<tr>
-<th>parameter</th>
-<th>type</th>
-<th>mandatory</th>
-<th>description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>page</td>
-<td>number</td>
-<td>Yes</td>
-<td>result page number.</td>
-</tr>
-<tr>
-<td>result</td>
-<td>array</td>
-<td>Yes</td>
-<td>this object contains response details.</td>
-</tr>
-<tr>
-<td>result.accountNumber</td>
-<td>string</td>
-<td>No</td>
-<td>bank account number. Requied only for SWIFT.</td>
-</tr>
-<tr>
-<td>result.archived</td>
-<td>boolean</td>
-<td>Yes</td>
-<td>represents whether requisites archived or not. Archived requisites can not be used.</td>
-</tr>
-<tr>
-<td>result.bankAddress</td>
-<td>string</td>
-<td>Yes</td>
-<td>bank address of reciever.</td>
-</tr>
-<tr>
-<td>result.bankName</td>
-<td>string</td>
-<td>Yes</td>
-<td>bank name of reciever.</td>
-</tr>
-<tr>
-<td>result.companyId</td>
-<td>string</td>
-<td>Yes</td>
-<td>system identificator of your company.</td>
-</tr>
-<tr>
-<td>result.id</td>
-<td>string</td>
-<td>Yes</td>
-<td>system identificator of requisites. It is used in crypto-to-fiat payout creation.</td>
-</tr>
-<tr>
-<td>result.recipientName</td>
-<td>string</td>
-<td>Yes</td>
-<td>company name of the recipient.</td>
-</tr>
-<tr>
-<td>result.swift</td>
-<td>string</td>
-<td>Yes</td>
-<td>swift number of recipient. Required only for SWIFT.</td>
-</tr>
-<tr>
-<td>result.type</td>
-<td>string</td>
-<td>Yes</td>
-<td>type of bank transfer [ SEPA, SWIFT ]</td>
-</tr>
-<tr>
-<td>result.uenNumber</td>
-<td>string</td>
-<td>No</td>
-<td>UEN number of recipient. Required only for SWIFT.</td>
-</tr>
-<tr>
-<td>result.ibanNumber</td>
-<td>string</td>
-<td>No</td>
-<td>IBAN number of recipient. Required only for SEPA.</td>
-</tr>
-<tr>
-<td>result.bicNumber</td>
-<td>string</td>
-<td>No</td>
-<td>BIC number of recipient. Required only for SEPA.</td>
-</tr>
-<tr>
-<td>size</td>
-<td>number</td>
-<td>Yes</td>
-<td>a numeric value indicating the page size.</td>
-</tr>
-<tr>
-<td>total</td>
-<td>number</td>
-<td>Yes</td>
-<td>the total number of pages matching the query.</td>
-</tr>
-<tr>
-<td>totalElements</td>
-<td>number</td>
-<td>Yes</td>
-<td>the total number of objects matching the query.</td>
-</tr>
-</tbody></table>
-<h2 id='create-sepa-requisites'>Create SEPA Requisites</h2>
-<blockquote>
-<p>Request</p>
-</blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.calypso.finance/api/v1/pub/requisite/sepa/create'</span> <span class="se">\</span>
-<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
-<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
-<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
-<span class="nt">--data-raw</span> <span class="s1">'{
-  "nonce": 0,
-  "request": {
-    "bankAddress": "string",
-    "bankName": "string",
-    "bicNumber": "string",
-    "ibanNumber": "string",
-    "recipientName": "string"
-  }
-}'</span>
-
-</code></pre></div>
-<blockquote>
-<p>Response</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="w">
-  </span><span class="nl">"archived"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"bankAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"bankName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"bicNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"companyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"ibanNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"recipientName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SEPA"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span></code></pre></div>
-<p>This endpoint creates SEPA requisites.</p>
-<h5 id='http-request-3'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/requisite/sepa/create</code></p>
-<h5 id='header-3'>Header</h5>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>Key</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>&lt;your_api_key&gt;</td>
-</tr>
-<tr>
-<td>Sign</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>&lt;your_sign&gt;</td>
-</tr>
-<tr>
-<td>Content-Type</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>must be set to application/json for requests to the Calypso API</td>
-</tr>
-</tbody></table>
-<h5 id='request-body-3'>Request Body</h5>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>nonce</td>
-<td>number</td>
-<td>Yes</td>
-<td>Nonce used in construction of Sign header.</td>
-</tr>
-<tr>
-<td>request</td>
-<td>object</td>
-<td>Yes</td>
-<td>This object contains request details.</td>
-</tr>
-<tr>
-<td>request.id</td>
-<td>number</td>
-<td>Yes</td>
-<td>identificator of requisites where bank transfer will be sent to.</td>
-</tr>
-<tr>
-<td>bankAddress</td>
-<td>string</td>
-<td>Yes</td>
-<td>bank address of reciever.</td>
-</tr>
-<tr>
-<td>bankName</td>
-<td>string</td>
-<td>Yes</td>
-<td>bank name of reciever.</td>
-</tr>
-<tr>
-<td>recipientName</td>
-<td>string</td>
-<td>Yes</td>
-<td>company name of the recipient.</td>
-</tr>
-<tr>
-<td>ibanNumber</td>
-<td>string</td>
-<td>No</td>
-<td>IBAN number of recipient.</td>
-</tr>
-<tr>
-<td>bicNumber</td>
-<td>string</td>
-<td>No</td>
-<td>BIC number of recipient.</td>
-</tr>
-</tbody></table>
-<h5 id='response-body-3'>Response Body</h5>
-<table><thead>
-<tr>
-<th>parameter</th>
-<th>type</th>
-<th>mandatory</th>
-<th>description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>archived</td>
-<td>boolean</td>
-<td>Yes</td>
-<td>represents whether requisites archived or not. Archived requisites can not be used.</td>
-</tr>
-<tr>
-<td>bankAddress</td>
-<td>string</td>
-<td>Yes</td>
-<td>bank address of reciever.</td>
-</tr>
-<tr>
-<td>bankName</td>
-<td>string</td>
-<td>Yes</td>
-<td>bank name of reciever.</td>
-</tr>
-<tr>
-<td>companyId</td>
-<td>string</td>
-<td>Yes</td>
-<td>system identificator of your company.</td>
-</tr>
-<tr>
-<td>id</td>
-<td>string</td>
-<td>Yes</td>
-<td>system identificator of requisites. It is used in crypto-to-fiat payout creation.</td>
-</tr>
-<tr>
-<td>recipientName</td>
-<td>string</td>
-<td>Yes</td>
-<td>company name of the recipient.</td>
-</tr>
-<tr>
-<td>type</td>
-<td>string</td>
-<td>Yes</td>
-<td>type of bank transfer [ SEPA, SWIFT ]</td>
-</tr>
-<tr>
-<td>ibanNumber</td>
-<td>string</td>
-<td>No</td>
-<td>IBAN number of recipient. Required only for SEPA.</td>
-</tr>
-<tr>
-<td>bicNumber</td>
-<td>string</td>
-<td>No</td>
-<td>BIC number of recipient. Required only for SEPA.</td>
-</tr>
-</tbody></table>
-<h2 id='create-swift-requisites'>Create SWIFT Requisites</h2>
-<blockquote>
-<p>Request</p>
-</blockquote>
-<div class="highlight"><pre class="highlight shell tab-shell"><code>
-curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.calypso.finance/api/v1/pub/requisite/swift/create'</span> <span class="se">\</span>
-<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
-<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
-<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
-<span class="nt">--data-raw</span> <span class="s1">'{
-  "nonce": 0,
-  "request": {
-    "accountNumber": "string",
-    "bankAddress": "string",
-    "bankName": "string",
-    "recipientName": "string",
-    "swift": "string",
-    "uenNumber": "string"
-  }
-}'</span>
-
-</code></pre></div>
-<blockquote>
-<p>Response</p>
-</blockquote>
-<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
-</span><span class="p">{</span><span class="w">
-  </span><span class="nl">"accountNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"archived"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"bankAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"bankName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"companyId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"recipientName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"swift"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SEPA"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"uenNumber"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-
-</span></code></pre></div>
-<p>This endpoint creates SEPA requisites.</p>
-<h5 id='http-request-4'>HTTP Request</h5>
-<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/requisite/swift/create</code></p>
-<h5 id='header-4'>Header</h5>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>Key</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>&lt;your_api_key&gt;</td>
-</tr>
-<tr>
-<td>Sign</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>&lt;your_sign&gt;</td>
-</tr>
-<tr>
-<td>Content-Type</td>
-<td>STRING</td>
-<td>Yes</td>
-<td>must be set to application/json for requests to the Calypso API</td>
-</tr>
-</tbody></table>
-<h5 id='request-body-4'>Request Body</h5>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Mandatory</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>nonce</td>
-<td>number</td>
-<td>Yes</td>
-<td>Nonce used in construction of Sign header.</td>
-</tr>
-<tr>
-<td>request</td>
-<td>object</td>
-<td>Yes</td>
-<td>This object contains request details.</td>
-</tr>
-<tr>
-<td>request.id</td>
-<td>number</td>
-<td>Yes</td>
-<td>identificator of requisites where bank transfer will be sent to.</td>
-</tr>
-<tr>
-<td>accountNumber</td>
-<td>string</td>
-<td>No</td>
-<td>bank account number.</td>
-</tr>
-<tr>
-<td>bankAddress</td>
-<td>string</td>
-<td>Yes</td>
-<td>bank address of reciever.</td>
-</tr>
-<tr>
-<td>bankName</td>
-<td>string</td>
-<td>Yes</td>
-<td>bank name of reciever.</td>
-</tr>
-<tr>
-<td>recipientName</td>
-<td>string</td>
-<td>Yes</td>
-<td>company name of the recipient.</td>
-</tr>
-<tr>
-<td>swift</td>
-<td>string</td>
-<td>Yes</td>
-<td>swift number of recipient.</td>
-</tr>
-<tr>
-<td>uenNumber</td>
-<td>string</td>
-<td>No</td>
-<td>UEN number of recipient.</td>
-</tr>
-</tbody></table>
-<h5 id='response-body-4'>Response Body</h5>
-<table><thead>
-<tr>
-<th>parameter</th>
-<th>type</th>
-<th>mandatory</th>
-<th>description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>accountNumber</td>
-<td>string</td>
-<td>No</td>
-<td>bank account number.</td>
-</tr>
-<tr>
-<td>archived</td>
-<td>boolean</td>
-<td>Yes</td>
-<td>represents whether requisites archived or not. Archived requisites can not be used.</td>
-</tr>
-<tr>
-<td>bankAddress</td>
-<td>string</td>
-<td>Yes</td>
-<td>bank address of reciever.</td>
-</tr>
-<tr>
-<td>bankName</td>
-<td>string</td>
-<td>Yes</td>
-<td>bank name of reciever.</td>
-</tr>
-<tr>
-<td>companyId</td>
-<td>string</td>
-<td>Yes</td>
-<td>system identificator of your company.</td>
-</tr>
-<tr>
-<td>id</td>
-<td>string</td>
-<td>Yes</td>
-<td>system identificator of requisites. It is used in crypto-to-fiat payout creation.</td>
-</tr>
-<tr>
-<td>recipientName</td>
-<td>string</td>
-<td>Yes</td>
-<td>company name of the recipient.</td>
-</tr>
-<tr>
-<td>swift</td>
-<td>string</td>
-<td>Yes</td>
-<td>swift number of recipient.</td>
-</tr>
-<tr>
-<td>type</td>
-<td>string</td>
-<td>Yes</td>
-<td>type of bank transfer [ SEPA, SWIFT ]</td>
-</tr>
-<tr>
-<td>uenNumber</td>
-<td>string</td>
-<td>No</td>
-<td>UEN number of recipient.</td>
-</tr>
-</tbody></table>
 <h1 id='webhooks'>Webhooks</h1>
 <p>The Webhooks API allows you to subscribe to events happening with your created objects (Invoices or Payouts) in Calypso. Rather than making an API call to check status of invoice or payout during processing, Calypso can send an HTTP request to an endpoint you configure. You can configure subscribed events using the endpoints detailed below.</p>
 <h4 id='how-it-works'>How it works?</h4>
@@ -9268,10 +7736,6 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>Validation error has been occurred during payout processing</td>
 </tr>
 <tr>
-<td>PAYOUT_CRYPTO_TO_FIAT_COMPLETED</td>
-<td>Payout crypto-to-fiat has been completed. Funds have been sent to fiat exchange account</td>
-</tr>
-<tr>
 <td>PAYOUT_WITHDRAWALS_CREATING_VALIDATION_ERROR</td>
 <td>Mass payout is failed because of the validation error in it withdrawal(s)</td>
 </tr>
@@ -9280,6 +7744,8 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>Error in mass payout during transaction validation in blockchain (Ethereum only)</td>
 </tr>
 </tbody></table>
+
+<!-- | PAYOUT_CRYPTO_TO_FIAT_COMPLETED | Payout crypto-to-fiat has been completed. Funds have been sent to fiat exchange account | -->
 <h2 id='webhook-payload'>Webhook payload</h2>
 <blockquote>
 <p>Webhook payload example</p>
@@ -9779,55 +8245,18 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>the external id that was generated while payout creating through api.</td>
 </tr>
 </tbody></table>
-<h5 id='payout_crypto_to_fiat_completed'>PAYOUT_CRYPTO_TO_FIAT_COMPLETED</h5>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>hash</td>
-<td>string</td>
-<td>transaction hash.</td>
-</tr>
-<tr>
-<td>type</td>
-<td>string</td>
-<td>event type: PAYOUT_CRYPTO_TO_FIAT_COMPLETED</td>
-</tr>
-<tr>
-<td>parentExternalId</td>
-<td>number</td>
-<td>system id of the payout.</td>
-</tr>
-<tr>
-<td>amount</td>
-<td>number</td>
-<td>transferred amount in EUR.</td>
-</tr>
-<tr>
-<td>createdDate</td>
-<td>string</td>
-<td>date and time of payout creation.</td>
-</tr>
-<tr>
-<td>fiatType</td>
-<td>string</td>
-<td>transfer type:  SEPA, SWIFT</td>
-</tr>
-<tr>
-<td>fiatRequisitesId</td>
-<td>string</td>
-<td>system id of requisites where money will be transferred to (requisites api is in development)</td>
-</tr>
-<tr>
-<td>idempotencyKey</td>
-<td>string</td>
-<td>the external id that was generated while payout creating through api.</td>
-</tr>
-</tbody></table>
+
+<!-- ##### PAYOUT_CRYPTO_TO_FIAT_COMPLETED
+|Parameter       |Type  |Description|
+|-----------|------|-----------|
+|hash       |string|transaction hash.|
+|type       |string|event type: PAYOUT_CRYPTO_TO_FIAT_COMPLETED|
+|parentExternalId     |number|system id of the payout.|
+|amount     |number|transferred amount in EUR.|
+|createdDate|string|date and time of payout creation.|
+|fiatType   |string|transfer type:  SEPA, SWIFT|
+|fiatRequisitesId|string|system id of requisites where money will be transferred to (requisites api is in development)|
+|idempotencyKey |string|the external id that was generated while payout creating through api.| -->
 <h5 id='payout_withdrawals_creating_validation_error'>PAYOUT_WITHDRAWALS_CREATING_VALIDATION_ERROR</h5>
 <table><thead>
 <tr>
