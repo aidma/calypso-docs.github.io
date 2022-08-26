@@ -333,6 +333,9 @@
                     <a href="#invoice" class="toc-h2 toc-link" data-title="Invoice"><strong>Invoice</strong></a>
                   </li>
                   <li>
+                    <a href="#payment-widget" class="toc-h2 toc-link" data-title="Payment Widget">Payment Widget</a>
+                  </li>
+                  <li>
                     <a href="#payout" class="toc-h2 toc-link" data-title="Payout">Payout</a>
                   </li>
                   <li>
@@ -348,6 +351,9 @@
               <ul class="toc-list-h2">
                   <li>
                     <a href="#get-all-invoices" class="toc-h2 toc-link" data-title="Get All Invoices">Get All Invoices</a>
+                  </li>
+                  <li>
+                    <a href="#get-invoices-by-external-id" class="toc-h2 toc-link" data-title="Get Invoices By External ID">Get Invoices By External ID</a>
                   </li>
                   <li>
                     <a href="#get-a-specific-invoice" class="toc-h2 toc-link" data-title="Get a Specific Invoice">Get a Specific Invoice</a>
@@ -694,7 +700,7 @@
 <li>Client can top up this wallet whenever he wants without any restrictions</li>
 <li>To withdrawal money from this client wallet you can send the request &quot;Funds withdrawal&quot; (<strong>POST http://public-gateway.calypso.finance/api/v1/pub/invoice/unlimited/withdrawal</strong>)</li>
 </ul>
-<h3 id='payment-widget'>Payment Widget</h3><h5 id='overview-3'><strong>Overview</strong></h5>
+<h2 id='payment-widget'>Payment Widget</h2><h5 id='overview-3'><strong>Overview</strong></h5>
 <p>Calypso provides users with the ability to generate widgets for invoice payment, which can be sent to the client or embedded on any web page. The widget indicates the amount to be paid, the available cryptocurrencies and description of payment. When paying the amount specified in the fiat currency, the exchange rate is fixed for 15 minutes (60 minutes for BTC) from the moment the invoice is created.</p>
 
 <p><img src="images/payment_widget_overview-c2d9bbb1.png" width="95%" height="90%" style="margin: 5%"/></p>
@@ -716,6 +722,8 @@
 <li>Transaction is completed by a network.</li>
 <li>The client sees the notification that payment is complete successfully.</li>
 </ol>
+
+<p><strong>The examples of how you can use it in your service to accept different types of payments are provided on the <a href="http://paymentwidget.tilda.ws/">page</a></strong></p>
 <h5 id='how-to-create'>How to create?</h5>
 <p>To create a payment widget, there are the following steps to be performed:</p>
 
@@ -724,8 +732,43 @@
 <li>Send link with payment widget and configured parameters to the client or embed it to the web-site where the payment is needed.</li>
 </ul>
 
+<blockquote>
+<p>Example of payment widget embedded in the web site:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight html tab-html"><code><span class="c">&lt;!-- Put this code to the file index.html and open in browser to see how it works --&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Pay<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;style&gt;</span>
+        <span class="nc">.button_1661340660317</span> <span class="p">{</span>
+            <span class="nl">display</span><span class="p">:</span> <span class="n">inline-block</span> <span class="cp">!important</span><span class="p">;</span>
+            <span class="nl">text-decoration</span><span class="p">:</span> <span class="nb">none</span> <span class="cp">!important</span><span class="p">;</span>
+            <span class="nl">background-color</span><span class="p">:</span> <span class="m">#1e37ff</span> <span class="cp">!important</span><span class="p">;</span>
+            <span class="nl">color</span><span class="p">:</span> <span class="m">#ffffff</span> <span class="cp">!important</span><span class="p">;</span>
+            <span class="nl">border</span><span class="p">:</span> <span class="m">3px</span> <span class="nb">solid</span> <span class="m">#3967ff</span> <span class="cp">!important</span><span class="p">;</span>
+            <span class="nl">border-radius</span><span class="p">:</span> <span class="m">5px</span> <span class="cp">!important</span><span class="p">;</span>
+            <span class="nl">font-size</span><span class="p">:</span> <span class="m">16px</span> <span class="cp">!important</span><span class="p">;</span>
+            <span class="nl">padding</span><span class="p">:</span> <span class="m">17px</span> <span class="m">50px</span> <span class="cp">!important</span><span class="p">;</span> 
+            <span class="nl">transition</span><span class="p">:</span> <span class="n">all</span> <span class="m">1.6s</span> <span class="n">ease</span> <span class="cp">!important</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nc">.button_1661340660317</span><span class="nd">:hover</span><span class="p">{</span>
+            <span class="nl">text-decoration</span><span class="p">:</span> <span class="nb">none</span> <span class="cp">!important</span><span class="p">;</span> 
+            <span class="nl">background-color</span><span class="p">:</span> <span class="m">#8294ff</span> <span class="cp">!important</span><span class="p">;</span>
+            <span class="nl">color</span><span class="p">:</span> <span class="m">#ffffff</span> <span class="cp">!important</span><span class="p">;</span>
+            <span class="nl">border-color</span><span class="p">:</span> <span class="m">#4e67ff</span> <span class="cp">!important</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nt">&lt;/style&gt;</span>
+        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"https://ui.calypso.finance/payment?currency=EUR&amp;amount=1&amp;description=Pay amount determined by merchant&amp;key=fd441c87-3939-44d0-b0d3-6f7cbceda44c&amp;full=true&amp;btc_wallet=bc1ql3k0gh0ysvyxtfuntvrjmtp4r266s4wpspse67&amp;eth_wallet=0xf857cf4be74a7b97e8bca24c53507773f60ed5fe&amp;usdt_wallet=0xf857cf4be74a7b97e8bca24c53507773f60ed5fe&amp;usdc_wallet=0xf857cf4be74a7b97e8bca24c53507773f60ed5fe&amp;trx_wallet=TYqokfymRRWQLN6J2uvwzf3SCLp5jKcDUe&amp;usdt_trx_wallet=TYqokfymRRWQLN6J2uvwzf3SCLp5jKcDUe&amp;xdg_wallet=DSZnQMhM6p6MrUXfdYY3tMn38nYo5rYM41&amp;dai_wallet=0xf857cf4be74a7b97e8bca24c53507773f60ed5fe&amp;frax_wallet=0xf857cf4be74a7b97e8bca24c53507773f60ed5fe&amp;busd_eth_wallet=0xf857cf4be74a7b97e8bca24c53507773f60ed5fe"</span> <span class="na">class=</span><span class="s">"button_1661340660317"</span> <span class="na">target=</span><span class="s">"_blank"</span><span class="nt">&gt;</span>
+            Pay fix amount in crypto
+        <span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div>
 <p>To access the widget, a link is formed with a certain set of parameters:
-<strong>https://ui.calypso.finance/payment?currency={<em>fiat_currency</em>}&amp;amount={<em>payment_amount</em>}&amp;description={<em>text</em>}&amp;btc_wallet={<em>btc_address</em>}&amp;eth_wallet={<em>eth_address</em>}&amp;usdt_wallet={<em>usdt_address</em>}&amp;trx_wallet={<em>trx_address</em>}&amp;usdt_trx_wallet={<em>usdt_trx_address</em>}&amp;xdg_wallet={<em>xdg_address</em>}&amp;dai_wallet={<em>dai_address</em>}&amp;frax_wallet={<em>frax_address</em>}&amp;usdc_wallet={<em>usdc_address</em>}&amp;busd_eth_wallet={<em>busd_eth_address</em>}&amp;key={<em>genereted_reusable_key</em>}&amp;full={<em>true_or_false</em>}&amp;idempotency_key={<em>idempotency_key</em>}&amp;logo_url={<em>logo_logo</em>}&amp;return_url={<em>url_to_return_page</em>}&amp;support_url={<em>support_url</em>}</strong></p>
+<strong>https://ui.calypso.finance/payment?currency={<em>fiat_currency</em>}&amp;amount={<em>payment_amount</em>}&amp;description={<em>text</em>}&amp;btc_wallet={<em>btc_address</em>}&amp;eth_wallet={<em>eth_address</em>}&amp;usdt_wallet={<em>usdt_address</em>}&amp;trx_wallet={<em>trx_address</em>}&amp;usdt_trx_wallet={<em>usdt_trx_address</em>}&amp;xdg_wallet={<em>xdg_address</em>}&amp;dai_wallet={<em>dai_address</em>}&amp;frax_wallet={<em>frax_address</em>}&amp;usdc_wallet={<em>usdc_address</em>}&amp;busd_eth_wallet={<em>busd_eth_address</em>}&amp;bnb_wallet={<em>bnb_address</em>}&amp;busd_wallet={<em>busd_address</em>}&amp;matic_wallet={<em>matic_address</em>}&amp;usdt_matic_wallet={<em>usdt_matic_address</em>}&amp;key={<em>genereted_reusable_key</em>}&amp;full={<em>true_or_false</em>}&amp;idempotency_key={<em>idempotency_key</em>}&amp;logo_url={<em>logo_logo</em>}&amp;return_url={<em>url_to_return_page</em>}&amp;support_url={<em>support_url</em>}</strong></p>
 <h5 id='description-of-parameters'>Description of parameters</h5>
 <ul>
 <li><strong>currency</strong> - the currency in which the payment is made; string, obligatory.</li>
@@ -741,6 +784,10 @@
 <li><strong>frax_wallet</strong> - the address of the ethereum wallet to which the funds from the invoice payment will be received in FRAX; string, optional.</li>
 <li><strong>usdc_wallet</strong> - the address of the ethereum wallet to which the funds from the invoice payment will be received in USDT; string, optional.</li>
 <li><strong>busd_eth_wallet</strong> - the address of the ethereum wallet to which the funds from the invoice payment will be received in BUSD (ERC20); string, optional.</li>
+<li><strong>bnb_wawllet</strong> - the address of the binance smart chain wallet to which the funds from the invoice payment will be received; string, optional.</li>
+<li><strong>busd_wallet</strong> - the address of the binance smart chain wallet to which the funds from the invoice payment will be received in BUSD; string, optional.</li>
+<li><strong>matic_wallet</strong> - the address of the polygon wallet to which the funds from the invoice payment will be received; string, optional.</li>
+<li><strong>usdt_matic_wallet</strong> - the address of the polygon wallet to which the funds from the invoice payment will be received in USDT; string, optional.</li>
 <li><strong>key</strong> - a reusable key with a limited validity period, which is generated by the user via the Public API using the api key; string, obligatory.</li>
 <li><strong>full</strong> - if true, the full version of the widget is displayed, if false, the mini version of the widget is shown; boolean; optional.</li>
 <li><strong>idempotencyKey</strong> - idempotency key in the uuid4 format, that allows to get created invoice by idempotencyKey field; string, optional.</li>
@@ -906,43 +953,45 @@
 <blockquote>
 <p>Example</p>
 </blockquote>
-<div class="highlight"><pre class="highlight javascript tab-javascript"><code>    <span class="kd">const</span> <span class="nx">crypto</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">crypto-js</span><span class="dl">"</span><span class="p">);</span>
-    <span class="kd">const</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">request</span><span class="dl">'</span><span class="p">);</span>
+<div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="kd">const</span> <span class="nx">crypto</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">"</span><span class="s2">crypto-js</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">const</span> <span class="nx">request</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="dl">'</span><span class="s1">request</span><span class="dl">'</span><span class="p">);</span>
 
-    <span class="kd">const</span> <span class="nx">body</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
-      <span class="dl">"</span><span class="s2">nonce</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-      <span class="dl">"</span><span class="s2">request</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
-        <span class="dl">"</span><span class="s2">stateNames</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span><span class="p">,</span>
-        <span class="dl">"</span><span class="s2">pageNumber</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="dl">"</span><span class="s2">size</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
-        <span class="dl">"</span><span class="s2">direction</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ASC</span><span class="dl">"</span><span class="p">,</span>
-        <span class="dl">"</span><span class="s2">properties</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span>
-        <span class="p">}</span>
-    <span class="p">});</span>
-
-    <span class="kd">const</span> <span class="nx">apiKey</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">&lt;your_api_key&gt;</span><span class="dl">'</span><span class="p">;</span>
-    <span class="kd">const</span> <span class="nx">secretKey</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">&lt;your_secret_key&gt;</span><span class="dl">'</span>
-
-    <span class="nx">signature</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">body</span><span class="p">,</span> <span class="nx">secretKey</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="nx">crypto</span><span class="p">.</span><span class="nx">HmacSHA512</span><span class="p">(</span><span class="nx">body</span><span class="p">,</span> <span class="nx">secretKey</span><span class="p">).</span><span class="nx">toString</span><span class="p">(</span><span class="nx">crypto</span><span class="p">.</span><span class="nx">enc</span><span class="p">.</span><span class="nx">hex</span><span class="p">);</span>
-    <span class="p">};</span>
-
-    <span class="kd">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="dl">'</span><span class="s1">Key</span><span class="dl">'</span><span class="p">:</span> <span class="nx">apiKey</span><span class="p">,</span>
-      <span class="dl">'</span><span class="s1">Sign</span><span class="dl">'</span><span class="p">:</span> <span class="nx">signature</span><span class="p">(</span><span class="nx">body</span><span class="p">,</span> <span class="nx">secretKey</span><span class="p">),</span>
-      <span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span>
+<span class="kd">const</span> <span class="nx">body</span> <span class="o">=</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span>
+  <span class="dl">"</span><span class="s2">nonce</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+  <span class="dl">"</span><span class="s2">request</span><span class="dl">"</span><span class="p">:</span> <span class="p">{</span>
+    <span class="dl">"</span><span class="s2">stateNames</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">pageNumber</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">size</span><span class="dl">"</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">direction</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">ASC</span><span class="dl">"</span><span class="p">,</span>
+    <span class="dl">"</span><span class="s2">properties</span><span class="dl">"</span><span class="p">:</span> <span class="dl">"</span><span class="s2">string</span><span class="dl">"</span>
     <span class="p">}</span>
+<span class="p">});</span>
 
-    <span class="nx">request</span><span class="p">({</span>
-      <span class="na">url</span><span class="p">:</span> <span class="s2">`http://public-gateway.calypso.finance/api/v1/pub/invoice/all,
-      method: 'POST',
-      headers: headers,
-      json: true,
-      body: body
-    }, (error, response, body) =&gt; {
-      console.log('statusCode:', response &amp;&amp; response.statusCode)
-      console.log('body:', body)
-    });
+<span class="kd">const</span> <span class="nx">apiKey</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">&lt;your_api_key&gt;</span><span class="dl">'</span><span class="p">;</span>
+<span class="kd">const</span> <span class="nx">secretKey</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">&lt;your_secret_key&gt;</span><span class="dl">'</span>
+
+<span class="kd">function</span> <span class="nx">sign</span><span class="p">(</span><span class="nx">message</span><span class="p">,</span> <span class="nx">secretKey</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">crypto</span><span class="p">.</span><span class="nx">HmacSHA512</span><span class="p">(</span><span class="nx">message</span><span class="p">,</span> <span class="nx">secretKey</span><span class="p">).</span><span class="nx">toString</span><span class="p">(</span><span class="nx">crypto</span><span class="p">.</span><span class="nx">enc</span><span class="p">.</span><span class="nx">hex</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">signature</span> <span class="o">=</span> <span class="nx">sign</span><span class="p">(</span><span class="nx">body</span><span class="p">,</span> <span class="nx">secretKey</span><span class="p">);</span>
+
+<span class="kd">const</span> <span class="nx">headers</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="dl">'</span><span class="s1">Key</span><span class="dl">'</span><span class="p">:</span> <span class="nx">apiKey</span><span class="p">,</span>
+  <span class="dl">'</span><span class="s1">Sign</span><span class="dl">'</span><span class="p">:</span> <span class="nx">signature</span><span class="p">,</span>
+  <span class="dl">'</span><span class="s1">Content-Type</span><span class="dl">'</span><span class="p">:</span> <span class="dl">'</span><span class="s1">application/json</span><span class="dl">'</span>
+<span class="p">}</span>
+
+<span class="nx">request</span><span class="p">({</span>
+  <span class="na">url</span><span class="p">:</span> <span class="s2">`http://public-gateway.calypso.finance/api/v1/pub/invoice/all,
+  method: 'POST',
+  headers: headers,
+  json: true,
+  body: body
+}, (error, response, body) =&gt; {
+  console.log('statusCode:', response &amp;&amp; response.statusCode)
+  console.log('body:', body)
+});
 </span></code></pre></div><h5 id='create-api-key'>Create API key</h5>
 <p>Calypso uses API keys to allow access to the API. You can contact Technical Support to generate a new pair of API keys for you (public and secret keys).</p>
 <h5 id='all-requests-must-contain-the-following-headers'>All requests must contain the following headers:</h5>
@@ -1063,6 +1112,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
       </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BNB"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"expiration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-07-27T14:24:14.955Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"externalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
       </span><span class="nl">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
       </span><span class="nl">"fiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
         </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
@@ -1256,7 +1306,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>result.cartItems.currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>this is the currency associated with the price field. [ BTC, ETH, BNB, USDT, BUSD_ETH, DAI, FRAX, TRX, USDT_TRX, XDG, USD, EUR, RUB, UAH, KZT ]</td>
+<td>this is the currency associated with the price field. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, EUR, FRAX, KZT, MATIC, RUB, TRX, UAH, USD, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>result.cartItems.price</td>
@@ -1286,7 +1336,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>result.currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>represents the currency of the invoice.</td>
+<td>represents the currency of the invoice. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>result.description</td>
@@ -1299,6 +1349,12 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>string</td>
 <td>No</td>
 <td>represents server timestamp of invoice expiration moment.</td>
+</tr>
+<tr>
+<td>result.externalId</td>
+<td>string</td>
+<td>No</td>
+<td>merchant ID that can be assigned to invoice or several invoices in string format</td>
 </tr>
 <tr>
 <td>result.fee</td>
@@ -1394,13 +1450,528 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>result.invoicePayments.currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>currency of the withdrawal</td>
+<td>currency of the withdrawal. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>result.invoicePayments.feeCurrency</td>
 <td>string</td>
 <td>Yes</td>
-<td>currency of the transaction fee for the withdrawal</td>
+<td>currency of the transaction fee for the withdrawal. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
+</tr>
+<tr>
+<td>result.invoicePayments.hotWallet</td>
+<td>object</td>
+<td>Yes</td>
+<td>address of the hot wallet where transfered money from invoice wallet</td>
+</tr>
+<tr>
+<td>result.invoicePayments.notEnoughFundsForTokenFee</td>
+<td>boolean</td>
+<td>Yes</td>
+<td>represents whether enough funds for transaction fee in token withdrawal or not</td>
+</tr>
+<tr>
+<td>result.invoicePayments.notEnoughFundsForTokenFeeAmount</td>
+<td>number</td>
+<td>Yes</td>
+<td>amount of required money for transaction fee in token withdrawal</td>
+</tr>
+<tr>
+<td>result.invoicePayments.payAmount</td>
+<td>number</td>
+<td>Yes</td>
+<td>amount of withdrawal money in total (amount + blockchainTransactionFee )</td>
+</tr>
+<tr>
+<td>result.invoicePayments.state</td>
+<td>string</td>
+<td>Yes</td>
+<td>state of the withdrawal [ CANCELED, INIT, MAKE_WITHDRAWAL, PENDING_WITHDRAWAL_ COMPLETED, REQUEST_FOUNDS_FOR_FEE, WITHDRAWAL_COMPLETED ]</td>
+</tr>
+<tr>
+<td>result.invoicePayments.toHotWalletHash</td>
+<td>string</td>
+<td>Yes</td>
+<td>hash of the transaction from invoice wallet to merchant wallet</td>
+</tr>
+<tr>
+<td>result.invoicePayments.tokenFeeRequestHash</td>
+<td>string</td>
+<td>No</td>
+<td>hash of the transaction from merchant wallet to invoice wallet which transfers base currency for token transfer from invoice wallet to merchant wallet. Only for invoices in token currencies</td>
+</tr>
+<tr>
+<td>result.invoicePayments.tokenTransactionFee</td>
+<td>number</td>
+<td>Yes</td>
+<td>transaction fee for transferring base currency from merchant wallet to invoice wallet to pay transaction fee for token withdrawal</td>
+</tr>
+<tr>
+<td>result.isInterventionResolved</td>
+<td>boolean</td>
+<td>Yes</td>
+<td>represents whether the intervention was resolved or not (set by user)</td>
+</tr>
+<tr>
+<td>result.lastDepositHash</td>
+<td>string</td>
+<td>No</td>
+<td>Hash of the last deposit transaction to the invoice</td>
+</tr>
+<tr>
+<td>result.lastFiatUpdated</td>
+<td>string</td>
+<td>No</td>
+<td>time when the exchange rate was updated last time in SINGLE_FIAT invoices</td>
+</tr>
+<tr>
+<td>result.payAmount</td>
+<td>number</td>
+<td>No</td>
+<td>amount of money to pay.</td>
+</tr>
+<tr>
+<td>result.state</td>
+<td>string</td>
+<td>Yes</td>
+<td>represents status of the invoice.</td>
+</tr>
+<tr>
+<td>result.logoUrl</td>
+<td>string</td>
+<td>No</td>
+<td>link to the logo of merchant which will be shown in the payment link (page with invoice data for payment). The logo must be in PNG format. Recommended size 100*24 px</td>
+</tr>
+<tr>
+<td>result.returnUrl</td>
+<td>string</td>
+<td>No</td>
+<td>link to the web page where client can come back to from payment link (page with invoice data for payment)</td>
+</tr>
+<tr>
+<td>result.supportUrl</td>
+<td>string</td>
+<td>No</td>
+<td>link to the merchant support page where client can go to from payment link (page with invoice data for payment)</td>
+</tr>
+<tr>
+<td>result.totalDebitAmount</td>
+<td>number</td>
+<td>Yes</td>
+<td>the total amount received on the invoice wallet.</td>
+</tr>
+<tr>
+<td>result.type</td>
+<td>string</td>
+<td>Yes</td>
+<td>the type of the invoice. SINGLE - allows to recieve one payment in crypto-currency. SINGLE_FIAT - allows to recieve one payment in crypto-currency but amount to pay is set in fiat currency. UNLIMITED - allows to receive unlimited amount of payments in crypto-currency</td>
+</tr>
+<tr>
+<td>result.upperCommission</td>
+<td>boolean</td>
+<td>No</td>
+<td>defines whether network transaction fee for transfer from invoice wallet to your wallet will be  substracted from transfer amount (false) or not (true). true is by default.</td>
+</tr>
+<tr>
+<td>result.useLiquidity</td>
+<td>boolean</td>
+<td>No</td>
+<td>defines whether fee for transaction will be charged from liquidity wallet of Calypso (true) or from merchant wallet (false)</td>
+</tr>
+<tr>
+<td>size</td>
+<td>number</td>
+<td>Yes</td>
+<td>a numeric value indicating the page size.</td>
+</tr>
+<tr>
+<td>total</td>
+<td>number</td>
+<td>Yes</td>
+<td>the total number of pages matching the query.</td>
+</tr>
+<tr>
+<td>totalElements</td>
+<td>number</td>
+<td>Yes</td>
+<td>the total number of objects matching the query.</td>
+</tr>
+</tbody></table>
+<h2 id='get-invoices-by-external-id'>Get Invoices By External ID</h2>
+<blockquote>
+<p>Request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.calypso.finance/api/v1/pub/invoice/external'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+  "nonce": 0,
+  "request": {
+    "pageNumber": 0,
+    "size": 0,
+    "direction": "ASC"
+    "externalId": "string"
+  }
+}'</span>
+
+</code></pre></div>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"amountInInvoiceWallet"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"cartItems"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BNB"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"product"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-07-27T14:24:14.955Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BNB"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"expiration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-07-27T14:24:14.955Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"externalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"fiatAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fiatCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BNB"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fiatInInvoiceWallet"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"hotWallet"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"idempotencyKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"interventionType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"OVERPAY"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"invoiceAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"invoicePayments"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"blockchainTransactionFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BNB"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"feeCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BNB"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"hotWallet"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"notEnoughFundsForTokenFee"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"notEnoughFundsForTokenFeeAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"payAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"CANCELED"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"toHotWalletHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"tokenFeeRequestHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"tokenTransactionFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"isInterventionResolved"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"lastDepositHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"lastFiatUpdated"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-07-27T14:24:14.955Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"logoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"payAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"returnUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"state"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ARCHIVED"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"subscriptionEnabled"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"totalDebitAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"upperCommission"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"useLiquidity"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"totalElements"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>This endpoint retrieves invoices by specified externalId.</p>
+<h5 id='http-request-2'>HTTP Request</h5>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/invoice/all</code></p>
+<h5 id='header-2'>Header</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Key</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>&lt;your_api_key&gt;</td>
+</tr>
+<tr>
+<td>Sign</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>&lt;your_sign&gt;</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>must be set to application/json for requests to the Calypso API</td>
+</tr>
+</tbody></table>
+<h5 id='request-body-2'>Request Body</h5>
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>nonce</td>
+<td>number</td>
+<td>Yes</td>
+<td>nonce used in construction of sign header.</td>
+</tr>
+<tr>
+<td>request</td>
+<td>object</td>
+<td>Yes</td>
+<td>this object contains request details.</td>
+</tr>
+<tr>
+<td>request.pageNumber</td>
+<td>number</td>
+<td>Yes</td>
+<td>specify the page of results to return.</td>
+</tr>
+<tr>
+<td>request.size</td>
+<td>number</td>
+<td>Yes</td>
+<td>a numeric value indicating the page size.</td>
+</tr>
+<tr>
+<td>request.direction</td>
+<td>string</td>
+<td>Yes</td>
+<td>the direction of this api call which can be asc or desc. [ ASC, DESC ]</td>
+</tr>
+<tr>
+<td>request.externalId</td>
+<td>string</td>
+<td>Yes</td>
+<td>merchant ID that can be assigned to invoice or several invoices in string format.</td>
+</tr>
+</tbody></table>
+<h5 id='response-body-2'>Response Body</h5>
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>page</td>
+<td>number</td>
+<td>Yes</td>
+<td>result page number.</td>
+</tr>
+<tr>
+<td>result</td>
+<td>array</td>
+<td>Yes</td>
+<td>this object contains response details.</td>
+</tr>
+<tr>
+<td>result.amount</td>
+<td>number</td>
+<td>No</td>
+<td>represents amount of the invoice.</td>
+</tr>
+<tr>
+<td>result.amountInInvoicewallet</td>
+<td>number</td>
+<td>Yes</td>
+<td>initially set to 0 when creating the invoice. It will be updated with the total amount paid to the invoice.</td>
+</tr>
+<tr>
+<td>result.cartItems</td>
+<td>array</td>
+<td>Yes</td>
+<td>list of line items.</td>
+</tr>
+<tr>
+<td>result.cartItems.currency</td>
+<td>string</td>
+<td>Yes</td>
+<td>this is the currency associated with the price field. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, EUR, FRAX, KZT, MATIC, RUB, TRX, UAH, USD, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
+</tr>
+<tr>
+<td>result.cartItems.price</td>
+<td>number</td>
+<td>Yes</td>
+<td>price of this unit.</td>
+</tr>
+<tr>
+<td>result.cartItems.product</td>
+<td>string</td>
+<td>Yes</td>
+<td>name of this unit.</td>
+</tr>
+<tr>
+<td>result.cartItems.quantity</td>
+<td>number</td>
+<td>Yes</td>
+<td>line item number of units.</td>
+</tr>
+<tr>
+<td>result.createdDate</td>
+<td>string</td>
+<td>Yes</td>
+<td>time of invoice creation.</td>
+</tr>
+<tr>
+<td>result.currency</td>
+<td>string</td>
+<td>Yes</td>
+<td>represents the currency of the invoice. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
+</tr>
+<tr>
+<td>result.description</td>
+<td>string</td>
+<td>Yes</td>
+<td>short invoice description.</td>
+</tr>
+<tr>
+<td>result.expiration</td>
+<td>string</td>
+<td>No</td>
+<td>represents server timestamp of invoice expiration moment.</td>
+</tr>
+<tr>
+<td>result.externalId</td>
+<td>string</td>
+<td>No</td>
+<td>merchant ID that can be assigned to invoice or several invoices in string format.</td>
+</tr>
+<tr>
+<td>result.fee</td>
+<td>number</td>
+<td>No</td>
+<td>this is referenced as &quot;network cost&quot; on an invoice.</td>
+</tr>
+<tr>
+<td>result.fiat</td>
+<td>object</td>
+<td>Yes</td>
+<td>the total amount of the invoice in different fiat currencies.</td>
+</tr>
+<tr>
+<td>result.featAmount</td>
+<td>number</td>
+<td>No</td>
+<td>amount of fiat money set for SINGLE_FIAT_INVOICE</td>
+</tr>
+<tr>
+<td>result.fiatCurrency</td>
+<td>string</td>
+<td>No</td>
+<td>currency of featAmount [ EUR, USD ]</td>
+</tr>
+<tr>
+<td>result.fiatInInvoiceWallet</td>
+<td>object</td>
+<td>No</td>
+<td>actual amount on the invoice wallet in different fiat currencies.</td>
+</tr>
+<tr>
+<td>result.hotWallet</td>
+<td>object</td>
+<td>No</td>
+<td>object with information about wallet where funds from invoice will be transfered</td>
+</tr>
+<tr>
+<td>result.hotWallet.address</td>
+<td>string</td>
+<td>Yes</td>
+<td>address of the hot wallet</td>
+</tr>
+<tr>
+<td>result.hotWallet.name</td>
+<td>string</td>
+<td>No</td>
+<td>name of the hot wallet</td>
+</tr>
+<tr>
+<td>result.id</td>
+<td>number</td>
+<td>Yes</td>
+<td>invoice id.</td>
+</tr>
+<tr>
+<td>result.idempotencyKey</td>
+<td>string</td>
+<td>Yes</td>
+<td>the external id that can be generated by user while creating the invoice</td>
+</tr>
+<tr>
+<td>result.interventionType</td>
+<td>string</td>
+<td>No</td>
+<td>represents the case of intervention: UNDERPAY - client paid less money than payAmount, OVERPAY - client paid more money than payAmount</td>
+</tr>
+<tr>
+<td>result.invoiceAddress</td>
+<td>string</td>
+<td>Yes</td>
+<td>crypto address for deposit.</td>
+</tr>
+<tr>
+<td>result.invoicePayments</td>
+<td>object</td>
+<td>No</td>
+<td>object with data about withdrawal from invoice wallet to hot wallet</td>
+</tr>
+<tr>
+<td>result.invoicePayments.amount</td>
+<td>number</td>
+<td>Yes</td>
+<td>amount of withdrawal</td>
+</tr>
+<tr>
+<td>result.invoicePayments.blockchainTransactionFee</td>
+<td>number</td>
+<td>Yes</td>
+<td>amount of transaction fee for the withdrawal</td>
+</tr>
+<tr>
+<td>result.invoicePayments.currency</td>
+<td>string</td>
+<td>Yes</td>
+<td>currency of the withdrawal. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
+</tr>
+<tr>
+<td>result.invoicePayments.feeCurrency</td>
+<td>string</td>
+<td>Yes</td>
+<td>currency of the transaction fee for the withdrawal. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>result.invoicePayments.hotWallet</td>
@@ -1578,6 +2149,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
   </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BNB"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"expiration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-07-27T14:24:14.955Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"externalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="nl">"fiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
@@ -1635,9 +2207,9 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 
 </span></code></pre></div>
 <p>This endpoint retrieves a specific invoice.</p>
-<h5 id='http-request-2'>HTTP Request</h5>
+<h5 id='http-request-3'>HTTP Request</h5>
 <p><code>POST http://public-gateway.calypso.finance/api/v1/pub/invoice</code></p>
-<h5 id='header-2'>Header</h5>
+<h5 id='header-3'>Header</h5>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -1665,7 +2237,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>must be set to application/json for requests to the Calypso API</td>
 </tr>
 </tbody></table>
-<h5 id='request-body-2'>Request Body</h5>
+<h5 id='request-body-3'>Request Body</h5>
 <table><thead>
 <tr>
 <th>parameter</th>
@@ -1699,7 +2271,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>the external id that can be generated by user while creating the invoice</td>
 </tr>
 </tbody></table>
-<h5 id='response-body-2'>Response Body</h5>
+<h5 id='response-body-3'>Response Body</h5>
 <table><thead>
 <tr>
 <th>parameter</th>
@@ -1730,7 +2302,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>cartItems.currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>this is the currency associated with the price field. [ BTC, ETH, BNB, USDT, BUSD_ETH, DAI, FRAX, TRX, USDT_TRX, XDG, USD, EUR, RUB, UAH, KZT ]</td>
+<td>this is the currency associated with the price field. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, EUR, FRAX, KZT, MATIC, RUB, TRX, UAH, USD, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>cartItems.price</td>
@@ -1760,7 +2332,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>represents the currency of the invoice.</td>
+<td>represents the currency of the invoice. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>description</td>
@@ -1773,6 +2345,12 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>string</td>
 <td>No</td>
 <td>represents server timestamp of invoice expiration moment.</td>
+</tr>
+<tr>
+<td>externalId</td>
+<td>string</td>
+<td>No</td>
+<td>merchant ID that can be assigned to invoice or several invoices in string format.</td>
 </tr>
 <tr>
 <td>fee</td>
@@ -1868,13 +2446,13 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>invoicePayments.currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>currency of the withdrawal</td>
+<td>currency of the withdrawal. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>invoicePayments.feeCurrency</td>
 <td>string</td>
 <td>Yes</td>
-<td>currency of the transaction fee for the withdrawal</td>
+<td>currency of the transaction fee for the withdrawal. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>invoicePayments.hotWallet</td>
@@ -2011,6 +2589,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
   "request": {
     "amount": 0,
     "expiration": "2022-07-19T08:30Z",
+    "externalId": "string",
     "currency": "BTC",
     "description": "string",
     "type": "SINGLE",
@@ -2053,6 +2632,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
   </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BNB"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"expiration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-07-27T14:24:14.955Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"externalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="nl">"fiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
@@ -2110,9 +2690,9 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 
 </span></code></pre></div>
 <p>This endpoint creates a new invoice.</p>
-<h5 id='http-request-3'>HTTP Request</h5>
+<h5 id='http-request-4'>HTTP Request</h5>
 <p><code>POST http://public-gateway.calypso.finance/api/v1/pub/invoice/create</code></p>
-<h5 id='header-3'>Header</h5>
+<h5 id='header-4'>Header</h5>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2140,7 +2720,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>must be set to application/json for requests to the Calypso API</td>
 </tr>
 </tbody></table>
-<h5 id='request-body-3'>Request Body</h5>
+<h5 id='request-body-4'>Request Body</h5>
 <table><thead>
 <tr>
 <th>name</th>
@@ -2171,7 +2751,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>request.fiatCurrency</td>
 <td>string</td>
 <td>No</td>
-<td>received fiat currency. [ USD, EUR, RUB, UAH, KZT ]. Required for SINGLE_FIAT invoices.</td>
+<td>received fiat currency. [ USD, EUR ]. Required for SINGLE_FIAT invoices.</td>
 </tr>
 <tr>
 <td>request.amount</td>
@@ -2186,10 +2766,16 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>represents server timestamp of invoice expiration moment. 15 days is default value.</td>
 </tr>
 <tr>
+<td>request.externalId</td>
+<td>string</td>
+<td>No</td>
+<td>merchant ID that can be assigned to invoice or several invoices in string format.</td>
+</tr>
+<tr>
 <td>request.currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>received blockchain currency. [ BTC, BUSD_ETH, DAI, ETH, FRAX, TRX, USDT, USDT_TRX, XDG ]</td>
+<td>received blockchain currency. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>request.description</td>
@@ -2207,7 +2793,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>request.cartItems.currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>this is the currency associated with the price field. [ BTC, ETH, BNB, USDT, BUSD_ETH, DAI, FRAX, TRX, USDT_TRX, XDG, USD, EUR, RUB, UAH, KZT ]</td>
+<td>this is the currency associated with the price field. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, EUR, FRAX, KZT, MATIC, RUB, TRX, UAH, USD, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>request.cartItems.price</td>
@@ -2276,7 +2862,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>defines whether fee for transaction will be charged from liquidity wallet of Calypso (true) or from merchant wallet (false)</td>
 </tr>
 </tbody></table>
-<h5 id='response-body-3'>Response Body</h5>
+<h5 id='response-body-4'>Response Body</h5>
 <table><thead>
 <tr>
 <th>parameter</th>
@@ -2307,7 +2893,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>cartItems.currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>this is the currency associated with the price field. [ BTC, ETH, BNB, USDT, BUSD_ETH, DAI, FRAX, TRX, USDT_TRX, XDG, USD, EUR, RUB, UAH, KZT ]</td>
+<td>this is the currency associated with the price field. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, EUR, FRAX, KZT, MATIC, RUB, TRX, UAH, USD, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>cartItems.price</td>
@@ -2337,7 +2923,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>represents the currency of the invoice.</td>
+<td>represents the currency of the invoice. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>description</td>
@@ -2350,6 +2936,12 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>string</td>
 <td>No</td>
 <td>represents server timestamp of invoice expiration moment.</td>
+</tr>
+<tr>
+<td>externalId</td>
+<td>string</td>
+<td>No</td>
+<td>merchant ID that can be assigned to invoice or several invoices in string format.</td>
 </tr>
 <tr>
 <td>fee</td>
@@ -2445,13 +3037,13 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>invoicePayments.currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>currency of the withdrawal</td>
+<td>currency of the withdrawal. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>invoicePayments.feeCurrency</td>
 <td>string</td>
 <td>Yes</td>
-<td>currency of the transaction fee for the withdrawal</td>
+<td>currency of the transaction fee for the withdrawal. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>invoicePayments.hotWallet</td>
@@ -2612,6 +3204,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
   </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BNB"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"expiration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-07-27T14:24:14.955Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"externalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="nl">"fiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
@@ -2669,9 +3262,9 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 
 </span></code></pre></div>
 <p>This endpoint allow withdraw funds to internal crypto address.</p>
-<h5 id='http-request-4'>HTTP Request</h5>
+<h5 id='http-request-5'>HTTP Request</h5>
 <p><code>POST http://public-gateway.calypso.finance/api/v1/pub/invoice/unlimited/withdrawal</code></p>
-<h5 id='header-4'>Header</h5>
+<h5 id='header-5'>Header</h5>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -2699,7 +3292,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>must be set to application/json for requests to the Calypso API</td>
 </tr>
 </tbody></table>
-<h5 id='request-body-4'>Request Body</h5>
+<h5 id='request-body-5'>Request Body</h5>
 <table><thead>
 <tr>
 <th>parameter</th>
@@ -2739,7 +3332,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>the external id that can be generated by user while creating the invoice</td>
 </tr>
 </tbody></table>
-<h5 id='response-body-4'>Response Body</h5>
+<h5 id='response-body-5'>Response Body</h5>
 <table><thead>
 <tr>
 <th>parameter</th>
@@ -2770,7 +3363,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>cartItems.currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>this is the currency associated with the price field. [ BTC, ETH, BNB, USDT, BUSD_ETH, DAI, FRAX, TRX, USDT_TRX, XDG, USD, EUR, RUB, UAH, KZT ]</td>
+<td>this is the currency associated with the price field. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, EUR, FRAX, KZT, MATIC, RUB, TRX, UAH, USD, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>cartItems.price</td>
@@ -2800,7 +3393,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>represents the currency of the invoice.</td>
+<td>represents the currency of the invoice. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>description</td>
@@ -2813,6 +3406,12 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>string</td>
 <td>No</td>
 <td>represents server timestamp of invoice expiration moment.</td>
+</tr>
+<tr>
+<td>externalId</td>
+<td>string</td>
+<td>No</td>
+<td>merchant ID that can be assigned to invoice or several invoices in string format.</td>
 </tr>
 <tr>
 <td>fee</td>
@@ -2908,13 +3507,13 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>invoicePayments.currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>currency of the withdrawal</td>
+<td>currency of the withdrawal. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>invoicePayments.feeCurrency</td>
 <td>string</td>
 <td>Yes</td>
-<td>currency of the transaction fee for the withdrawal</td>
+<td>currency of the transaction fee for the withdrawal. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>invoicePayments.hotWallet</td>
@@ -3067,9 +3666,9 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 
 </span></code></pre></div>
 <p>This endpoint allows to create reusable api key for payment widget</p>
-<h5 id='http-request-5'>HTTP Request</h5>
+<h5 id='http-request-6'>HTTP Request</h5>
 <p><code>POST http://public-gateway.calypso.finance/api/v1/pub/reusable-key-service</code></p>
-<h5 id='header-5'>Header</h5>
+<h5 id='header-6'>Header</h5>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -3097,7 +3696,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>must be set to application/json for requests to the Calypso API</td>
 </tr>
 </tbody></table>
-<h5 id='request-body-5'>Request Body</h5>
+<h5 id='request-body-6'>Request Body</h5>
 <table><thead>
 <tr>
 <th>parameter</th>
@@ -3131,7 +3730,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>limit of uasage the created api key. If not define, the quantity equals 1 as default</td>
 </tr>
 </tbody></table>
-<h5 id='response-body-5'>Response Body</h5>
+<h5 id='response-body-6'>Response Body</h5>
 <table><thead>
 <tr>
 <th>parameter</th>
@@ -3196,6 +3795,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
   </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BNB"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"expiration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-07-27T14:24:14.955Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"externalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="nl">"fiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
@@ -3253,9 +3853,9 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 
 </span></code></pre></div>
 <p>This endpoint changes the value isInterventionResolved to true. The invoice must be in state COMPLETED.</p>
-<h5 id='http-request-6'>HTTP Request</h5>
+<h5 id='http-request-7'>HTTP Request</h5>
 <p><code>POST http://public-gateway.calypso.finance/api/v1/pub/invoice/close-intervention</code></p>
-<h5 id='header-6'>Header</h5>
+<h5 id='header-7'>Header</h5>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -3283,7 +3883,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>must be set to application/json for requests to the Calypso API</td>
 </tr>
 </tbody></table>
-<h5 id='request-body-6'>Request Body</h5>
+<h5 id='request-body-7'>Request Body</h5>
 <table><thead>
 <tr>
 <th>parameter</th>
@@ -3317,7 +3917,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>the external id that can be generated by user while creating the invoice</td>
 </tr>
 </tbody></table>
-<h5 id='response-body-6'>Response Body</h5>
+<h5 id='response-body-7'>Response Body</h5>
 <table><thead>
 <tr>
 <th>parameter</th>
@@ -3348,7 +3948,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>cartItems.currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>this is the currency associated with the price field. [ BTC, ETH, BNB, USDT, BUSD_ETH, DAI, FRAX, TRX, USDT_TRX, XDG, USD, EUR, RUB, UAH, KZT ]</td>
+<td>this is the currency associated with the price field. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, EUR, FRAX, KZT, MATIC, RUB, TRX, UAH, USD, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>cartItems.price</td>
@@ -3378,7 +3978,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>represents the currency of the invoice.</td>
+<td>represents the currency of the invoice. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>description</td>
@@ -3391,6 +3991,12 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>string</td>
 <td>No</td>
 <td>represents server timestamp of invoice expiration moment.</td>
+</tr>
+<tr>
+<td>externalId</td>
+<td>string</td>
+<td>No</td>
+<td>merchant ID that can be assigned to invoice or several invoices in string format.</td>
 </tr>
 <tr>
 <td>fee</td>
@@ -3486,13 +4092,13 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>invoicePayments.currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>currency of the withdrawal</td>
+<td>currency of the withdrawal. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>invoicePayments.feeCurrency</td>
 <td>string</td>
 <td>Yes</td>
-<td>currency of the transaction fee for the withdrawal</td>
+<td>currency of the transaction fee for the withdrawal. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>invoicePayments.hotWallet</td>
@@ -3652,6 +4258,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
   </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BNB"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"expiration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-07-27T14:24:14.955Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"externalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"fee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
   </span><span class="nl">"fiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
@@ -3709,9 +4316,9 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 
 </span></code></pre></div>
 <p>This endpoint allows to transfer money from invoice in internvention to merchant wallet.</p>
-<h5 id='http-request-7'>HTTP Request</h5>
+<h5 id='http-request-8'>HTTP Request</h5>
 <p><code>POST http://public-gateway.calypso.finance/api/v1/pub/invoice/return-to-paid</code></p>
-<h5 id='header-7'>Header</h5>
+<h5 id='header-8'>Header</h5>
 <table><thead>
 <tr>
 <th>Parameter</th>
@@ -3739,7 +4346,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>must be set to application/json for requests to the Calypso API</td>
 </tr>
 </tbody></table>
-<h5 id='request-body-7'>Request Body</h5>
+<h5 id='request-body-8'>Request Body</h5>
 <table><thead>
 <tr>
 <th>parameter</th>
@@ -3773,7 +4380,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>the external id that can be generated by user while creating the invoice</td>
 </tr>
 </tbody></table>
-<h5 id='response-body-7'>Response Body</h5>
+<h5 id='response-body-8'>Response Body</h5>
 <table><thead>
 <tr>
 <th>parameter</th>
@@ -3804,7 +4411,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>cartItems.currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>this is the currency associated with the price field. [ BTC, ETH, BNB, USDT, BUSD_ETH, DAI, FRAX, TRX, USDT_TRX, XDG, USD, EUR, RUB, UAH, KZT ]</td>
+<td>this is the currency associated with the price field. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, EUR, FRAX, KZT, MATIC, RUB, TRX, UAH, USD, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>cartItems.price</td>
@@ -3834,7 +4441,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>represents the currency of the invoice.</td>
+<td>represents the currency of the invoice. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>description</td>
@@ -3847,6 +4454,12 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>string</td>
 <td>No</td>
 <td>represents server timestamp of invoice expiration moment.</td>
+</tr>
+<tr>
+<td>externalId</td>
+<td>string</td>
+<td>No</td>
+<td>merchant ID that can be assigned to invoice or several invoices in string format.</td>
 </tr>
 <tr>
 <td>fee</td>
@@ -3942,13 +4555,13 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>invoicePayments.currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>currency of the withdrawal</td>
+<td>currency of the withdrawal. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>invoicePayments.feeCurrency</td>
 <td>string</td>
 <td>Yes</td>
-<td>currency of the transaction fee for the withdrawal</td>
+<td>currency of the transaction fee for the withdrawal. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>invoicePayments.hotWallet</td>
@@ -4228,7 +4841,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>assets.currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>this is the currency associated with the amount field.</td>
+<td>this is the currency associated with the amount field. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>assets.isToken</td>
@@ -4252,7 +4865,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>assets.totalInFiat.{currency}</td>
 <td>number</td>
 <td>Yes</td>
-<td>total amount of funds in all wallets in particular fiat currency</td>
+<td>total amount of funds in all wallets in particular fiat currency. [ USD, EUR, RUB, UAH, KZT ]</td>
 </tr>
 <tr>
 <td>assets.wallets</td>
@@ -4288,7 +4901,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>assets.wallets.currency</td>
 <td>string</td>
 <td>No</td>
-<td>this is the currency associated with the amount field of wallet.</td>
+<td>this is the currency associated with the amount field of wallet. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>assets.wallets.name</td>
@@ -4312,7 +4925,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>overallBalance.totalInFiat.{currency}</td>
 <td>number</td>
 <td>Yes</td>
-<td>the total balance in particular fiat currencies.</td>
+<td>the total balance in particular fiat currencies.  USD, EUR, RUB, UAH, KZT ]</td>
 </tr>
 <tr>
 <td>overallBalance.totalInPercentage</td>
@@ -4324,7 +4937,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>overallBalance.totalInPercentage.{currency}</td>
 <td>number</td>
 <td>Yes</td>
-<td>the total balance in percentage of particular crypto currency.</td>
+<td>the total balance in percentage of particular crypto currency. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 </tbody></table>
 <h2 id='new-payout'>New Payout</h2>
@@ -4462,7 +5075,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>request.currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>this is the currency associated with the amount field. [ BTC, BUSD_ETH, DAI, ETH, FRAX, TRX, USDT, USDT_TRX, XDG ]</td>
+<td>this is the currency associated with the amount field. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>request.networkFeeRatio</td>
@@ -4526,7 +5139,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>this is the currency associated with the amount field.</td>
+<td>this is the currency associated with the amount field. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>errors</td>
@@ -4604,7 +5217,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>networkFeeCurrency</td>
 <td>string</td>
 <td>Yes</td>
-<td>this is the currency associated with the networkfee field.</td>
+<td>this is the currency associated with the networkfee field. [ BNB, BTC, ETH, MATIC, TRX, XDG ]</td>
 </tr>
 <tr>
 <td>networkFeePercentage</td>
@@ -4788,7 +5401,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>this is the currency associated with the amount field.</td>
+<td>this is the currency associated with the amount field. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>errors</td>
@@ -4866,7 +5479,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>networkFeeCurrency</td>
 <td>string</td>
 <td>Yes</td>
-<td>this is the currency associated with the networkfee field.</td>
+<td>this is the currency associated with the networkfee field. [ BNB, BTC, ETH, MATIC, TRX, XDG ]</td>
 </tr>
 <tr>
 <td>networkFeePercentage</td>
@@ -5086,7 +5699,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>result.currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>this is the currency associated with the amount field.</td>
+<td>this is the currency associated with the amount field. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>result.errors</td>
@@ -5164,7 +5777,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>result.networkFeeCurrency</td>
 <td>string</td>
 <td>Yes</td>
-<td>this is the currency associated with the networkfee field.</td>
+<td>this is the currency associated with the networkfee field. [ BNB, BTC, ETH, MATIC, TRX, XDG ]</td>
 </tr>
 <tr>
 <td>result.networkFeePercentage</td>
@@ -5388,7 +6001,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>request.dealWithdrawals.currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>this is the currency associated with the amount field. [ BTC, BUSD_ETH, DAI, ETH, FRAX, TRX, USDT, USDT_TRX, XDG ]</td>
+<td>this is the currency associated with the amount field. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>request.dealWithdrawals.networkFeeRatio</td>
@@ -5446,7 +6059,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>transaction currency.</td>
+<td>transaction currency. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>errors</td>
@@ -5524,7 +6137,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>networkFeeCurrency</td>
 <td>enum</td>
 <td>Yes</td>
-<td>this is the currency associated with the networkfee field.</td>
+<td>this is the currency associated with the networkfee field. [ BNB, BTC, ETH, MATIC, TRX, XDG ]</td>
 </tr>
 <tr>
 <td>networkfeeratio</td>
@@ -5745,7 +6358,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>result.currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>transaction currency.</td>
+<td>transaction currency. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>result.errors</td>
@@ -5823,7 +6436,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>result.networkFeeCurrency</td>
 <td>enum</td>
 <td>Yes</td>
-<td>this is the currency associated with the networkfee field.</td>
+<td>this is the currency associated with the networkfee field. [ BNB, BTC, ETH, MATIC, TRX, XDG ]</td>
 </tr>
 <tr>
 <td>result.networkfeeratio</td>
@@ -6038,7 +6651,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>transaction currency.</td>
+<td>transaction currency. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>errors</td>
@@ -6116,7 +6729,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>networkFeeCurrency</td>
 <td>enum</td>
 <td>Yes</td>
-<td>this is the currency associated with the networkfee field.</td>
+<td>this is the currency associated with the networkfee field. [ BNB, BTC, ETH, MATIC, TRX, XDG ]</td>
 </tr>
 <tr>
 <td>networkfeeratio</td>
@@ -6338,7 +6951,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>this is the currency associated with the amount field. [ BTC, BUSD_ETH, DAI, ETH, FRAX, TRX, USDT, USDT_TRX, XDG ]</td>
+<td>this is the currency associated with the amount field. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>hash</td>
@@ -6374,7 +6987,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>networkFeeCurrency</td>
 <td>string</td>
 <td>Yes</td>
-<td>this is the currency associated with the networkfee field. [ BTC, BUSD_ETH, DAI, ETH, FRAX, TRX, USDT, USDT_TRX, XDG ]</td>
+<td>this is the currency associated with the networkfee field. [ BNB, BTC, ETH, MATIC, TRX, XDG ]</td>
 </tr>
 <tr>
 <td>networkFeeRatio</td>
@@ -6593,7 +7206,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>currency</td>
 <td>string</td>
 <td>Yes</td>
-<td>this is the currency associated with the amount field. [ BTC, BUSD_ETH, DAI, ETH, FRAX, TRX, USDT, USDT_TRX, XDG ]</td>
+<td>this is the currency associated with the amount field. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>hash</td>
@@ -6629,7 +7242,7 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>networkFeeCurrency</td>
 <td>string</td>
 <td>Yes</td>
-<td>this is the currency associated with the networkfee field. [ BTC, BUSD_ETH, DAI, ETH, FRAX, TRX, USDT, USDT_TRX, XDG ]</td>
+<td>this is the currency associated with the networkfee field. [ BNB, BTC, ETH, MATIC, TRX, XDG ]</td>
 </tr>
 <tr>
 <td>networkFeeRatio</td>
@@ -6791,7 +7404,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>request.currency</td>
 <td>STRING</td>
 <td>Yes</td>
-<td>This is the currency associated with the amount field.</td>
+<td>This is the currency associated with the amount field. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>request.depositAddress</td>
@@ -6946,7 +7559,7 @@ request.idempotencyKey | string | No | the external id that can be generated by 
 |clientAddress|string|Yes      |crypto address for deposit.|
 |comment  |string|No       |comment for the payout.|
 |createdDate|string|Yes      |time of payout creation.|
-|currency |string|Yes      |this is the currency associated with the amount field.|
+|currency |string|Yes      |this is the currency associated with the amount field. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]|
 |dealExchange |object |No |object with information about exchange process.|
 |dealExchange.destinationAmount |number |No |amount in fiat currency that will be received after exchange. |
 |dealExchange.destinationCurrency |string |No |fiat currency that will be received after exchange [ EUR ] |
@@ -6967,7 +7580,7 @@ request.idempotencyKey | string | No | the external id that can be generated by 
 |hash     |string|No       |transaction hash.|
 |id       |number|Yes      |payout id    |
 |networkFee|number|Yes      |is a cryptocurrency transaction fee that is charged to users when performing crypto transactions.|
-|networkFeeCurrency|string|Yes      |this is the currency associated with the networkfee field.|
+|networkFeeCurrency|string|Yes      |this is the currency associated with the networkfee field. [ BNB, BTC, ETH, MATIC, TRX, XDG ]|
 |networkFeePercentage|number|Yes      |describes percentage that should be applied to the executed payout amount to calculate the commission amount.|
 |networkFeeRatio|number|Yes      |selected network fee coefficient (see get expected transaction fee).|
 |state    |string|Yes      |represents status of the payout. [ PENDING_CONFIRMATION, CONFIRMED, IN_PROGRESS, COMPLETED, FAILED, CANCELED ]|
@@ -7077,7 +7690,7 @@ Content-Type | STRING | Yes | must be set to application/json for requests to th
 |request  |object|Yes      |this object contains request details.|
 |request.withdrawalAddress|string|Yes      |sender's cryptoaddress.|
 |request.amount|number|Yes      |withdrawal amount.|
-|request.currency|string|Yes      |this is the currency associated with the amount field. [ BTC, BUSD_ETH, DAI, ETH, FRAX, TRX, USDT, USDT_TRX, XDG ]|
+|request.currency|string|Yes      |this is the currency associated with the amount field. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]|
 |request.fiatRequisitesId|string|Yes|identificator of requisites where bank transfer will be sent to. Manage requisites is possible through requisites api. |
 |request.fiatType|string|Yes|type of bank transfer [SEPA, SWIFT] |
 |request.networkFeeRatio|number|Yes      |selected network fee coefficient (see get expected transaction fee).|
@@ -7098,7 +7711,7 @@ Content-Type | STRING | Yes | must be set to application/json for requests to th
 |clientAddress|string|Yes      |crypto address for deposit.|
 |comment  |string|No       |comment for the payout.|
 |createdDate|string|Yes      |time of payout creation.|
-|currency |string|Yes      |this is the currency associated with the amount field.|
+|currency |string|Yes      |this is the currency associated with the amount field. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]|
 |dealExchange |object |No |object with information about exchange process.|
 |dealExchange.destinationAmount |number |No |amount in fiat currency that will be received after exchange. |
 |dealExchange.destinationCurrency |string |No |fiat currency that will be received after exchange [ EUR ] |
@@ -7119,7 +7732,7 @@ Content-Type | STRING | Yes | must be set to application/json for requests to th
 |hash     |string|No       |transaction hash.|
 |id       |number|Yes      |payout id    |
 |networkFee|number|Yes      |is a cryptocurrency transaction fee that is charged to users when performing crypto transactions.|
-|networkFeeCurrency|string|Yes      |this is the currency associated with the networkfee field.|
+|networkFeeCurrency|string|Yes      |this is the currency associated with the networkfee field. [ BNB, BTC, ETH, MATIC, TRX, XDG ]|
 |networkFeePercentage|number|Yes      |describes percentage that should be applied to the executed payout amount to calculate the commission amount.|
 |networkFeeRatio|number|Yes      |selected network fee coefficient (see get expected transaction fee).|
 |state    |string|Yes      |represents status of the payout. [ PENDING_CONFIRMATION, CONFIRMED, IN_PROGRESS, COMPLETED, FAILED, CANCELED ]|
@@ -7252,7 +7865,7 @@ Content-Type | STRING | Yes | must be set to application/json for requests to th
 |result.clientAddress|string|Yes      |crypto address for deposit.|
 |result.comment  |string|No       |comment for the payout.|
 |result.createdDate|string|Yes      |time of payout creation.|
-|result.currency |string|Yes      |this is the currency associated with the amount field.|
+|result.currency |string|Yes      |this is the currency associated with the amount field. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]|
 |result.dealExchange |object |No |object with information about exchange process.|
 |result.dealExchange.destinationAmount |number |No |amount in fiat currency that will be received after exchange. |
 |result.dealExchange.destinationCurrency |string |No |fiat currency that will be received after exchange [ EUR ] |
@@ -7273,7 +7886,7 @@ Content-Type | STRING | Yes | must be set to application/json for requests to th
 |result.hash     |string|No       |transaction hash.|
 |result.id       |number|Yes      |payout id    |
 |result.networkFee|number|Yes      |is a cryptocurrency transaction fee that is charged to users when performing crypto transactions.|
-|result.networkFeeCurrency|string|Yes      |this is the currency associated with the networkfee field.|
+|result.networkFeeCurrency|string|Yes      |this is the currency associated with the networkfee field. [ BNB, BTC, ETH, MATIC, TRX, XDG ]|
 |result.networkFeePercentage|number|Yes      |describes percentage that should be applied to the executed payout amount to calculate the commission amount.|
 |result.networkFeeRatio|number|Yes      |selected network fee coefficient (see get expected transaction fee).|
 |result.state    |string|Yes      |represents status of the payout. [ PENDING_CONFIRMATION, CONFIRMED, IN_PROGRESS, COMPLETED, FAILED, CANCELED ]|
@@ -7366,7 +7979,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>request.blockchain</td>
 <td>string</td>
 <td>Yes</td>
-<td>blockchain where you create wallet [ BITCOIN, DOGECOIN, ETHEREUM, TRON ]</td>
+<td>blockchain where you create wallet [ BITCOIN, ETHEREUM, BINANCE_SMART_CHAIN, TRON, DOGECOIN, POLYGON ]</td>
 </tr>
 <tr>
 <td>request.name</td>
@@ -7709,6 +8322,10 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>INVOICE_FAILED</td>
 <td>Not enough funds in base currency for token invoice in order to send money from invoice wallet to your wallet</td>
 </tr>
+<tr>
+<td>INVOICE_EXPIRED</td>
+<td>Invoice expiration date has expired.</td>
+</tr>
 </tbody></table>
 
 <p><strong>PAYOUT</strong></p>
@@ -7841,7 +8458,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <tr>
 <td>currency</td>
 <td>string</td>
-<td>currency of the invoice.</td>
+<td>currency of the invoice. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>parentExternalId</td>
@@ -7857,6 +8474,11 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>idempotencyKey</td>
 <td>string</td>
 <td>the external id that was generated while invoice creating through api.</td>
+</tr>
+<tr>
+<td>externalId</td>
+<td>string</td>
+<td>merchant ID of invoice</td>
 </tr>
 </tbody></table>
 <h5 id='invoice_create_unlimited_invoice'>INVOICE_CREATE_UNLIMITED_INVOICE</h5>
@@ -7880,7 +8502,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <tr>
 <td>currency</td>
 <td>string</td>
-<td>currency of the invoice.</td>
+<td>currency of the invoice. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>parentExternalId</td>
@@ -7896,6 +8518,11 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>idempotencyKey</td>
 <td>string</td>
 <td>the external id that was generated while invoice creating through api.</td>
+</tr>
+<tr>
+<td>externalId</td>
+<td>string</td>
+<td>merchant ID of invoice</td>
 </tr>
 </tbody></table>
 <h5 id='invoice_funds_received_for_invoice'>INVOICE_FUNDS_RECEIVED_FOR_INVOICE</h5>
@@ -7924,7 +8551,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <tr>
 <td>currency</td>
 <td>string</td>
-<td>currency of the invoice.</td>
+<td>currency of the invoice. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>parentExternalId</td>
@@ -7945,6 +8572,11 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>idempotencyKey</td>
 <td>string</td>
 <td>the external id that was generated while invoice creating through api.</td>
+</tr>
+<tr>
+<td>externalId</td>
+<td>string</td>
+<td>merchant ID of invoice</td>
 </tr>
 </tbody></table>
 <h5 id='invoice_translation_to_wallet_completed'>INVOICE_TRANSLATION_TO_WALLET_COMPLETED</h5>
@@ -7978,7 +8610,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <tr>
 <td>currency</td>
 <td>string</td>
-<td>currency of the invoice.</td>
+<td>currency of the invoice. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>parentExternalId</td>
@@ -8010,6 +8642,11 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>string</td>
 <td>the external id that was generated while invoice creating through api.</td>
 </tr>
+<tr>
+<td>externalId</td>
+<td>string</td>
+<td>merchant ID of invoice</td>
+</tr>
 </tbody></table>
 <h5 id='invoice_pending_intervention'>INVOICE_PENDING_INTERVENTION</h5>
 <table><thead>
@@ -8039,6 +8676,11 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>string</td>
 <td>the external id that was generated while invoice creating through api.</td>
 </tr>
+<tr>
+<td>externalId</td>
+<td>string</td>
+<td>merchant ID of invoice</td>
+</tr>
 </tbody></table>
 <h5 id='invoice_failed'>INVOICE_FAILED</h5>
 <table><thead>
@@ -8066,7 +8708,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <tr>
 <td>currency</td>
 <td>string</td>
-<td>currency of the invoice.</td>
+<td>currency of the invoice. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 <tr>
 <td>message</td>
@@ -8091,7 +8733,66 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <tr>
 <td>feeCurrency</td>
 <td>string</td>
-<td>currency of the transaction fee for operation</td>
+<td>currency of the transaction fee for operation. [ BNB, BTC, ETH, MATIC, TRX, XDG ]</td>
+</tr>
+<tr>
+<td>externalId</td>
+<td>string</td>
+<td>merchant ID of invoice</td>
+</tr>
+</tbody></table>
+<h5 id='invoice_expired'>INVOICE_EXPIRED</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>Event type: INVOICE_EXPIRED</td>
+</tr>
+<tr>
+<td>parentExternalId</td>
+<td>number</td>
+<td>system id of the invoice.</td>
+</tr>
+<tr>
+<td>idempotencyKey</td>
+<td>string</td>
+<td>the external id that was generated while invoice creating through api.</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>number</td>
+<td>money amount of the invoice.</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>string</td>
+<td>currency of the invoice. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
+</tr>
+<tr>
+<td>message</td>
+<td>string</td>
+<td>description of the invoice.</td>
+</tr>
+<tr>
+<td>createdDate</td>
+<td>string</td>
+<td>date and time of invoice creation.</td>
+</tr>
+<tr>
+<td>expirationDate</td>
+<td>string</td>
+<td>date and time of invoice expiration.</td>
+</tr>
+<tr>
+<td>externalId</td>
+<td>string</td>
+<td>merchant ID of invoice</td>
 </tr>
 </tbody></table>
 <h5 id='payout_change_status'>PAYOUT_CHANGE_STATUS</h5>
