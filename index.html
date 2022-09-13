@@ -373,6 +373,9 @@
                   <li>
                     <a href="#resolve-intervention-and-receive-money-to-the-wallet" class="toc-h2 toc-link" data-title="Resolve intervention and receive money to the wallet">Resolve intervention and receive money to the wallet</a>
                   </li>
+                  <li>
+                    <a href="#get-all-deposits-for-the-invoice" class="toc-h2 toc-link" data-title="Get all deposits for the invoice">Get all deposits for the invoice</a>
+                  </li>
               </ul>
           </li>
           <li>
@@ -703,13 +706,22 @@
 <h2 id='payment-widget'>Payment Widget</h2><h5 id='overview-3'><strong>Overview</strong></h5>
 <p>Calypso provides users with the ability to generate widgets for invoice payment, which can be sent to the client or embedded on any web page. The widget indicates the amount to be paid, the available cryptocurrencies and description of payment. When paying the amount specified in the fiat currency, the exchange rate is fixed for 15 minutes (60 minutes for BTC) from the moment the invoice is created.</p>
 
+<p>There are 3 types of payment widget depending on use case you need:</p>
+
+<ul>
+<li>A single payment for a product with a fixed price. The price customer needs to pay is defined by merchant in fiat currency.</li>
+<li>A single payment with a customer-defined price. The customer inputs the amount he wants to pay.</li>
+<li>Several payments with a customer-defined price. The customer can pay many times any amount of money for one invoice.</li>
+</ul>
+
 <p><img src="images/payment_widget_overview-c2d9bbb1.png" width="95%" height="90%" style="margin: 5%"/></p>
 <h5 id='features-4'><strong>Features</strong>:</h5>
 <ul>
 <li>Payment of an invoice without the need to create it specifically in the system</li>
-<li>Allows to specify the payment amount in a fiat currency</li>
+<li>Allows to specify the payment amount in a fiat currency or to give a posibility to define the payment amount to customer</li>
 <li>Exchange rate is fixed for 15 minutes</li>
 <li>Flexible parameter setting: the ability to choose a different cryptocurrency, full or reduced frame of widget, add a description</li>
+<li>The possibility to pay for one invoice unlimited number of time</li>
 </ul>
 <h5 id='how-does-it-work-2'><strong>How does it work?</strong></h5>
 <ol>
@@ -767,27 +779,35 @@
 
 <span class="nt">&lt;/html&gt;</span>
 </code></pre></div>
-<p>To access the widget, a link is formed with a certain set of parameters:
-<strong>https://ui.calypso.finance/payment?currency={<em>fiat_currency</em>}&amp;amount={<em>payment_amount</em>}&amp;description={<em>text</em>}&amp;btc_wallet={<em>btc_address</em>}&amp;eth_wallet={<em>eth_address</em>}&amp;usdt_wallet={<em>usdt_address</em>}&amp;trx_wallet={<em>trx_address</em>}&amp;usdt_trx_wallet={<em>usdt_trx_address</em>}&amp;xdg_wallet={<em>xdg_address</em>}&amp;dai_wallet={<em>dai_address</em>}&amp;frax_wallet={<em>frax_address</em>}&amp;usdc_wallet={<em>usdc_address</em>}&amp;busd_eth_wallet={<em>busd_eth_address</em>}&amp;bnb_wallet={<em>bnb_address</em>}&amp;busd_wallet={<em>busd_address</em>}&amp;matic_wallet={<em>matic_address</em>}&amp;usdt_matic_wallet={<em>usdt_matic_address</em>}&amp;key={<em>genereted_reusable_key</em>}&amp;full={<em>true_or_false</em>}&amp;idempotency_key={<em>idempotency_key</em>}&amp;logo_url={<em>logo_logo</em>}&amp;return_url={<em>url_to_return_page</em>}&amp;support_url={<em>support_url</em>}</strong></p>
+<p>To access the widget, a link is formed with a certain set of parameters. Depending on the specified parameters you can create different types of payment widget for particular use case you need.</p>
+<h4 id='a-single-payment-for-a-product-with-a-fixed-price'>A single payment for a product with a fixed price</h4>
+<p><strong>https://ui.calypso.finance/payment?currency={<em>fiat_currency</em>}&amp;amount={<em>payment_amount</em>}&amp;description={<em>text</em>}&amp;btc_wallet={<em>btc_address</em>}&amp;eth_wallet={<em>eth_address</em>}&amp;usdt_wallet={<em>usdt_address</em>}&amp;trx_wallet={<em>trx_address</em>}&amp;usdt_trx_wallet={<em>usdt_trx_address</em>}&amp;xdg_wallet={<em>xdg_address</em>}&amp;dai_wallet={<em>dai_address</em>}&amp;frax_wallet={<em>frax_address</em>}&amp;usdc_wallet={<em>usdc_address</em>}&amp;busd_eth_wallet={<em>busd_eth_address</em>}&amp;bnb_wallet={<em>bnb_address</em>}&amp;busd_wallet={<em>busd_address</em>}&amp;matic_wallet={<em>matic_address</em>}&amp;usdt_matic_wallet={<em>usdt_matic_address</em>}&amp;key={<em>genereted_reusable_key</em>}&amp;full={<em>true_or_false</em>}&amp;idempotency_key={<em>idempotency_key</em>}&amp;logo_url={<em>logo_logo</em>}&amp;return_url={<em>url_to_return_page</em>}&amp;support_url={<em>support_url</em>}</strong></p>
+<h4 id='a-single-payment-with-a-customer-defined-price'>A single payment with a customer-defined price</h4>
+<p><strong>https://ui.calypso.finance/payment?currency={<em>fiat_currency</em>}&amp;description={<em>text</em>}&amp;btc_wallet={<em>btc_address</em>}&amp;eth_wallet={<em>eth_address</em>}&amp;usdt_wallet={<em>usdt_address</em>}&amp;trx_wallet={<em>trx_address</em>}&amp;usdt_trx_wallet={<em>usdt_trx_address</em>}&amp;xdg_wallet={<em>xdg_address</em>}&amp;dai_wallet={<em>dai_address</em>}&amp;frax_wallet={<em>frax_address</em>}&amp;usdc_wallet={<em>usdc_address</em>}&amp;busd_eth_wallet={<em>busd_eth_address</em>}&amp;bnb_wallet={<em>bnb_address</em>}&amp;busd_wallet={<em>busd_address</em>}&amp;matic_wallet={<em>matic_address</em>}&amp;usdt_matic_wallet={<em>usdt_matic_address</em>}&amp;key={<em>genereted_reusable_key</em>}&amp;full={<em>true_or_false</em>}&amp;idempotency_key={<em>idempotency_key</em>}&amp;logo_url={<em>logo_logo</em>}&amp;return_url={<em>url_to_return_page</em>}&amp;support_url={<em>support_url</em>}</strong></p>
+<h3 id='several-payments-with-a-customer-defined-price'>Several payments with a customer-defined price</h3>
+<p><strong>https://ui.calypso.finance/payment?type=unlimited&amp;description={<em>text</em>}&amp;key={<em>genereted_reusable_key</em>}&amp;full={<em>true_or_false</em>}&amp;idempotency_key={<em>idempotency_key</em>}&amp;logo_url={<em>logo_logo</em>}&amp;return_url={<em>url_to_return_page</em>}&amp;support_url={<em>support_url</em>}</strong></p>
+
+<p>Depending on the specified parameters you can create different types of payment widget for particular use case you need.</p>
 <h5 id='description-of-parameters'>Description of parameters</h5>
 <ul>
-<li><strong>currency</strong> - the currency in which the payment is made; string, obligatory.</li>
-<li><strong>amount</strong> - the amount for which the payment is made; number, obligatory.</li>
+<li><strong>currency</strong> - the currency in which the payment is made. Not obligatory for unlimited payments; string, optional.</li>
+<li><strong>amount</strong> - the amount for which the payment is made. Don&#39;t specify it if you want to give possibility to customer to difine the amount of money he will pay; number, optional.</li>
+<li><strong>type</strong> - type of payment widget. Default value is &quot;fiat&quot;. Set value &quot;unlimited&quot; if you want to create widget for unlimited payments; string, optional.</li>
 <li><strong>description</strong> - description or comment that is displayed in the widget; string, obligatory.</li>
-<li><strong>btc_wallet</strong> - the address of the bitcoin wallet to which the funds from the invoice payment will be received; string, optional.</li>
-<li><strong>eth_wallet</strong> - the address of the ethereum wallet to which the funds from the invoice payment will be received; string, optional.</li>
-<li><strong>usdt_wallet</strong> - the address of the ethereum wallet to which the funds from the invoice payment will be received in USDT; string, optional.</li>
-<li><strong>trx_wallet</strong> - the address of the tron wallet to which the funds from the invoice payment will be received; string, optional.</li>
-<li><strong>usdt_trx_wallet</strong> - the address of the tron wallet to which the funds from the invoice payment will be received in USDT (TRC20); string, optional.</li>
-<li><strong>xdg_wallet</strong> - the address of the doge wallet to which the funds from the invoice payment will be received; string, optional.</li>
-<li><strong>dai_wallet</strong> - the address of the ethereum wallet to which the funds from the invoice payment will be received in DAI; string, optional.</li>
-<li><strong>frax_wallet</strong> - the address of the ethereum wallet to which the funds from the invoice payment will be received in FRAX; string, optional.</li>
-<li><strong>usdc_wallet</strong> - the address of the ethereum wallet to which the funds from the invoice payment will be received in USDT; string, optional.</li>
-<li><strong>busd_eth_wallet</strong> - the address of the ethereum wallet to which the funds from the invoice payment will be received in BUSD (ERC20); string, optional.</li>
-<li><strong>bnb_wawllet</strong> - the address of the binance smart chain wallet to which the funds from the invoice payment will be received; string, optional.</li>
-<li><strong>busd_wallet</strong> - the address of the binance smart chain wallet to which the funds from the invoice payment will be received in BUSD; string, optional.</li>
-<li><strong>matic_wallet</strong> - the address of the polygon wallet to which the funds from the invoice payment will be received; string, optional.</li>
-<li><strong>usdt_matic_wallet</strong> - the address of the polygon wallet to which the funds from the invoice payment will be received in USDT; string, optional.</li>
+<li><strong>btc_wallet</strong> - the address of the bitcoin wallet to which the funds from the invoice payment will be received. Not obligatory for unlimited payments; string, optional.</li>
+<li><strong>eth_wallet</strong> - the address of the ethereum wallet to which the funds from the invoice payment will be received.Not obligatory for unlimited payments; string, optional.</li>
+<li><strong>usdt_wallet</strong> - the address of the ethereum wallet to which the funds from the invoice payment will be received in USDT. Not obligatory for unlimited payments; string, optional.</li>
+<li><strong>trx_wallet</strong> - the address of the tron wallet to which the funds from the invoice payment will be received. Not obligatory for unlimited payments; string, optional.</li>
+<li><strong>usdt_trx_wallet</strong> - the address of the tron wallet to which the funds from the invoice payment will be received in USDT (TRC20). Not obligatory for unlimited payments; string, optional.</li>
+<li><strong>xdg_wallet</strong> - the address of the doge wallet to which the funds from the invoice payment will be received. Not obligatory for unlimited payments; string, optional.</li>
+<li><strong>dai_wallet</strong> - the address of the ethereum wallet to which the funds from the invoice payment will be received in DAI. Not obligatory for unlimited payments; string, optional.</li>
+<li><strong>frax_wallet</strong> - the address of the ethereum wallet to which the funds from the invoice payment will be received in FRAX. Not obligatory for unlimited payments; string, optional.</li>
+<li><strong>usdc_wallet</strong> - the address of the ethereum wallet to which the funds from the invoice payment will be received in USDT. Not obligatory for unlimited payments; string, optional.</li>
+<li><strong>busd_eth_wallet</strong> - the address of the ethereum wallet to which the funds from the invoice payment will be received in BUSD (ERC20). Not obligatory for unlimited payments; string, optional.</li>
+<li><strong>bnb_wawllet</strong> - the address of the binance smart chain wallet to which the funds from the invoice payment will be received. Not obligatory for unlimited payments; string, optional.</li>
+<li><strong>busd_wallet</strong> - the address of the binance smart chain wallet to which the funds from the invoice payment will be received in BUSD. Not obligatory for unlimited payments; string, optional.</li>
+<li><strong>matic_wallet</strong> - the address of the polygon wallet to which the funds from the invoice payment will be received. Not obligatory for unlimited payments; string, optional.</li>
+<li><strong>usdt_matic_wallet</strong> - the address of the polygon wallet to which the funds from the invoice payment will be received in USDT. Not obligatory for unlimited payments; string, optional.</li>
 <li><strong>key</strong> - a reusable key with a limited validity period, which is generated by the user via the Public API using the api key; string, obligatory.</li>
 <li><strong>full</strong> - if true, the full version of the widget is displayed, if false, the mini version of the widget is shown; boolean; optional.</li>
 <li><strong>idempotencyKey</strong> - idempotency key in the uuid4 format, that allows to get created invoice by idempotencyKey field; string, optional.</li>
@@ -4682,6 +4702,210 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>boolean</td>
 <td>No</td>
 <td>defines whether fee for transaction will be charged from liquidity wallet of Calypso (true) or from merchant wallet (false)</td>
+</tr>
+</tbody></table>
+<h2 id='get-all-deposits-for-the-invoice'>Get all deposits for the invoice</h2>
+<blockquote>
+<p>Request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.calypso.finance/api/v1/pub/invoice/deposit/all'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+  "nonce": 0,
+  "request": {
+    "id": 0,
+    "idempotencyKey": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "pageNumber": 0,
+    "size": 0,
+    "direction": "ASC",
+    "property": "AMOUNT"
+  }
+}'</span>
+
+</code></pre></div>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"transactionHash"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-09-13T07:03:05.423Z"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"addressFrom"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"totalElements"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>This endpoint retreaves all deposits for the particular invoice.</p>
+<h5 id='http-request-9'>HTTP Request</h5>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/invoice/deposit/all</code></p>
+<h5 id='header-9'>Header</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Key</td>
+<td>string</td>
+<td>Yes</td>
+<td>&lt;your_api_key&gt;</td>
+</tr>
+<tr>
+<td>Sign</td>
+<td>string</td>
+<td>Yes</td>
+<td>&lt;your_sign&gt;</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>string</td>
+<td>Yes</td>
+<td>must be set to application/json for requests to the Calypso API</td>
+</tr>
+</tbody></table>
+<h5 id='request-body-9'>Request Body</h5>
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>nonce</td>
+<td>number</td>
+<td>Yes</td>
+<td>nonce used in construction of sign header.</td>
+</tr>
+<tr>
+<td>request</td>
+<td>object</td>
+<td>Yes</td>
+<td>this object contains request details.</td>
+</tr>
+<tr>
+<td>request.id</td>
+<td>number</td>
+<td>No</td>
+<td>system id of the invoice. Either id or idempotencyKey must be specified.</td>
+</tr>
+<tr>
+<td>request.idempotencyKey</td>
+<td>string</td>
+<td>No</td>
+<td>the external id that can be generated by user while creating the invoice.</td>
+</tr>
+<tr>
+<td>request.pageNumber</td>
+<td>number</td>
+<td>Yes</td>
+<td>specify the page of results to return.</td>
+</tr>
+<tr>
+<td>request.size</td>
+<td>number</td>
+<td>Yes</td>
+<td>a numeric value indicating the page size.</td>
+</tr>
+<tr>
+<td>request.direction</td>
+<td>string</td>
+<td>Yes</td>
+<td>the direction of this api call which can be asc or desc. [ ASC, DESC ]</td>
+</tr>
+<tr>
+<td>request.property</td>
+<td>string</td>
+<td>Yes</td>
+<td>the parameter by which deposits in response will be sorted. [ AMOUNT, CURRENCY, DATE ]</td>
+</tr>
+</tbody></table>
+<h5 id='response-body-9'>Response Body</h5>
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>page</td>
+<td>number</td>
+<td>Yes</td>
+<td>result page number.</td>
+</tr>
+<tr>
+<td>result</td>
+<td>array</td>
+<td>Yes</td>
+<td>this object contains response details.</td>
+</tr>
+<tr>
+<td>result.amount</td>
+<td>number</td>
+<td>Yes</td>
+<td>the amount of the deposit.</td>
+</tr>
+<tr>
+<td>result.currency</td>
+<td>string</td>
+<td>Yes</td>
+<td>the currency of the depostit. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
+</tr>
+<tr>
+<td>result.transactionHash</td>
+<td>string</td>
+<td>Yes</td>
+<td>the hash of income transaction.</td>
+</tr>
+<tr>
+<td>result.createdDate</td>
+<td>string</td>
+<td>Yes</td>
+<td>time of the deposit.</td>
+</tr>
+<tr>
+<td>result.addressFrom</td>
+<td>string</td>
+<td>Yes</td>
+<td>address of the transaction sender.</td>
+</tr>
+<tr>
+<td>size</td>
+<td>number</td>
+<td>Yes</td>
+<td>a numeric value indicating the page size.</td>
+</tr>
+<tr>
+<td>total</td>
+<td>number</td>
+<td>Yes</td>
+<td>the total number of pages matching the query.</td>
+</tr>
+<tr>
+<td>totalElements</td>
+<td>number</td>
+<td>Yes</td>
+<td>the total number of objects matching the query.</td>
 </tr>
 </tbody></table>
 <h1 id='payout-api'>Payout API</h1>
