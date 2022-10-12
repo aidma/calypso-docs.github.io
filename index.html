@@ -462,6 +462,29 @@
               </ul>
           </li>
           <li>
+            <a href="#payment-widget-api" class="toc-h1 toc-link" data-title="Payment widget API">Payment widget API</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#get-all-single-fiat-payment-widgets" class="toc-h2 toc-link" data-title="Get All Single Fiat payment widgets">Get All Single Fiat payment widgets</a>
+                  </li>
+                  <li>
+                    <a href="#get-single-fiat-payment-widget-by-id" class="toc-h2 toc-link" data-title="Get Single Fiat payment widget By ID">Get Single Fiat payment widget By ID</a>
+                  </li>
+                  <li>
+                    <a href="#create-new-single-fiat-payment-widget" class="toc-h2 toc-link" data-title="Create new Single Fiat payment widget">Create new Single Fiat payment widget</a>
+                  </li>
+                  <li>
+                    <a href="#get-all-unlimited-linked-payment-widgets" class="toc-h2 toc-link" data-title="Get All Unlimited Linked payment widgets">Get All Unlimited Linked payment widgets</a>
+                  </li>
+                  <li>
+                    <a href="#get-unlimited-linked-payment-widget-by-id" class="toc-h2 toc-link" data-title="Get Unlimited Linked payment widget By ID">Get Unlimited Linked payment widget By ID</a>
+                  </li>
+                  <li>
+                    <a href="#create-new-unlimited-linked-payment-widget" class="toc-h2 toc-link" data-title="Create new Unlimited Linked payment widget">Create new Unlimited Linked payment widget</a>
+                  </li>
+              </ul>
+          </li>
+          <li>
             <a href="#webhooks" class="toc-h1 toc-link" data-title="Webhooks">Webhooks</a>
               <ul class="toc-list-h2">
                   <li>
@@ -753,7 +776,27 @@
 <li>The possibility to pay for one invoice unlimited number of time</li>
 </ul>
 <h5 id='how-does-it-work-2'><strong>How does it work?</strong></h5>
+<p>There are two possible use cases for payment widget functionality.</p>
+
+<p>Using a static payment widget link (recommended way):</p>
+
 <ol>
+<li>The merchant specifies the currencies, description, expiration and other options and creates payment widget using Calypso APIs.</li>
+<li>The merchant receives payment widget unique idempotencyKey in response and forms a <strong><em>static</em></strong> link using this value. The static link means that client will always be able to open earlier created payment widget to see its state.</li>
+<li>A client follows the link and specifies the cryptocurrency he wants to pay with.</li>
+<li>The client clicks the button &quot;Proceed to payment&quot;.</li>
+<li>Clicking the button triggers a call to Calypso Invoice API to create a new invoice.</li>
+<li>When the invoice is created, the widget shows to the client a payment page.</li>
+<li>The client completes the payment.</li>
+<li>The client sees the message that transaction is processing.</li>
+<li>Transaction is completed by a network.</li>
+<li>The client sees the notification that payment is complete successfully.</li>
+</ol>
+
+<p>Using a dynamic payment widget link (<em>not recommended</em>):</p>
+
+<ol>
+<li>The merchant forms the link to create dynamic payment widget link. The dynamic link means that each time the client follows the link a new payment widget will be created with no way to see the state of previous payment.</li>
 <li>A client follow the link and specify the cryptocurrency he wants to pay with.</li>
 <li>The client clicks the button &quot;Proceed to payment&quot;.</li>
 <li>Clicking the button triggers a call to Calypso Invoice API to create a new invoice.</li>
@@ -765,16 +808,143 @@
 </ol>
 
 <p><strong>The examples of how you can use it in your service to accept different types of payments are provided on the <a href="http://paymentwidget.tilda.ws/">page</a></strong></p>
-<h5 id='how-to-create'>How to create?</h5>
-<p>To create a payment widget, there are the following steps to be performed:</p>
+<h5 id='how-to-create-and-use-a-static-payment-widget-recommended'>How to create and use a static payment widget? (recommended)</h5>
+<p>To create a static payment widget, there are the following steps to be performed:</p>
 
 <ul>
-<li>Send API request to generate a reusable key (<strong>POST http://public-gateway.calypso.finance/api/v1/pub/reusable-key-service</strong>)</li>
+<li>Send an API request to create SINGLE_FIAT or UNLIMITED_LINKED payment widget (<strong>POST http://public-gateway.calypso.finance/api/v1/pub/payment-widget/single-fiat/create</strong> or <strong>POST http://public-gateway.calypso.finance/api/v1/pub/payment-widget/unlimited-linked/create</strong>)</li>
+<li>Form a payment widget static link for sharing it with client using earlier received idempotencyKey in response</li>
+<li>Send formed link to the client or embed in the web site.</li>
+</ul>
+
+<blockquote>
+<p>Example of the create SINGLE_FIAT payment widget request:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="mi">13292792792</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"request"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Payment Widget №1"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"fiatAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">100</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"fiatCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"EUR"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"hotWallets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"reprehenderit ad"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"cryptoCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USDC"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tempor v"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"cryptoCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USDT"</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="p">{</span><span class="w">
+                </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"tempor v"</span><span class="p">,</span><span class="w">
+                </span><span class="nl">"cryptoCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"USDT_TRX"</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+        </span><span class="p">],</span><span class="w">
+        </span><span class="nl">"upperCommission"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"useLiquidity"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"returnUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://google.com/"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://google.com/"</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"idempotencyKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"e73ed7b1-a941-429e-9d59-315591bfeb68"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<blockquote>
+<p>Example of the create UNLIMITED_LINKED payment widget request:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"nonce"</span><span class="p">:</span><span class="w"> </span><span class="mi">13292792792</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"request"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"cryptoCurrencies"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+      </span><span class="s2">"MATIC"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"FRAX"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"USDT"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"USDT_TRX"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"ETH"</span><span class="p">,</span><span class="w">
+      </span><span class="s2">"BTC"</span><span class="w">
+    </span><span class="p">],</span><span class="w">
+    </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Unlimited Linked Payment Widget 1"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"upperCommission"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"useLiquidity"</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"returnUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://google.com/"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://google.com/"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"idempotencyKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3eea9433-d545-479f-95e1-0be86c7c8b59"</span><span class="w">
+  </span><span class="p">}</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>To access the widget, a static link is formed. This link allows you to always get access to the widget to see it&#39;s current payment state.</p>
+
+<p>The method of link generation is the same for both widget types (SINGLE_FIAT and UNLIMITED_LINKED):</p>
+
+<p><strong>https://ui.calypso.finance/pay?idempotencyKey={<em>idempotencyKey</em>}</strong></p>
+
+<blockquote>
+<p>Example of static payment widget embedded in the web site:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight html tab-html"><code><span class="c">&lt;!-- Put this code to the file index.html and open in browser to see how it works --&gt;</span>
+<span class="nt">&lt;html&gt;</span>
+<span class="nt">&lt;head&gt;</span>
+    <span class="nt">&lt;title&gt;</span>Pay<span class="nt">&lt;/title&gt;</span>
+<span class="nt">&lt;/head&gt;</span>
+<span class="nt">&lt;body&gt;</span>
+    <span class="nt">&lt;style&gt;</span>
+        <span class="nc">.button_1661340660317</span> <span class="p">{</span>
+            <span class="nl">display</span><span class="p">:</span> <span class="n">inline-block</span> <span class="cp">!important</span><span class="p">;</span>
+            <span class="nl">text-decoration</span><span class="p">:</span> <span class="nb">none</span> <span class="cp">!important</span><span class="p">;</span>
+            <span class="nl">background-color</span><span class="p">:</span> <span class="m">#1e37ff</span> <span class="cp">!important</span><span class="p">;</span>
+            <span class="nl">color</span><span class="p">:</span> <span class="m">#ffffff</span> <span class="cp">!important</span><span class="p">;</span>
+            <span class="nl">border</span><span class="p">:</span> <span class="m">3px</span> <span class="nb">solid</span> <span class="m">#3967ff</span> <span class="cp">!important</span><span class="p">;</span>
+            <span class="nl">border-radius</span><span class="p">:</span> <span class="m">5px</span> <span class="cp">!important</span><span class="p">;</span>
+            <span class="nl">font-size</span><span class="p">:</span> <span class="m">16px</span> <span class="cp">!important</span><span class="p">;</span>
+            <span class="nl">padding</span><span class="p">:</span> <span class="m">17px</span> <span class="m">50px</span> <span class="cp">!important</span><span class="p">;</span>
+            <span class="nl">transition</span><span class="p">:</span> <span class="n">all</span> <span class="m">1.6s</span> <span class="n">ease</span> <span class="cp">!important</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nc">.button_1661340660317</span><span class="nd">:hover</span><span class="p">{</span>
+            <span class="nl">text-decoration</span><span class="p">:</span> <span class="nb">none</span> <span class="cp">!important</span><span class="p">;</span>
+            <span class="nl">background-color</span><span class="p">:</span> <span class="m">#8294ff</span> <span class="cp">!important</span><span class="p">;</span>
+            <span class="nl">color</span><span class="p">:</span> <span class="m">#ffffff</span> <span class="cp">!important</span><span class="p">;</span>
+            <span class="nl">border-color</span><span class="p">:</span> <span class="m">#4e67ff</span> <span class="cp">!important</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="nt">&lt;/style&gt;</span>
+        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"https://ui.calypso.finance/pay?idempotencyKey={*idempotencyKey*}"</span> <span class="na">class=</span><span class="s">"button_1661340660317"</span> <span class="na">target=</span><span class="s">"_blank"</span><span class="nt">&gt;</span>
+            Pay fix amount in crypto
+        <span class="nt">&lt;/a&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div><h5 id='payment-widget-statuses'><strong>Payment widget statuses</strong></h5>
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>IN_PROGRESS</td>
+<td>The payment widget has been created and is active</td>
+</tr>
+<tr>
+<td>COMPLETED</td>
+<td>The invoice created from payment widget has been payed</td>
+</tr>
+<tr>
+<td>ARCHIVED</td>
+<td>The payment widget has expired and was automatically archived</td>
+</tr>
+</tbody></table>
+
+<p>Diagram nodes indicate subscription statuses, arrows indicate processes of changing payment widget&#39;s state.</p>
+
+<p><img src="images/payment_widget_state_diagram-b22cab0f.png" width="95%" height="90%" style="margin: 5%"/></p>
+<h5 id='how-to-create-and-use-a-dynamic-payment-widget-not-recommended'>How to create and use a dynamic payment widget? (not recommended)</h5>
+<p>To create a dynamic payment widget, there are the following steps to be performed:</p>
+
+<ul>
+<li>Send an API request to create SINGLE_FIAT or UNLIMITED_LINKED payment widget (<strong>POST http://public-gateway.calypso.finance/api/v1/pub/reusable-key-service</strong>)</li>
 <li>Send link with payment widget and configured parameters to the client or embed it to the web-site where the payment is needed.</li>
 </ul>
 
 <blockquote>
-<p>Example of payment widget embedded in the web site:</p>
+<p>Example of dynamic payment widget embedded in the web site:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight html tab-html"><code><span class="c">&lt;!-- Put this code to the file index.html and open in browser to see how it works --&gt;</span>
 <span class="nt">&lt;html&gt;</span>
@@ -843,6 +1013,34 @@
 <li><strong>logo_url</strong> - link to the logo of merchant which will be shown in the payment widget. The logo must be in PNG format. Recommended size 100*24 px; string, optional.</li>
 <li><strong>return_url</strong> - link to the web page where client can come back to from payment widget; string, optional.</li>
 <li><strong>support_url</strong> - link to the merchant support page where client can go to from payment widget; string, optional.</li>
+</ul>
+<h4 id='quick-guide-on-payment-widget-type'>Quick guide on payment widget type</h4>
+<p>To summarize, here is a quick guide on what type of payment widget you need to use for your purposes.</p>
+
+<ol>
+<li>If you want to receive a <strong>single payment</strong> for your product with a <strong>fixed predetermined price</strong> you&#39;ll need to use:</li>
+</ol>
+
+<ul>
+<li>A SINGLE_FIAT static payment widget (recommended)</li>
+<li>A dynamic payment widget with fixed price set of parameters</li>
+</ul>
+
+<ol>
+<li>If you want to receive a <strong>single payment</strong> for your product with a <strong>customer-defined price</strong> you&#39;ll need to use:</li>
+</ol>
+
+<ul>
+<li>A dynamic payment widget with a customer-defined price set of parameters</li>
+</ul>
+
+<ol>
+<li>If you want to receive <strong>several payments</strong> with a <strong>customer-defined price</strong> you&#39;ll need to use:</li>
+</ol>
+
+<ul>
+<li>An UNLIMITED_LINKED static payment widget (recommended)</li>
+<li>A dynamic payment widget with several payments &amp; customer-defined price set of parameters</li>
 </ul>
 
 <!-- ### **Invoice limits**
@@ -1088,7 +1286,7 @@
 
 <p>Diagram nodes indicate subscription statuses, arrows indicate processes of a successful completion of subscription steps or occurring errors.</p>
 
-<p><img src="images/recurrent_state_diagram-7268b1b0.png" width="95%" height="90%" style="margin: 5%"/></p>
+<p><img src="images/recurrent_state_diagram-a829b467.png" width="95%" height="90%" style="margin: 5%"/></p>
 <h1 id='authentication'>Authentication</h1>
 <blockquote>
 <p>Example</p>
@@ -5542,33 +5740,8 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
 </span><span class="p">{</span><span class="w">
-  </span><span class="nl">"assets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"isToken"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-      </span><span class="nl">"totalInFiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-        </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-      </span><span class="p">},</span><span class="w">
-      </span><span class="nl">"wallets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-        </span><span class="p">{</span><span class="w">
-          </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"amount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"amountInFiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-            </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
-            </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
-          </span><span class="p">},</span><span class="w">
-          </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
-          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
-        </span><span class="p">}</span><span class="w">
-      </span><span class="p">]</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">],</span><span class="w">
   </span><span class="nl">"overallBalance"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"totalInFiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"availableTotalInFiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
       </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
       </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
       </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
@@ -5578,7 +5751,44 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
       </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
       </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
     </span><span class="p">}</span><span class="w">
-  </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"assets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"isToken"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"serviceFee"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"totalAvailable"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"totalAvailableInFiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="nl">"wallets"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"mainCurrencyAsset"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"availableAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"availableAmountInFiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+              </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+            </span><span class="p">}</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="nl">"availableAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"availableAmountInFiat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+            </span><span class="nl">"additionalProp1"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"additionalProp2"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+            </span><span class="nl">"additionalProp3"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">]</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">]</span><span class="w">
 </span><span class="p">}</span><span class="w">
 
 </span></code></pre></div>
@@ -5639,6 +5849,36 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 </tr>
 </thead><tbody>
 <tr>
+<td>overallBalance</td>
+<td>object</td>
+<td>Yes</td>
+<td>object with information about the total balance</td>
+</tr>
+<tr>
+<td>overallBalance.availableTotalInFiat</td>
+<td>object</td>
+<td>Yes</td>
+<td>the total available balance in different fiat currencies.</td>
+</tr>
+<tr>
+<td>overallBalance.availableTotalInFiat.{currency}</td>
+<td>number</td>
+<td>Yes</td>
+<td>the total balance in particular fiat currencies.  USD, EUR, RUB, UAH, KZT ]</td>
+</tr>
+<tr>
+<td>overallBalance.totalInPercentage</td>
+<td>object</td>
+<td>Yes</td>
+<td>the total balance in percentage of crypto currencies.</td>
+</tr>
+<tr>
+<td>overallBalance.totalInPercentage.{currency}</td>
+<td>number</td>
+<td>Yes</td>
+<td>the total balance in percentage of particular crypto currency. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
+</tr>
+<tr>
 <td>assets</td>
 <td>array</td>
 <td>Yes</td>
@@ -5657,22 +5897,28 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>represents whether the wallet is used for token currency or not.</td>
 </tr>
 <tr>
-<td>assets.total</td>
+<td>assets.serviceFee</td>
 <td>number</td>
 <td>Yes</td>
-<td>total amount of funds in all wallets in crypto currency</td>
+<td>funds blocked for this crypto currency by service fee.</td>
 </tr>
 <tr>
-<td>assets.totalInFiat</td>
+<td>assets.totalAvailable</td>
+<td>number</td>
+<td>Yes</td>
+<td>total available amount of funds in all wallets in crypto currency. This balance takes into account funds blocked by sevice fee.</td>
+</tr>
+<tr>
+<td>assets.totalAvailableInFiat</td>
 <td>object</td>
 <td>Yes</td>
-<td>total amount of funds in all wallets in fiat currency</td>
+<td>total available amount of funds in all wallets in fiat currency. This balance takes into account funds blocked by sevice fee.</td>
 </tr>
 <tr>
-<td>assets.totalInFiat.{currency}</td>
+<td>assets.totalAvailableInFiat.{currency}</td>
 <td>number</td>
 <td>Yes</td>
-<td>total amount of funds in all wallets in particular fiat currency. [ USD, EUR, RUB, UAH, KZT ]</td>
+<td>total available amount of funds in all wallets in particular fiat currency. [ USD, EUR, RUB, UAH, KZT ]</td>
 </tr>
 <tr>
 <td>assets.wallets</td>
@@ -5687,19 +5933,19 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>crypto address of wallet.</td>
 </tr>
 <tr>
-<td>assets.wallets.amount</td>
+<td>assets.wallets.availableAmount</td>
 <td>number</td>
 <td>Yes</td>
 <td>current wallet available balance.</td>
 </tr>
 <tr>
-<td>assets.wallets.amountInFiat</td>
+<td>assets.wallets.availableAmountInFiat</td>
 <td>object</td>
 <td>Yes</td>
 <td>amount of the account in different fiat currencies.</td>
 </tr>
 <tr>
-<td>assets.wallets.amountInFiat.{currency}</td>
+<td>assets.wallets.availableAmountInFiat.{currency}</td>
 <td>number</td>
 <td>Yes</td>
 <td>this is the fiat currency associated with the amount field. [ USD, EUR, RUB, UAH, KZT ]</td>
@@ -5715,36 +5961,6 @@ curl <span class="nt">--silent</span> <span class="nt">--location</span> <span c
 <td>string</td>
 <td>Yes</td>
 <td>the wallet name.</td>
-</tr>
-<tr>
-<td>overallBalance</td>
-<td>object</td>
-<td>Yes</td>
-<td>object with information about the total balance</td>
-</tr>
-<tr>
-<td>overallBalance.totalInFiat</td>
-<td>object</td>
-<td>Yes</td>
-<td>the total balance in different fiat currencies.</td>
-</tr>
-<tr>
-<td>overallBalance.totalInFiat.{currency}</td>
-<td>number</td>
-<td>Yes</td>
-<td>the total balance in particular fiat currencies.  USD, EUR, RUB, UAH, KZT ]</td>
-</tr>
-<tr>
-<td>overallBalance.totalInPercentage</td>
-<td>object</td>
-<td>Yes</td>
-<td>the total balance in percentage of crypto currencies.</td>
-</tr>
-<tr>
-<td>overallBalance.totalInPercentage.{currency}</td>
-<td>number</td>
-<td>Yes</td>
-<td>the total balance in percentage of particular crypto currency. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
 </tr>
 </tbody></table>
 <h2 id='new-payout'>New Payout</h2>
@@ -10873,6 +11089,1909 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>number</td>
 <td>No</td>
 <td>the balance amount of the client address</td>
+</tr>
+</tbody></table>
+<h1 id='payment-widget-api'>Payment widget API</h1>
+<table><thead>
+<tr>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>IN_PROGRESS</td>
+<td>The payment widget has been created and is active</td>
+</tr>
+<tr>
+<td>COMPLETED</td>
+<td>The invoice created from payment widget has been payed</td>
+</tr>
+<tr>
+<td>ARCHIVED</td>
+<td>The payment widget has expired and was automatically archived</td>
+</tr>
+</tbody></table>
+<h2 id='get-all-single-fiat-payment-widgets'>Get All Single Fiat payment widgets</h2>
+<blockquote>
+<p>Request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.calypso.finance/api/v1/pub/payment-widget/single-fiat/all'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+  "nonce": 0,
+  "request": {
+    widgetStates": [
+      "IN_PROGRESS"
+    ],
+    "pageNumber": 1,
+    "size": 10
+  }
+}'</span>
+
+</code></pre></div>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"cryptoCurrencies"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"BTC"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"widgetType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE_FIAT"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"widgetState"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN_PROGRESS"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fiatCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"fiatAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"useLiquidity"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"upperCommission"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"logoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"returnUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"expiration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-10-10T15:09:03.778Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"idempotencyKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"externalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"cartItems"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"product"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"invoices"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"invoiceId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"cryptoCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"invoiceIdempotencyKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"invoiceExternalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-10-10T15:09:03.778Z"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"totalElements"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>This endpoint retrieves all Single Fiat payment widgets.</p>
+<h5 id='http-request'>HTTP Request</h5>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/payment-widget/single-fiat/all</code></p>
+<h5 id='header'>Header</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Key</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>&lt;your_api_key&gt;</td>
+</tr>
+<tr>
+<td>Sign</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>&lt;your_sign&gt;</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>must be set to application/json for requests to the Calypso API</td>
+</tr>
+</tbody></table>
+<h5 id='request-body'>Request Body</h5>
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>nonce</td>
+<td>number</td>
+<td>Yes</td>
+<td>nonce used in construction of sign header.</td>
+</tr>
+<tr>
+<td>request</td>
+<td>object</td>
+<td>Yes</td>
+<td>this object contains request details.</td>
+</tr>
+<tr>
+<td>request.widgetStates</td>
+<td>array</td>
+<td>No</td>
+<td>specify the status of result to return</td>
+</tr>
+<tr>
+<td>request.pageNumber</td>
+<td>number</td>
+<td>Yes</td>
+<td>specify the page of results to return.</td>
+</tr>
+<tr>
+<td>request.size</td>
+<td>number</td>
+<td>Yes</td>
+<td>a numeric value indicating the page size.</td>
+</tr>
+</tbody></table>
+<h5 id='response-body'>Response Body</h5>
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>array</td>
+<td>Yes</td>
+<td>this object contains response details.</td>
+</tr>
+<tr>
+<td>result.id</td>
+<td>string</td>
+<td>Yes</td>
+<td>payment widget id.</td>
+</tr>
+<tr>
+<td>result.cryptoCurrencies</td>
+<td>array</td>
+<td>Yes</td>
+<td>contains list of crypto currencies of which invoices may be created for this payment widget</td>
+</tr>
+<tr>
+<td>result.widgetType</td>
+<td>string</td>
+<td>Yes</td>
+<td>type of payment widget [SINGLE_FIAT, UNLIMITED_LINKED]</td>
+</tr>
+<tr>
+<td>result.fiatCurrency</td>
+<td>string</td>
+<td>Yes</td>
+<td>fiat currency of the widget [ USD, EUR ]</td>
+</tr>
+<tr>
+<td>result.fiatAmount</td>
+<td>number</td>
+<td>Yes</td>
+<td>total amount in fiat currency for invoice created from this payment widget</td>
+</tr>
+<tr>
+<td>result.description</td>
+<td>string</td>
+<td>Yes</td>
+<td>description of payment widget</td>
+</tr>
+<tr>
+<td>result.useLiquidity</td>
+<td>boolean</td>
+<td>Yes</td>
+<td>defines whether fee for transaction for future invoices will be charged from liquidity wallet of Calypso (true) or from merchant wallet (false)</td>
+</tr>
+<tr>
+<td>result.upperCommission</td>
+<td>boolean</td>
+<td>Yes</td>
+<td>defines whether network transaction fee for transfer from invoice wallet to your wallet will be substracted from transfer amount (false) or not (true). true is by default.</td>
+</tr>
+<tr>
+<td>result.logoUrl</td>
+<td>string</td>
+<td>No</td>
+<td>link to the logo of merchant which will be shown in the payment widget page. The logo must be in PNG format. Recommended size 100*24 px</td>
+</tr>
+<tr>
+<td>result.redirectUrl</td>
+<td>string</td>
+<td>No</td>
+<td>link to the web page where client can come back to from payment widget page</td>
+</tr>
+<tr>
+<td>result.supportUrl</td>
+<td>string</td>
+<td>No</td>
+<td>link to the merchant support page where client can go to from payment widget page</td>
+</tr>
+<tr>
+<td>result.expiration</td>
+<td>string</td>
+<td>No</td>
+<td>represents server timestamp of payment widget expiration moment.</td>
+</tr>
+<tr>
+<td>result.idempotencyKey</td>
+<td>string</td>
+<td>No</td>
+<td>the external id that can be generated by user while creating the payment widget.</td>
+</tr>
+<tr>
+<td>result.externalId</td>
+<td>string</td>
+<td>No</td>
+<td>merchant ID that can be assigned to one or several payment widgets in string format.</td>
+</tr>
+<tr>
+<td>result.cartItems</td>
+<td>array</td>
+<td>Yes</td>
+<td>list of line items.</td>
+</tr>
+<tr>
+<td>result.cartItems.currency</td>
+<td>string</td>
+<td>Yes</td>
+<td>this is the currency associated with the price field. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, EUR, FRAX, KZT, MATIC, RUB, TRX, UAH, USD, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
+</tr>
+<tr>
+<td>result.cartItems.price</td>
+<td>number</td>
+<td>Yes</td>
+<td>price of this unit.</td>
+</tr>
+<tr>
+<td>result.cartItems.product</td>
+<td>string</td>
+<td>Yes</td>
+<td>name of this unit.</td>
+</tr>
+<tr>
+<td>result.cartItems.quantity</td>
+<td>number</td>
+<td>Yes</td>
+<td>line item number of units.</td>
+</tr>
+<tr>
+<td>result.invoices</td>
+<td>array</td>
+<td>Yes</td>
+<td>contains list of invoices created from this payment widget.</td>
+</tr>
+<tr>
+<td>result.invoices.invoiceId</td>
+<td>number</td>
+<td>Yes</td>
+<td>id of invoice created from this payment widget.</td>
+</tr>
+<tr>
+<td>result.invoices.cryptoCurrency</td>
+<td>string</td>
+<td>Yes</td>
+<td>represents the currency of the invoice [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
+</tr>
+<tr>
+<td>result.invoices.invoiceIdempotencyKey</td>
+<td>string</td>
+<td>Yes</td>
+<td>the external id of the invoice</td>
+</tr>
+<tr>
+<td>result.invoices.invoiceExternalId</td>
+<td>string</td>
+<td>No</td>
+<td>merchant ID of the invoice</td>
+</tr>
+<tr>
+<td>result.createdDate</td>
+<td>string</td>
+<td>Yes</td>
+<td>time of payment widget creation</td>
+</tr>
+<tr>
+<td>page</td>
+<td>number</td>
+<td>Yes</td>
+<td>result page number.</td>
+</tr>
+<tr>
+<td>size</td>
+<td>number</td>
+<td>Yes</td>
+<td>a numeric value indicating the page size.</td>
+</tr>
+<tr>
+<td>total</td>
+<td>number</td>
+<td>Yes</td>
+<td>the total number of pages matching the query.</td>
+</tr>
+<tr>
+<td>totalElements</td>
+<td>number</td>
+<td>Yes</td>
+<td>the total number of objects matching the query.</td>
+</tr>
+</tbody></table>
+<h2 id='get-single-fiat-payment-widget-by-id'>Get Single Fiat payment widget By ID</h2>
+<blockquote>
+<p>Request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.calypso.finance/api/v1/pub/payment-widget/single-fiat/find'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+  "nonce": 0,
+  "request": {
+    "requestId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+  }
+}'</span>
+
+</code></pre></div>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"cryptoCurrencies"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"BTC"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"widgetType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE_FIAT"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"widgetState"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN_PROGRESS"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fiatCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fiatAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"useLiquidity"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"upperCommission"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"logoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"returnUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"expiration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-10-10T15:40:05.332Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"idempotencyKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"externalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"cartItems"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"product"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"invoices"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"invoiceId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"cryptoCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"invoiceIdempotencyKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"invoiceExternalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-10-10T15:40:05.332Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>This endpoint retrieves a Single Fiat payment widget by id.</p>
+<h5 id='http-request-2'>HTTP Request</h5>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/payment-widget/single-fiat/find</code></p>
+<h5 id='header-2'>Header</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Key</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>&lt;your_api_key&gt;</td>
+</tr>
+<tr>
+<td>Sign</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>&lt;your_sign&gt;</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>must be set to application/json for requests to the Calypso API</td>
+</tr>
+</tbody></table>
+<h5 id='request-body-2'>Request Body</h5>
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>nonce</td>
+<td>number</td>
+<td>Yes</td>
+<td>nonce used in construction of sign header.</td>
+</tr>
+<tr>
+<td>request</td>
+<td>object</td>
+<td>Yes</td>
+<td>this object contains request details.</td>
+</tr>
+<tr>
+<td>request.requestId</td>
+<td>string</td>
+<td>Yes</td>
+<td>id of the payment widget.</td>
+</tr>
+</tbody></table>
+<h5 id='response-body-2'>Response Body</h5>
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>array</td>
+<td>Yes</td>
+<td>this object contains response details.</td>
+</tr>
+<tr>
+<td>result.id</td>
+<td>string</td>
+<td>Yes</td>
+<td>payment widget id.</td>
+</tr>
+<tr>
+<td>result.cryptoCurrencies</td>
+<td>array</td>
+<td>Yes</td>
+<td>contains list of crypto currencies of which invoices may be created for this payment widget</td>
+</tr>
+<tr>
+<td>result.widgetType</td>
+<td>string</td>
+<td>Yes</td>
+<td>type of payment widget [SINGLE_FIAT, UNLIMITED_LINKED]</td>
+</tr>
+<tr>
+<td>result.fiatCurrency</td>
+<td>string</td>
+<td>Yes</td>
+<td>fiat currency of the widget [ USD, EUR ]</td>
+</tr>
+<tr>
+<td>result.fiatAmount</td>
+<td>number</td>
+<td>Yes</td>
+<td>total amount in fiat currency for invoice created from this payment widget</td>
+</tr>
+<tr>
+<td>result.description</td>
+<td>string</td>
+<td>Yes</td>
+<td>description of payment widget</td>
+</tr>
+<tr>
+<td>result.useLiquidity</td>
+<td>boolean</td>
+<td>Yes</td>
+<td>defines whether fee for transaction for future invoices will be charged from liquidity wallet of Calypso (true) or from merchant wallet (false)</td>
+</tr>
+<tr>
+<td>result.upperCommission</td>
+<td>boolean</td>
+<td>Yes</td>
+<td>defines whether network transaction fee for transfer from invoice wallet to your wallet will be substracted from transfer amount (false) or not (true). true is by default.</td>
+</tr>
+<tr>
+<td>result.logoUrl</td>
+<td>string</td>
+<td>No</td>
+<td>link to the logo of merchant which will be shown in the payment widget page. The logo must be in PNG format. Recommended size 100*24 px</td>
+</tr>
+<tr>
+<td>result.redirectUrl</td>
+<td>string</td>
+<td>No</td>
+<td>link to the web page where client can come back to from payment widget page</td>
+</tr>
+<tr>
+<td>result.supportUrl</td>
+<td>string</td>
+<td>No</td>
+<td>link to the merchant support page where client can go to from payment widget page</td>
+</tr>
+<tr>
+<td>result.expiration</td>
+<td>string</td>
+<td>No</td>
+<td>represents server timestamp of payment widget expiration moment.</td>
+</tr>
+<tr>
+<td>result.idempotencyKey</td>
+<td>string</td>
+<td>No</td>
+<td>the external id that can be generated by user while creating the payment widget.</td>
+</tr>
+<tr>
+<td>result.externalId</td>
+<td>string</td>
+<td>No</td>
+<td>merchant ID that can be assigned to one or several payment widgets in string format.</td>
+</tr>
+<tr>
+<td>result.cartItems</td>
+<td>array</td>
+<td>Yes</td>
+<td>list of line items.</td>
+</tr>
+<tr>
+<td>result.cartItems.currency</td>
+<td>string</td>
+<td>Yes</td>
+<td>this is the currency associated with the price field. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, EUR, FRAX, KZT, MATIC, RUB, TRX, UAH, USD, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
+</tr>
+<tr>
+<td>result.cartItems.price</td>
+<td>number</td>
+<td>Yes</td>
+<td>price of this unit.</td>
+</tr>
+<tr>
+<td>result.cartItems.product</td>
+<td>string</td>
+<td>Yes</td>
+<td>name of this unit.</td>
+</tr>
+<tr>
+<td>result.cartItems.quantity</td>
+<td>number</td>
+<td>Yes</td>
+<td>line item number of units.</td>
+</tr>
+<tr>
+<td>result.invoices</td>
+<td>array</td>
+<td>Yes</td>
+<td>contains list of invoices created from this payment widget.</td>
+</tr>
+<tr>
+<td>result.invoices.invoiceId</td>
+<td>number</td>
+<td>Yes</td>
+<td>id of invoice created from this payment widget.</td>
+</tr>
+<tr>
+<td>result.invoices.cryptoCurrency</td>
+<td>string</td>
+<td>Yes</td>
+<td>represents the currency of the invoice [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
+</tr>
+<tr>
+<td>result.invoices.invoiceIdempotencyKey</td>
+<td>string</td>
+<td>Yes</td>
+<td>the external id of the invoice</td>
+</tr>
+<tr>
+<td>result.invoices.invoiceExternalId</td>
+<td>string</td>
+<td>No</td>
+<td>merchant ID of the invoice</td>
+</tr>
+<tr>
+<td>result.createdDate</td>
+<td>string</td>
+<td>Yes</td>
+<td>time of payment widget creation</td>
+</tr>
+</tbody></table>
+<h2 id='create-new-single-fiat-payment-widget'>Create new Single Fiat payment widget</h2>
+<blockquote>
+<p>Request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.calypso.finance/api/v1/pub/payment-widget/single-fiat/create'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+  "nonce": 0,
+  "request": {
+    fiatCurrency": "BTC",
+    "fiatAmount": 0,
+    "description": "string",
+    "hotWallets": [
+      {
+        "cryptoCurrency": "BTC",
+        "address": "string"
+      }
+    ],
+    "useLiquidity": true,
+    "upperCommission": true,
+    "logoUrl": "string",
+    "returnUrl": "string",
+    "supportUrl": "string",
+    "expiration": "2022-10-10T15:45:42.495Z",
+    "idempotencyKey": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "externalId": "string",
+    "cartItems": [
+      {
+        "product": "string",
+        "price": 0,
+        "currency": "BTC",
+        "quantity": 0
+      }
+    ]
+  }
+}'</span>
+
+</code></pre></div>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"cryptoCurrencies"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"BTC"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"widgetType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE_FIAT"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"widgetState"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN_PROGRESS"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fiatCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"fiatAmount"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"useLiquidity"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"upperCommission"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"logoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"returnUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"expiration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-10-10T15:45:42.497Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"idempotencyKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"externalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"cartItems"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"product"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"price"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"currency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"quantity"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"invoices"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"invoiceId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"cryptoCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"invoiceIdempotencyKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"invoiceExternalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-10-10T15:45:42.497Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>This endpoint creates a new Single Fiat payment widget.</p>
+<h5 id='http-request-3'>HTTP Request</h5>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/payment-widget/single-fiat/create</code></p>
+<h5 id='header-3'>Header</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Key</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>&lt;your_api_key&gt;</td>
+</tr>
+<tr>
+<td>Sign</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>&lt;your_sign&gt;</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>must be set to application/json for requests to the Calypso API</td>
+</tr>
+</tbody></table>
+<h5 id='request-body-3'>Request Body</h5>
+<table><thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>nonce</td>
+<td>number</td>
+<td>Yes</td>
+<td>nonce used in construction of sign header.</td>
+</tr>
+<tr>
+<td>request</td>
+<td>object</td>
+<td>Yes</td>
+<td>this object contains request details.</td>
+</tr>
+<tr>
+<td>request.fiatCurrency</td>
+<td>string</td>
+<td>Yes</td>
+<td>fiat currency of the widget [ USD, EUR ]</td>
+</tr>
+<tr>
+<td>request.fiatAmount</td>
+<td>number</td>
+<td>Yes</td>
+<td>total amount in fiat currency for invoices created from this payment widget</td>
+</tr>
+<tr>
+<td>request.description</td>
+<td>string</td>
+<td>Yes</td>
+<td>description of payment widget</td>
+</tr>
+<tr>
+<td>request.hotWallets</td>
+<td>array</td>
+<td>Yes</td>
+<td>array of merchant&#39;s wallets on which funds from invoices will be transfered to</td>
+</tr>
+<tr>
+<td>request.hotWallets.cryptoCurrency</td>
+<td>string</td>
+<td>Yes</td>
+<td>currency of merchant&#39;s wallet [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
+</tr>
+<tr>
+<td>request.hotWallets.address</td>
+<td>string</td>
+<td>Yes</td>
+<td>address of merchant&#39;s wallet</td>
+</tr>
+<tr>
+<td>request.useLiquidity</td>
+<td>boolean</td>
+<td>Yes</td>
+<td>defines whether fee for transaction for future invoices will be charged from liquidity wallet of Calypso (true) or from merchant wallet (false)</td>
+</tr>
+<tr>
+<td>request.upperCommission</td>
+<td>boolean</td>
+<td>Yes</td>
+<td>defines whether network transaction fee for transfer from invoice wallet to your wallet will be substracted from transfer amount (false) or not (true). true is by default.</td>
+</tr>
+<tr>
+<td>request.logoUrl</td>
+<td>string</td>
+<td>No</td>
+<td>link to the logo of merchant which will be shown in the payment widget page. The logo must be in PNG format. Recommended size 100*24 px</td>
+</tr>
+<tr>
+<td>request.redirectUrl</td>
+<td>string</td>
+<td>No</td>
+<td>link to the web page where client can come back to from payment widget page</td>
+</tr>
+<tr>
+<td>request.supportUrl</td>
+<td>string</td>
+<td>No</td>
+<td>link to the merchant support page where client can go to from payment widget page</td>
+</tr>
+<tr>
+<td>request.expiration</td>
+<td>string</td>
+<td>No</td>
+<td>represents server timestamp of payment widget expiration moment.</td>
+</tr>
+<tr>
+<td>request.idempotencyKey</td>
+<td>string</td>
+<td>No</td>
+<td>the external id that can be generated by user while creating the payment widget.</td>
+</tr>
+<tr>
+<td>request.externalId</td>
+<td>string</td>
+<td>No</td>
+<td>merchant ID that can be assigned to one or several payment widgets in string format.</td>
+</tr>
+<tr>
+<td>request.cartItems</td>
+<td>array</td>
+<td>Yes</td>
+<td>list of line items.</td>
+</tr>
+<tr>
+<td>request.cartItems.currency</td>
+<td>string</td>
+<td>Yes</td>
+<td>this is the currency associated with the price field. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, EUR, FRAX, KZT, MATIC, RUB, TRX, UAH, USD, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
+</tr>
+<tr>
+<td>request.cartItems.price</td>
+<td>number</td>
+<td>Yes</td>
+<td>price of this unit.</td>
+</tr>
+<tr>
+<td>request.cartItems.product</td>
+<td>string</td>
+<td>Yes</td>
+<td>name of this unit.</td>
+</tr>
+<tr>
+<td>request.cartItems.quantity</td>
+<td>number</td>
+<td>Yes</td>
+<td>line item number of units.</td>
+</tr>
+</tbody></table>
+<h5 id='response-body-3'>Response Body</h5>
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>array</td>
+<td>Yes</td>
+<td>this object contains response details.</td>
+</tr>
+<tr>
+<td>result.id</td>
+<td>string</td>
+<td>Yes</td>
+<td>payment widget id.</td>
+</tr>
+<tr>
+<td>result.cryptoCurrencies</td>
+<td>array</td>
+<td>Yes</td>
+<td>contains list of crypto currencies of which invoices may be created for this payment widget</td>
+</tr>
+<tr>
+<td>result.widgetType</td>
+<td>string</td>
+<td>Yes</td>
+<td>type of payment widget [SINGLE_FIAT, UNLIMITED_LINKED]</td>
+</tr>
+<tr>
+<td>result.fiatCurrency</td>
+<td>string</td>
+<td>Yes</td>
+<td>fiat currency of the widget [ USD, EUR ]</td>
+</tr>
+<tr>
+<td>result.fiatAmount</td>
+<td>number</td>
+<td>Yes</td>
+<td>total amount in fiat currency for invoice created from this payment widget</td>
+</tr>
+<tr>
+<td>result.description</td>
+<td>string</td>
+<td>Yes</td>
+<td>description of payment widget</td>
+</tr>
+<tr>
+<td>result.useLiquidity</td>
+<td>boolean</td>
+<td>Yes</td>
+<td>defines whether fee for transaction for future invoices will be charged from liquidity wallet of Calypso (true) or from merchant wallet (false)</td>
+</tr>
+<tr>
+<td>result.upperCommission</td>
+<td>boolean</td>
+<td>Yes</td>
+<td>defines whether network transaction fee for transfer from invoice wallet to your wallet will be substracted from transfer amount (false) or not (true). true is by default.</td>
+</tr>
+<tr>
+<td>result.logoUrl</td>
+<td>string</td>
+<td>No</td>
+<td>link to the logo of merchant which will be shown in the payment widget page. The logo must be in PNG format. Recommended size 100*24 px</td>
+</tr>
+<tr>
+<td>result.redirectUrl</td>
+<td>string</td>
+<td>No</td>
+<td>link to the web page where client can come back to from payment widget page</td>
+</tr>
+<tr>
+<td>result.supportUrl</td>
+<td>string</td>
+<td>No</td>
+<td>link to the merchant support page where client can go to from payment widget page</td>
+</tr>
+<tr>
+<td>result.expiration</td>
+<td>string</td>
+<td>No</td>
+<td>represents server timestamp of payment widget expiration moment.</td>
+</tr>
+<tr>
+<td>result.idempotencyKey</td>
+<td>string</td>
+<td>No</td>
+<td>the external id that can be generated by user while creating the payment widget.</td>
+</tr>
+<tr>
+<td>result.externalId</td>
+<td>string</td>
+<td>No</td>
+<td>merchant ID that can be assigned to one or several payment widgets in string format.</td>
+</tr>
+<tr>
+<td>result.cartItems</td>
+<td>array</td>
+<td>Yes</td>
+<td>list of line items.</td>
+</tr>
+<tr>
+<td>result.cartItems.currency</td>
+<td>string</td>
+<td>Yes</td>
+<td>this is the currency associated with the price field. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, EUR, FRAX, KZT, MATIC, RUB, TRX, UAH, USD, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
+</tr>
+<tr>
+<td>result.cartItems.price</td>
+<td>number</td>
+<td>Yes</td>
+<td>price of this unit.</td>
+</tr>
+<tr>
+<td>result.cartItems.product</td>
+<td>string</td>
+<td>Yes</td>
+<td>name of this unit.</td>
+</tr>
+<tr>
+<td>result.cartItems.quantity</td>
+<td>number</td>
+<td>Yes</td>
+<td>line item number of units.</td>
+</tr>
+<tr>
+<td>result.invoices</td>
+<td>array</td>
+<td>Yes</td>
+<td>contains list of invoices created from this payment widget.</td>
+</tr>
+<tr>
+<td>result.invoices.invoiceId</td>
+<td>number</td>
+<td>Yes</td>
+<td>id of invoice created from this payment widget.</td>
+</tr>
+<tr>
+<td>result.invoices.cryptoCurrency</td>
+<td>string</td>
+<td>Yes</td>
+<td>represents the currency of the invoice [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
+</tr>
+<tr>
+<td>result.invoices.invoiceIdempotencyKey</td>
+<td>string</td>
+<td>Yes</td>
+<td>the external id of the invoice</td>
+</tr>
+<tr>
+<td>result.invoices.invoiceExternalId</td>
+<td>string</td>
+<td>No</td>
+<td>merchant ID of the invoice</td>
+</tr>
+<tr>
+<td>result.createdDate</td>
+<td>string</td>
+<td>Yes</td>
+<td>time of payment widget creation</td>
+</tr>
+</tbody></table>
+<h2 id='get-all-unlimited-linked-payment-widgets'>Get All Unlimited Linked payment widgets</h2>
+<blockquote>
+<p>Request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.calypso.finance/api/v1/pub/payment-widget/unlimited-linked/all'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+  "nonce": 0,
+  "request": {
+    widgetStates": [
+      "IN_PROGRESS"
+    ],
+    "pageNumber": 1,
+    "size": 10
+  }
+}'</span>
+
+</code></pre></div>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"result"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"cryptoCurrencies"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="s2">"BTC"</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"widgetType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE_FIAT"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"widgetState"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN_PROGRESS"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"useLiquidity"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"upperCommission"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"logoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"returnUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"expiration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-10-10T16:35:58.304Z"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"idempotencyKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"externalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"invoices"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+        </span><span class="p">{</span><span class="w">
+          </span><span class="nl">"invoiceId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"cryptoCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"invoiceIdempotencyKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
+          </span><span class="nl">"invoiceExternalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+        </span><span class="p">}</span><span class="w">
+      </span><span class="p">],</span><span class="w">
+      </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-10-10T16:35:58.304Z"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"page"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"size"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"total"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"totalElements"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>This endpoint retrieves all Unlimited Linked payment widgets.</p>
+<h5 id='http-request-4'>HTTP Request</h5>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/payment-widget/unlimited-linked/all</code></p>
+<h5 id='header-4'>Header</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Key</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>&lt;your_api_key&gt;</td>
+</tr>
+<tr>
+<td>Sign</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>&lt;your_sign&gt;</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>must be set to application/json for requests to the Calypso API</td>
+</tr>
+</tbody></table>
+<h5 id='request-body-4'>Request Body</h5>
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>nonce</td>
+<td>number</td>
+<td>Yes</td>
+<td>nonce used in construction of sign header.</td>
+</tr>
+<tr>
+<td>request</td>
+<td>object</td>
+<td>Yes</td>
+<td>this object contains request details.</td>
+</tr>
+<tr>
+<td>request.widgetStates</td>
+<td>array</td>
+<td>No</td>
+<td>specify the status of result to return</td>
+</tr>
+<tr>
+<td>request.pageNumber</td>
+<td>number</td>
+<td>Yes</td>
+<td>specify the page of results to return.</td>
+</tr>
+<tr>
+<td>request.size</td>
+<td>number</td>
+<td>Yes</td>
+<td>a numeric value indicating the page size.</td>
+</tr>
+</tbody></table>
+<h5 id='response-body-4'>Response Body</h5>
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>array</td>
+<td>Yes</td>
+<td>this object contains response details.</td>
+</tr>
+<tr>
+<td>result.id</td>
+<td>string</td>
+<td>Yes</td>
+<td>payment widget id.</td>
+</tr>
+<tr>
+<td>result.cryptoCurrencies</td>
+<td>array</td>
+<td>Yes</td>
+<td>contains list of crypto currencies of which invoices may be created for this payment widget</td>
+</tr>
+<tr>
+<td>result.widgetType</td>
+<td>string</td>
+<td>Yes</td>
+<td>type of payment widget [SINGLE_FIAT, UNLIMITED_LINKED]</td>
+</tr>
+<tr>
+<td>result.description</td>
+<td>string</td>
+<td>Yes</td>
+<td>description of payment widget</td>
+</tr>
+<tr>
+<td>result.useLiquidity</td>
+<td>boolean</td>
+<td>Yes</td>
+<td>defines whether fee for transaction for future invoices will be charged from liquidity wallet of Calypso (true) or from merchant wallet (false)</td>
+</tr>
+<tr>
+<td>result.upperCommission</td>
+<td>boolean</td>
+<td>Yes</td>
+<td>defines whether network transaction fee for transfer from invoice wallet to your wallet will be substracted from transfer amount (false) or not (true). true is by default.</td>
+</tr>
+<tr>
+<td>result.logoUrl</td>
+<td>string</td>
+<td>No</td>
+<td>link to the logo of merchant which will be shown in the payment widget page. The logo must be in PNG format. Recommended size 100*24 px</td>
+</tr>
+<tr>
+<td>result.redirectUrl</td>
+<td>string</td>
+<td>No</td>
+<td>link to the web page where client can come back to from payment widget page</td>
+</tr>
+<tr>
+<td>result.supportUrl</td>
+<td>string</td>
+<td>No</td>
+<td>link to the merchant support page where client can go to from payment widget page</td>
+</tr>
+<tr>
+<td>result.expiration</td>
+<td>string</td>
+<td>No</td>
+<td>represents server timestamp of payment widget expiration moment.</td>
+</tr>
+<tr>
+<td>result.idempotencyKey</td>
+<td>string</td>
+<td>No</td>
+<td>the external id that can be generated by user while creating the payment widget.</td>
+</tr>
+<tr>
+<td>result.externalId</td>
+<td>string</td>
+<td>No</td>
+<td>merchant ID that can be assigned to one or several payment widgets in string format.</td>
+</tr>
+<tr>
+<td>result.invoices</td>
+<td>array</td>
+<td>Yes</td>
+<td>contains list of invoices created from this payment widget.</td>
+</tr>
+<tr>
+<td>result.invoices.invoiceId</td>
+<td>number</td>
+<td>Yes</td>
+<td>id of invoice created from this payment widget.</td>
+</tr>
+<tr>
+<td>result.invoices.cryptoCurrency</td>
+<td>string</td>
+<td>Yes</td>
+<td>represents the currency of the invoice [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
+</tr>
+<tr>
+<td>result.invoices.invoiceIdempotencyKey</td>
+<td>string</td>
+<td>Yes</td>
+<td>the external id of the invoice</td>
+</tr>
+<tr>
+<td>result.invoices.invoiceExternalId</td>
+<td>string</td>
+<td>No</td>
+<td>merchant ID of the invoice</td>
+</tr>
+<tr>
+<td>result.createdDate</td>
+<td>string</td>
+<td>Yes</td>
+<td>time of payment widget creation</td>
+</tr>
+<tr>
+<td>page</td>
+<td>number</td>
+<td>Yes</td>
+<td>result page number.</td>
+</tr>
+<tr>
+<td>size</td>
+<td>number</td>
+<td>Yes</td>
+<td>a numeric value indicating the page size.</td>
+</tr>
+<tr>
+<td>total</td>
+<td>number</td>
+<td>Yes</td>
+<td>the total number of pages matching the query.</td>
+</tr>
+<tr>
+<td>totalElements</td>
+<td>number</td>
+<td>Yes</td>
+<td>the total number of objects matching the query.</td>
+</tr>
+</tbody></table>
+<h2 id='get-unlimited-linked-payment-widget-by-id'>Get Unlimited Linked payment widget By ID</h2>
+<blockquote>
+<p>Request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.calypso.finance/api/v1/pub/payment-widget/unlimited-linked/find'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+  "nonce": 0,
+  "request": {
+    "requestId": "3fa85f64-5717-4562-b3fc-2c963f66afa6"
+  }
+}'</span>
+
+</code></pre></div>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"cryptoCurrencies"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"BTC"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"widgetType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE_FIAT"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"widgetState"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN_PROGRESS"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"useLiquidity"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"upperCommission"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"logoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"returnUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"expiration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-10-10T16:39:59.615Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"idempotencyKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"externalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"invoices"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"invoiceId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"cryptoCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"invoiceIdempotencyKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"invoiceExternalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-10-10T16:39:59.615Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>This endpoint retrieves an Unlimited Linked payment widget by id.</p>
+<h5 id='http-request-5'>HTTP Request</h5>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/payment-widget/unlimited-linked/find</code></p>
+<h5 id='header-5'>Header</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Key</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>&lt;your_api_key&gt;</td>
+</tr>
+<tr>
+<td>Sign</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>&lt;your_sign&gt;</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>must be set to application/json for requests to the Calypso API</td>
+</tr>
+</tbody></table>
+<h5 id='request-body-5'>Request Body</h5>
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>nonce</td>
+<td>number</td>
+<td>Yes</td>
+<td>nonce used in construction of sign header.</td>
+</tr>
+<tr>
+<td>request</td>
+<td>object</td>
+<td>Yes</td>
+<td>this object contains request details.</td>
+</tr>
+<tr>
+<td>request.requestId</td>
+<td>string</td>
+<td>Yes</td>
+<td>id of the payment widget.</td>
+</tr>
+</tbody></table>
+<h5 id='response-body-5'>Response Body</h5>
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>array</td>
+<td>Yes</td>
+<td>this object contains response details.</td>
+</tr>
+<tr>
+<td>result.id</td>
+<td>string</td>
+<td>Yes</td>
+<td>payment widget id.</td>
+</tr>
+<tr>
+<td>result.cryptoCurrencies</td>
+<td>array</td>
+<td>Yes</td>
+<td>contains list of crypto currencies of which invoices may be created for this payment widget</td>
+</tr>
+<tr>
+<td>result.widgetType</td>
+<td>string</td>
+<td>Yes</td>
+<td>type of payment widget [SINGLE_FIAT, UNLIMITED_LINKED]</td>
+</tr>
+<tr>
+<td>result.description</td>
+<td>string</td>
+<td>Yes</td>
+<td>description of payment widget</td>
+</tr>
+<tr>
+<td>result.useLiquidity</td>
+<td>boolean</td>
+<td>Yes</td>
+<td>defines whether fee for transaction for future invoices will be charged from liquidity wallet of Calypso (true) or from merchant wallet (false)</td>
+</tr>
+<tr>
+<td>result.upperCommission</td>
+<td>boolean</td>
+<td>Yes</td>
+<td>defines whether network transaction fee for transfer from invoice wallet to your wallet will be substracted from transfer amount (false) or not (true). true is by default.</td>
+</tr>
+<tr>
+<td>result.logoUrl</td>
+<td>string</td>
+<td>No</td>
+<td>link to the logo of merchant which will be shown in the payment widget page. The logo must be in PNG format. Recommended size 100*24 px</td>
+</tr>
+<tr>
+<td>result.redirectUrl</td>
+<td>string</td>
+<td>No</td>
+<td>link to the web page where client can come back to from payment widget page</td>
+</tr>
+<tr>
+<td>result.supportUrl</td>
+<td>string</td>
+<td>No</td>
+<td>link to the merchant support page where client can go to from payment widget page</td>
+</tr>
+<tr>
+<td>result.expiration</td>
+<td>string</td>
+<td>No</td>
+<td>represents server timestamp of payment widget expiration moment.</td>
+</tr>
+<tr>
+<td>result.idempotencyKey</td>
+<td>string</td>
+<td>No</td>
+<td>the external id that can be generated by user while creating the payment widget.</td>
+</tr>
+<tr>
+<td>result.externalId</td>
+<td>string</td>
+<td>No</td>
+<td>merchant ID that can be assigned to one or several payment widgets in string format.</td>
+</tr>
+<tr>
+<td>result.invoices</td>
+<td>array</td>
+<td>Yes</td>
+<td>contains list of invoices created from this payment widget.</td>
+</tr>
+<tr>
+<td>result.invoices.invoiceId</td>
+<td>number</td>
+<td>Yes</td>
+<td>id of invoice created from this payment widget.</td>
+</tr>
+<tr>
+<td>result.invoices.cryptoCurrency</td>
+<td>string</td>
+<td>Yes</td>
+<td>represents the currency of the invoice [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
+</tr>
+<tr>
+<td>result.invoices.invoiceIdempotencyKey</td>
+<td>string</td>
+<td>Yes</td>
+<td>the external id of the invoice</td>
+</tr>
+<tr>
+<td>result.invoices.invoiceExternalId</td>
+<td>string</td>
+<td>No</td>
+<td>merchant ID of the invoice</td>
+</tr>
+<tr>
+<td>result.createdDate</td>
+<td>string</td>
+<td>Yes</td>
+<td>time of payment widget creation</td>
+</tr>
+</tbody></table>
+<h2 id='create-new-unlimited-linked-payment-widget'>Create new Unlimited Linked payment widget</h2>
+<blockquote>
+<p>Request</p>
+</blockquote>
+<div class="highlight"><pre class="highlight shell tab-shell"><code>
+curl <span class="nt">--location</span> <span class="nt">--request</span> POST <span class="s1">'http://public-gateway.calypso.finance/api/v1/pub/payment-widget/single-fiat/create'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Key: &lt;your_api_key&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Sign: &lt;your_sign&gt;'</span> <span class="se">\</span>
+<span class="nt">--header</span> <span class="s1">'Content-Type: application/json'</span> <span class="se">\</span>
+<span class="nt">--data-raw</span> <span class="s1">'{
+  "nonce": 0,
+  "request": {
+    "cryptoCurrencies": [
+      "BTC"
+    ],
+    "description": "string",
+    "useLiquidity": true,
+    "upperCommission": true,
+    "logoUrl": "string",
+    "returnUrl": "string",
+    "supportUrl": "string",
+    "expiration": "2022-10-10T16:41:16.027Z",
+    "idempotencyKey": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "externalId": "string"
+  }
+}'</span>
+
+</code></pre></div>
+<blockquote>
+<p>Response</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="w">
+</span><span class="p">{</span><span class="w">
+  </span><span class="nl">"id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"cryptoCurrencies"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="s2">"BTC"</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"description"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"widgetType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"SINGLE_FIAT"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"widgetState"</span><span class="p">:</span><span class="w"> </span><span class="s2">"IN_PROGRESS"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"useLiquidity"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"upperCommission"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"logoUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"returnUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"supportUrl"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"expiration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-10-10T16:41:16.073Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"idempotencyKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"externalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"invoices"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"invoiceId"</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"cryptoCurrency"</span><span class="p">:</span><span class="w"> </span><span class="s2">"BTC"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"invoiceIdempotencyKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3fa85f64-5717-4562-b3fc-2c963f66afa6"</span><span class="p">,</span><span class="w">
+      </span><span class="nl">"invoiceExternalId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"string"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"createdDate"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2022-10-10T16:41:16.073Z"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+
+</span></code></pre></div>
+<p>This endpoint creates a new Unlimited Linked payment widget.</p>
+<h5 id='http-request-6'>HTTP Request</h5>
+<p><code>POST http://public-gateway.calypso.finance/api/v1/pub/payment-widget/unlimited-linked/create</code></p>
+<h5 id='header-6'>Header</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Mandatory</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Key</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>&lt;your_api_key&gt;</td>
+</tr>
+<tr>
+<td>Sign</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>&lt;your_sign&gt;</td>
+</tr>
+<tr>
+<td>Content-Type</td>
+<td>STRING</td>
+<td>Yes</td>
+<td>must be set to application/json for requests to the Calypso API</td>
+</tr>
+</tbody></table>
+<h5 id='request-body-6'>Request Body</h5>
+<table><thead>
+<tr>
+<th>name</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>nonce</td>
+<td>number</td>
+<td>Yes</td>
+<td>nonce used in construction of sign header.</td>
+</tr>
+<tr>
+<td>request</td>
+<td>object</td>
+<td>Yes</td>
+<td>this object contains request details.</td>
+</tr>
+<tr>
+<td>request.description</td>
+<td>string</td>
+<td>Yes</td>
+<td>description of payment widget</td>
+</tr>
+<tr>
+<td>request.cryptoCurrencies</td>
+<td>array</td>
+<td>Yes</td>
+<td>currency of merchant&#39;s wallets where funds will be withdrawn to [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
+</tr>
+<tr>
+<td>request.useLiquidity</td>
+<td>boolean</td>
+<td>Yes</td>
+<td>defines whether fee for transaction for future invoices will be charged from liquidity wallet of Calypso (true) or from merchant wallet (false)</td>
+</tr>
+<tr>
+<td>request.upperCommission</td>
+<td>boolean</td>
+<td>Yes</td>
+<td>defines whether network transaction fee for transfer from invoice wallet to your wallet will be substracted from transfer amount (false) or not (true). true is by default.</td>
+</tr>
+<tr>
+<td>request.logoUrl</td>
+<td>string</td>
+<td>No</td>
+<td>link to the logo of merchant which will be shown in the payment widget page. The logo must be in PNG format. Recommended size 100*24 px</td>
+</tr>
+<tr>
+<td>request.redirectUrl</td>
+<td>string</td>
+<td>No</td>
+<td>link to the web page where client can come back to from payment widget page</td>
+</tr>
+<tr>
+<td>request.supportUrl</td>
+<td>string</td>
+<td>No</td>
+<td>link to the merchant support page where client can go to from payment widget page</td>
+</tr>
+<tr>
+<td>request.expiration</td>
+<td>string</td>
+<td>No</td>
+<td>represents server timestamp of payment widget expiration moment.</td>
+</tr>
+<tr>
+<td>request.idempotencyKey</td>
+<td>string</td>
+<td>No</td>
+<td>the external id that can be generated by user while creating the payment widget.</td>
+</tr>
+<tr>
+<td>request.externalId</td>
+<td>string</td>
+<td>No</td>
+<td>merchant ID that can be assigned to one or several payment widgets in string format.</td>
+</tr>
+</tbody></table>
+<h5 id='response-body-6'>Response Body</h5>
+<table><thead>
+<tr>
+<th>parameter</th>
+<th>type</th>
+<th>mandatory</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>result</td>
+<td>array</td>
+<td>Yes</td>
+<td>this object contains response details.</td>
+</tr>
+<tr>
+<td>result.id</td>
+<td>string</td>
+<td>Yes</td>
+<td>payment widget id.</td>
+</tr>
+<tr>
+<td>result.cryptoCurrencies</td>
+<td>array</td>
+<td>Yes</td>
+<td>contains list of crypto currencies of which invoices may be created for this payment widget</td>
+</tr>
+<tr>
+<td>result.widgetType</td>
+<td>string</td>
+<td>Yes</td>
+<td>type of payment widget [SINGLE_FIAT, UNLIMITED_LINKED]</td>
+</tr>
+<tr>
+<td>result.fiatCurrency</td>
+<td>string</td>
+<td>Yes</td>
+<td>fiat currency of the widget [ USD, EUR ]</td>
+</tr>
+<tr>
+<td>result.fiatAmount</td>
+<td>number</td>
+<td>Yes</td>
+<td>total amount in fiat currency for invoice created from this payment widget</td>
+</tr>
+<tr>
+<td>result.description</td>
+<td>string</td>
+<td>Yes</td>
+<td>description of payment widget</td>
+</tr>
+<tr>
+<td>result.useLiquidity</td>
+<td>boolean</td>
+<td>Yes</td>
+<td>defines whether fee for transaction for future invoices will be charged from liquidity wallet of Calypso (true) or from merchant wallet (false)</td>
+</tr>
+<tr>
+<td>result.upperCommission</td>
+<td>boolean</td>
+<td>Yes</td>
+<td>defines whether network transaction fee for transfer from invoice wallet to your wallet will be substracted from transfer amount (false) or not (true). true is by default.</td>
+</tr>
+<tr>
+<td>result.logoUrl</td>
+<td>string</td>
+<td>No</td>
+<td>link to the logo of merchant which will be shown in the payment widget page. The logo must be in PNG format. Recommended size 100*24 px</td>
+</tr>
+<tr>
+<td>result.redirectUrl</td>
+<td>string</td>
+<td>No</td>
+<td>link to the web page where client can come back to from payment widget page</td>
+</tr>
+<tr>
+<td>result.supportUrl</td>
+<td>string</td>
+<td>No</td>
+<td>link to the merchant support page where client can go to from payment widget page</td>
+</tr>
+<tr>
+<td>result.expiration</td>
+<td>string</td>
+<td>No</td>
+<td>represents server timestamp of payment widget expiration moment.</td>
+</tr>
+<tr>
+<td>result.idempotencyKey</td>
+<td>string</td>
+<td>No</td>
+<td>the external id that can be generated by user while creating the payment widget.</td>
+</tr>
+<tr>
+<td>result.externalId</td>
+<td>string</td>
+<td>No</td>
+<td>merchant ID that can be assigned to one or several payment widgets in string format.</td>
+</tr>
+<tr>
+<td>result.cartItems</td>
+<td>array</td>
+<td>Yes</td>
+<td>list of line items.</td>
+</tr>
+<tr>
+<td>result.cartItems.currency</td>
+<td>string</td>
+<td>Yes</td>
+<td>this is the currency associated with the price field. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, EUR, FRAX, KZT, MATIC, RUB, TRX, UAH, USD, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
+</tr>
+<tr>
+<td>result.cartItems.price</td>
+<td>number</td>
+<td>Yes</td>
+<td>price of this unit.</td>
+</tr>
+<tr>
+<td>result.cartItems.product</td>
+<td>string</td>
+<td>Yes</td>
+<td>name of this unit.</td>
+</tr>
+<tr>
+<td>result.cartItems.quantity</td>
+<td>number</td>
+<td>Yes</td>
+<td>line item number of units.</td>
+</tr>
+<tr>
+<td>result.invoices</td>
+<td>array</td>
+<td>Yes</td>
+<td>contains list of invoices created from this payment widget.</td>
+</tr>
+<tr>
+<td>result.invoices.invoiceId</td>
+<td>number</td>
+<td>Yes</td>
+<td>id of invoice created from this payment widget.</td>
+</tr>
+<tr>
+<td>result.invoices.cryptoCurrency</td>
+<td>string</td>
+<td>Yes</td>
+<td>represents the currency of the invoice [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
+</tr>
+<tr>
+<td>result.invoices.invoiceIdempotencyKey</td>
+<td>string</td>
+<td>Yes</td>
+<td>the external id of the invoice</td>
+</tr>
+<tr>
+<td>result.invoices.invoiceExternalId</td>
+<td>string</td>
+<td>No</td>
+<td>merchant ID of the invoice</td>
+</tr>
+<tr>
+<td>result.createdDate</td>
+<td>string</td>
+<td>Yes</td>
+<td>time of payment widget creation</td>
 </tr>
 </tbody></table>
 <h1 id='webhooks'>Webhooks</h1>
