@@ -339,9 +339,6 @@
                     <a href="#payout" class="toc-h2 toc-link" data-title="Payout">Payout</a>
                   </li>
                   <li>
-                    <a href="#references" class="toc-h2 toc-link" data-title="References"><strong>References</strong></a>
-                  </li>
-                  <li>
                     <a href="#recurrent-payments" class="toc-h2 toc-link" data-title="Recurrent payments"><strong>Recurrent payments</strong></a>
                   </li>
               </ul>
@@ -875,7 +872,7 @@
 
 <p>The method of link generation is the same for both widget types (SINGLE_FIAT and UNLIMITED_LINKED):</p>
 
-<p><strong>https://ui.calypso.finance/pay?idempotencyKey={<em>idempotencyKey</em>}</strong></p>
+<p><strong>https://ui.calypso.finance/pay?widgetKey={<em>idempotencyKey</em>}</strong></p>
 
 <blockquote>
 <p>Example of static payment widget embedded in the web site:</p>
@@ -905,7 +902,7 @@
             <span class="nl">border-color</span><span class="p">:</span> <span class="m">#4e67ff</span> <span class="cp">!important</span><span class="p">;</span>
         <span class="p">}</span>
         <span class="nt">&lt;/style&gt;</span>
-        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"https://ui.calypso.finance/pay?idempotencyKey={*idempotencyKey*}"</span> <span class="na">class=</span><span class="s">"button_1661340660317"</span> <span class="na">target=</span><span class="s">"_blank"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;a</span> <span class="na">href=</span><span class="s">"https://ui.calypso.finance/pay?widgetKey={*idempotencyKey*}"</span> <span class="na">class=</span><span class="s">"button_1661340660317"</span> <span class="na">target=</span><span class="s">"_blank"</span><span class="nt">&gt;</span>
             Pay fix amount in crypto
         <span class="nt">&lt;/a&gt;</span>
 <span class="nt">&lt;/body&gt;</span>
@@ -1190,12 +1187,20 @@
 <li>1000 transactions for ETH and tokens ERC-20;</li>
 <li>100 transactions for other currencies.</li>
 </ul>
-<h2 id='references'><strong>References</strong></h2><h5 id='test-account'><strong>Test account</strong></h5>
-<p>To test payments and invoices, you can use a particular test account created in the test environment by default.</p>
-<h5 id='test-company'><strong>Test company</strong></h5>
-<p>The test account is linked to the test company in the test environment. To test the integration with Calypso, you can use the test company credentials.</p>
-<h5 id='test-client'><strong>Test client</strong></h5>
-<p>To test payouts, you can use test clients created in the test environment by default. Client storage allows you to quickly select the receiver of repeated payouts.</p>
+
+<!-- ## **References**
+
+##### **Test account**
+
+To test payments and invoices, you can use a particular test account created in the test environment by default.
+
+##### **Test company**
+
+The test account is linked to the test company in the test environment. To test the integration with Calypso, you can use the test company credentials.
+
+##### **Test client**
+
+To test payouts, you can use test clients created in the test environment by default. Client storage allows you to quickly select the receiver of repeated payouts. -->
 <h2 id='recurrent-payments'><strong>Recurrent payments</strong></h2><h3 id='overview-5'><strong>Overview</strong></h3>
 <p>Recurrent payments is a way to receive payments by merchant from a client on a regular basis via subscription.</p>
 
