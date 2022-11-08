@@ -13061,6 +13061,10 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>INVOICE_PAID</td>
 <td>Invoice successfully paid. All required amount has been received to invoice wallet.</td>
 </tr>
+<tr>
+<td>INVOICE_MEMPOOL_FOUND</td>
+<td>Invoice transaction has been found in mempool but still not confirmed in blockchain.</td>
+</tr>
 </tbody></table>
 
 <p><strong>PAYOUT</strong></p>
@@ -13129,7 +13133,7 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </tr>
 <tr>
 <td>RECURRENT_NEARING_COMPLETION</td>
-<td>Subscription is about to end. The notification occurs in case if 3 days before the end of the subscription there is not enough funds on the client address.</td>
+<td>Subscription is about to end. The notification occurs in case if 3 days before the end of the subscription period.</td>
 </tr>
 <tr>
 <td>RECURRENT_PAYMENT_CREATED</td>
@@ -13145,11 +13149,11 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 </tr>
 <tr>
 <td>RECURRENT_PAYMENT_NOT_ENOUGHT_BALANCE</td>
-<td>Not enough balance on client address for subscription payment transaction</td>
+<td>Not enough balance on client address for subscription payment transaction. The notification can be sent in the moment of payment and 3 days before payment.</td>
 </tr>
 <tr>
 <td>RECURRENT_PAYMENT_NOT_ENOUGHT_ALLOWANCE</td>
-<td>Not enough allowed funds on client address for subscription payment transaction</td>
+<td>Not enough allowed funds on client address for subscription payment transaction. The notification can be sent in the moment of payment and 3 days before payment.</td>
 </tr>
 <tr>
 <td>RECURRENT_PAYMENT_TRANSFER_FROM_FAILED</td>
@@ -13650,6 +13654,80 @@ curl <span class="nt">--location</span> <span class="nt">--request</span> POST <
 <td>type</td>
 <td>string</td>
 <td>Event type: INVOICE_PAID.</td>
+</tr>
+</tbody></table>
+<h5 id='invoice_mempool_found'>INVOICE_MEMPOOL_FOUND</h5>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>amount</td>
+<td>number</td>
+<td>money amount of the invoice.</td>
+</tr>
+<tr>
+<td>currency</td>
+<td>string</td>
+<td>currency of the invoice. [ BNB, BTC, BUSD, BUSD_ETH, DAI, ETH, FRAX, MATIC, TRX, USDC, USDT, USDT_MATIC, USDT_TRX, XDG ]</td>
+</tr>
+<tr>
+<td>description</td>
+<td>string</td>
+<td>description of the invoice.</td>
+</tr>
+<tr>
+<td>externalId</td>
+<td>string</td>
+<td>merchant ID of invoice</td>
+</tr>
+<tr>
+<td>fiatAmount</td>
+<td>number</td>
+<td>amount in fiat currency if it was set in fiat.</td>
+</tr>
+<tr>
+<td>fiatCurrency</td>
+<td>string</td>
+<td>fiat currency of the invoice if it was set in fiat. [ USDT, EUR ]</td>
+</tr>
+<tr>
+<td>idempotencyKey</td>
+<td>string</td>
+<td>the external id that was generated while invoice creating through api.</td>
+</tr>
+<tr>
+<td>parentExternalId</td>
+<td>number</td>
+<td>system id of the invoice.</td>
+</tr>
+<tr>
+<td>payAmount</td>
+<td>number</td>
+<td>amount to pay for invoice completing.</td>
+</tr>
+<tr>
+<td>realAmount</td>
+<td>number</td>
+<td>amount of money that clien really paid for the invoice.</td>
+</tr>
+<tr>
+<td>type</td>
+<td>string</td>
+<td>Event type: INVOICE_MEMPOOL_FOUND.</td>
+</tr>
+<tr>
+<td>createdDate</td>
+<td>string</td>
+<td>date and time of invoice creation.</td>
+</tr>
+<tr>
+<td>transactionHash</td>
+<td>string</td>
+<td>hash of the incoming transaction to the invoice wallet.</td>
 </tr>
 </tbody></table>
 <h5 id='payout_change_status'>PAYOUT_CHANGE_STATUS</h5>
